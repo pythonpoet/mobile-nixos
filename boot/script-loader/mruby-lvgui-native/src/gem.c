@@ -7198,6 +7198,85 @@ mrb_mruby_lvgui_native_lv_img_set_src(mrb_state *mrb, mrb_value self)
 ////////
 
 ////////
+// Bindings for: `lv_img_dsc_t * lv_img_buf_alloc(lv_coord_t w, lv_coord_t h, lv_img_cf_t cf)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_img_buf_alloc(mrb_state *mrb, mrb_value self)
+{
+    lv_img_dsc_t * ret;
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_coord_t w`
+    mrb_int param_w_int;
+    lv_coord_t param_w;
+    // Parameter handling for native parameter `lv_coord_t h`
+    mrb_int param_h_int;
+    lv_coord_t param_h;
+    // Parameter handling for native parameter `lv_img_cf_t cf`
+    mrb_int param_cf_int;
+    lv_img_cf_t param_cf;
+    
+    mrb_get_args(
+      mrb,
+      "iii",
+      &param_w_int,
+      &param_h_int,
+      &param_cf_int
+    );
+    param_w = (lv_coord_t)param_w_int;
+    param_h = (lv_coord_t)param_h_int;
+    param_cf = (lv_img_cf_t)param_cf_int;
+  
+    // Calling native function
+    ret = lv_img_buf_alloc(param_w, param_h, param_cf);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) ret);
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_img_buf_free(lv_img_dsc_t * dsc)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_img_buf_free(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_img_dsc_t * dsc`
+    mrb_value param_dsc_instance;
+    lv_img_dsc_t * param_dsc;
+    
+    mrb_get_args(
+      mrb,
+      "o",
+      &param_dsc_instance
+    );
+    param_dsc = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_dsc_instance
+    );
+  
+    // Calling native function
+    lv_img_buf_free(param_dsc);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
 // Bindings for: `lv_obj_t * lv_sw_create(lv_obj_t * unnamed_parameter_0, const lv_obj_t * unnamed_parameter_1)`
 
 static mrb_value
@@ -10758,6 +10837,692 @@ mrb_mruby_lvgui_native_lv_color_mix(mrb_state *mrb, mrb_value self)
   
     // Converts return value back to a valid mruby value
     return mrb_fixnum_value((mrb_int)(ret.full));
+}
+
+//
+////////
+
+////////
+// Bindings for: `lv_obj_t * lv_canvas_create(lv_obj_t * par, const lv_obj_t * copy)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_create(mrb_state *mrb, mrb_value self)
+{
+    lv_obj_t * ret;
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * par`
+    mrb_value param_par_instance;
+    lv_obj_t * param_par;
+    // Parameter handling for native parameter `const lv_obj_t * copy`
+    mrb_value param_copy_instance;
+    const lv_obj_t * param_copy;
+    
+    mrb_get_args(
+      mrb,
+      "oo",
+      &param_par_instance,
+      &param_copy_instance
+    );
+    param_par = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_par_instance
+    );
+    param_copy = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_copy_instance
+    );
+  
+    // Calling native function
+    ret = lv_canvas_create(param_par, param_copy);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) ret);
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_set_buffer(lv_obj_t * canvas, lv_img_dsc_t * buf, lv_coord_t w, lv_coord_t h, lv_img_cf_t cf)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_set_buffer(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `lv_img_dsc_t * buf`
+    mrb_value param_buf_instance;
+    lv_img_dsc_t * param_buf;
+    // Parameter handling for native parameter `lv_coord_t w`
+    mrb_int param_w_int;
+    lv_coord_t param_w;
+    // Parameter handling for native parameter `lv_coord_t h`
+    mrb_int param_h_int;
+    lv_coord_t param_h;
+    // Parameter handling for native parameter `lv_img_cf_t cf`
+    mrb_int param_cf_int;
+    lv_img_cf_t param_cf;
+    
+    mrb_get_args(
+      mrb,
+      "ooiii",
+      &param_canvas_instance,
+      &param_buf_instance,
+      &param_w_int,
+      &param_h_int,
+      &param_cf_int
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_buf = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_buf_instance
+    );
+    param_w = (lv_coord_t)param_w_int;
+    param_h = (lv_coord_t)param_h_int;
+    param_cf = (lv_img_cf_t)param_cf_int;
+  
+    // Calling native function
+    lv_canvas_set_buffer(param_canvas, param_buf, param_w, param_h, param_cf);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `lv_img_dsc_t * lv_canvas_get_img(lv_obj_t * canvas)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_get_img(mrb_state *mrb, mrb_value self)
+{
+    lv_img_dsc_t * ret;
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    
+    mrb_get_args(
+      mrb,
+      "o",
+      &param_canvas_instance
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+  
+    // Calling native function
+    ret = lv_canvas_get_img(param_canvas);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) ret);
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_copy_buf(lv_obj_t * canvas, const void * to_copy, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_copy_buf(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `const void * to_copy`
+    mrb_value param_to_copy_instance;
+    const void * param_to_copy;
+    // Parameter handling for native parameter `lv_coord_t x`
+    mrb_int param_x_int;
+    lv_coord_t param_x;
+    // Parameter handling for native parameter `lv_coord_t y`
+    mrb_int param_y_int;
+    lv_coord_t param_y;
+    // Parameter handling for native parameter `lv_coord_t w`
+    mrb_int param_w_int;
+    lv_coord_t param_w;
+    // Parameter handling for native parameter `lv_coord_t h`
+    mrb_int param_h_int;
+    lv_coord_t param_h;
+    
+    mrb_get_args(
+      mrb,
+      "ooiiii",
+      &param_canvas_instance,
+      &param_to_copy_instance,
+      &param_x_int,
+      &param_y_int,
+      &param_w_int,
+      &param_h_int
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_to_copy = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_to_copy_instance
+    );
+    param_x = (lv_coord_t)param_x_int;
+    param_y = (lv_coord_t)param_y_int;
+    param_w = (lv_coord_t)param_w_int;
+    param_h = (lv_coord_t)param_h_int;
+  
+    // Calling native function
+    lv_canvas_copy_buf(param_canvas, param_to_copy, param_x, param_y, param_w, param_h);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_rotate(lv_obj_t * canvas, lv_img_dsc_t * img, int16_t angle, lv_coord_t offset_x, lv_coord_t offset_y, int32_t pivot_x, int32_t pivot_y)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_rotate(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `lv_img_dsc_t * img`
+    mrb_value param_img_instance;
+    lv_img_dsc_t * param_img;
+    // Parameter handling for native parameter `int16_t angle`
+    mrb_int param_angle_int;
+    int16_t param_angle;
+    // Parameter handling for native parameter `lv_coord_t offset_x`
+    mrb_int param_offset_x_int;
+    lv_coord_t param_offset_x;
+    // Parameter handling for native parameter `lv_coord_t offset_y`
+    mrb_int param_offset_y_int;
+    lv_coord_t param_offset_y;
+    // Parameter handling for native parameter `int32_t pivot_x`
+    mrb_int param_pivot_x_int;
+    int32_t param_pivot_x;
+    // Parameter handling for native parameter `int32_t pivot_y`
+    mrb_int param_pivot_y_int;
+    int32_t param_pivot_y;
+    
+    mrb_get_args(
+      mrb,
+      "ooiiiii",
+      &param_canvas_instance,
+      &param_img_instance,
+      &param_angle_int,
+      &param_offset_x_int,
+      &param_offset_y_int,
+      &param_pivot_x_int,
+      &param_pivot_y_int
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_img = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_img_instance
+    );
+    param_angle = (int16_t)param_angle_int;
+    param_offset_x = (lv_coord_t)param_offset_x_int;
+    param_offset_y = (lv_coord_t)param_offset_y_int;
+    param_pivot_x = (int32_t)param_pivot_x_int;
+    param_pivot_y = (int32_t)param_pivot_y_int;
+  
+    // Calling native function
+    lv_canvas_rotate(param_canvas, param_img, param_angle, param_offset_x, param_offset_y, param_pivot_x, param_pivot_y);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_fill_bg(lv_obj_t * canvas, lv_color_t color)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_fill_bg(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `lv_color_t color`
+    mrb_int param_color_int;
+    lv_color_t param_color;
+    
+    mrb_get_args(
+      mrb,
+      "oi",
+      &param_canvas_instance,
+      &param_color_int
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_color.full = (uint32_t)param_color_int;
+  
+    // Calling native function
+    lv_canvas_fill_bg(param_canvas, param_color);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_draw_rect(lv_obj_t * canvas, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h, const lv_style_t * style)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_draw_rect(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `lv_coord_t x`
+    mrb_int param_x_int;
+    lv_coord_t param_x;
+    // Parameter handling for native parameter `lv_coord_t y`
+    mrb_int param_y_int;
+    lv_coord_t param_y;
+    // Parameter handling for native parameter `lv_coord_t w`
+    mrb_int param_w_int;
+    lv_coord_t param_w;
+    // Parameter handling for native parameter `lv_coord_t h`
+    mrb_int param_h_int;
+    lv_coord_t param_h;
+    // Parameter handling for native parameter `const lv_style_t * style`
+    mrb_value param_style_instance;
+    const lv_style_t * param_style;
+    
+    mrb_get_args(
+      mrb,
+      "oiiiio",
+      &param_canvas_instance,
+      &param_x_int,
+      &param_y_int,
+      &param_w_int,
+      &param_h_int,
+      &param_style_instance
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_x = (lv_coord_t)param_x_int;
+    param_y = (lv_coord_t)param_y_int;
+    param_w = (lv_coord_t)param_w_int;
+    param_h = (lv_coord_t)param_h_int;
+    param_style = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_style_instance
+    );
+  
+    // Calling native function
+    lv_canvas_draw_rect(param_canvas, param_x, param_y, param_w, param_h, param_style);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_draw_text(lv_obj_t * canvas, lv_coord_t x, lv_coord_t y, lv_coord_t max_w, const lv_style_t * style, const char * txt, lv_label_align_t align)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_draw_text(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `lv_coord_t x`
+    mrb_int param_x_int;
+    lv_coord_t param_x;
+    // Parameter handling for native parameter `lv_coord_t y`
+    mrb_int param_y_int;
+    lv_coord_t param_y;
+    // Parameter handling for native parameter `lv_coord_t max_w`
+    mrb_int param_max_w_int;
+    lv_coord_t param_max_w;
+    // Parameter handling for native parameter `const lv_style_t * style`
+    mrb_value param_style_instance;
+    const lv_style_t * param_style;
+    // Parameter handling for native parameter `const char * txt`
+    const char * param_txt;
+    // Parameter handling for native parameter `lv_label_align_t align`
+    mrb_int param_align_int;
+    lv_label_align_t param_align;
+    
+    mrb_get_args(
+      mrb,
+      "oiiiozi",
+      &param_canvas_instance,
+      &param_x_int,
+      &param_y_int,
+      &param_max_w_int,
+      &param_style_instance,
+      &param_txt,
+      &param_align_int
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_x = (lv_coord_t)param_x_int;
+    param_y = (lv_coord_t)param_y_int;
+    param_max_w = (lv_coord_t)param_max_w_int;
+    param_style = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_style_instance
+    );
+    
+    param_align = (lv_label_align_t)param_align_int;
+  
+    // Calling native function
+    lv_canvas_draw_text(param_canvas, param_x, param_y, param_max_w, param_style, param_txt, param_align);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_draw_img(lv_obj_t * canvas, lv_coord_t x, lv_coord_t y, const char * src, const lv_style_t * style)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_draw_img(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `lv_coord_t x`
+    mrb_int param_x_int;
+    lv_coord_t param_x;
+    // Parameter handling for native parameter `lv_coord_t y`
+    mrb_int param_y_int;
+    lv_coord_t param_y;
+    // Parameter handling for native parameter `const char * src`
+    const char * param_src;
+    // Parameter handling for native parameter `const lv_style_t * style`
+    mrb_value param_style_instance;
+    const lv_style_t * param_style;
+    
+    mrb_get_args(
+      mrb,
+      "oiizo",
+      &param_canvas_instance,
+      &param_x_int,
+      &param_y_int,
+      &param_src,
+      &param_style_instance
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_x = (lv_coord_t)param_x_int;
+    param_y = (lv_coord_t)param_y_int;
+    
+    param_style = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_style_instance
+    );
+  
+    // Calling native function
+    lv_canvas_draw_img(param_canvas, param_x, param_y, param_src, param_style);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_draw_line(lv_obj_t * canvas, const lv_point_t * points, uint32_t point_cnt, const lv_style_t * style)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_draw_line(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `const lv_point_t * points`
+    mrb_value param_points_instance;
+    const lv_point_t * param_points;
+    // Parameter handling for native parameter `uint32_t point_cnt`
+    mrb_int param_point_cnt_int;
+    uint32_t param_point_cnt;
+    // Parameter handling for native parameter `const lv_style_t * style`
+    mrb_value param_style_instance;
+    const lv_style_t * param_style;
+    
+    mrb_get_args(
+      mrb,
+      "ooio",
+      &param_canvas_instance,
+      &param_points_instance,
+      &param_point_cnt_int,
+      &param_style_instance
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_points = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_points_instance
+    );
+    param_point_cnt = (uint32_t)param_point_cnt_int;
+    param_style = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_style_instance
+    );
+  
+    // Calling native function
+    lv_canvas_draw_line(param_canvas, param_points, param_point_cnt, param_style);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_draw_polygon(lv_obj_t * canvas, const lv_point_t * points, uint32_t point_cnt, const lv_style_t * style)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_draw_polygon(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `const lv_point_t * points`
+    mrb_value param_points_instance;
+    const lv_point_t * param_points;
+    // Parameter handling for native parameter `uint32_t point_cnt`
+    mrb_int param_point_cnt_int;
+    uint32_t param_point_cnt;
+    // Parameter handling for native parameter `const lv_style_t * style`
+    mrb_value param_style_instance;
+    const lv_style_t * param_style;
+    
+    mrb_get_args(
+      mrb,
+      "ooio",
+      &param_canvas_instance,
+      &param_points_instance,
+      &param_point_cnt_int,
+      &param_style_instance
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_points = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_points_instance
+    );
+    param_point_cnt = (uint32_t)param_point_cnt_int;
+    param_style = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_style_instance
+    );
+  
+    // Calling native function
+    lv_canvas_draw_polygon(param_canvas, param_points, param_point_cnt, param_style);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
+}
+
+//
+////////
+
+////////
+// Bindings for: `void lv_canvas_draw_arc(lv_obj_t * canvas, lv_coord_t x, lv_coord_t y, lv_coord_t r, int32_t start_angle, int32_t end_angle, const lv_style_t * style)`
+
+static mrb_value
+mrb_mruby_lvgui_native_lv_canvas_draw_arc(mrb_state *mrb, mrb_value self)
+{
+    /* No return value */
+  
+    //
+    // Parameters handling
+    //
+    
+    // Parameter handling for native parameter `lv_obj_t * canvas`
+    mrb_value param_canvas_instance;
+    lv_obj_t * param_canvas;
+    // Parameter handling for native parameter `lv_coord_t x`
+    mrb_int param_x_int;
+    lv_coord_t param_x;
+    // Parameter handling for native parameter `lv_coord_t y`
+    mrb_int param_y_int;
+    lv_coord_t param_y;
+    // Parameter handling for native parameter `lv_coord_t r`
+    mrb_int param_r_int;
+    lv_coord_t param_r;
+    // Parameter handling for native parameter `int32_t start_angle`
+    mrb_int param_start_angle_int;
+    int32_t param_start_angle;
+    // Parameter handling for native parameter `int32_t end_angle`
+    mrb_int param_end_angle_int;
+    int32_t param_end_angle;
+    // Parameter handling for native parameter `const lv_style_t * style`
+    mrb_value param_style_instance;
+    const lv_style_t * param_style;
+    
+    mrb_get_args(
+      mrb,
+      "oiiiiio",
+      &param_canvas_instance,
+      &param_x_int,
+      &param_y_int,
+      &param_r_int,
+      &param_start_angle_int,
+      &param_end_angle_int,
+      &param_style_instance
+    );
+    param_canvas = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_canvas_instance
+    );
+    param_x = (lv_coord_t)param_x_int;
+    param_y = (lv_coord_t)param_y_int;
+    param_r = (lv_coord_t)param_r_int;
+    param_start_angle = (int32_t)param_start_angle_int;
+    param_end_angle = (int32_t)param_end_angle_int;
+    param_style = mrb_mruby_lvgui_native_unwrap_pointer(
+      mrb,
+      param_style_instance
+    );
+  
+    // Calling native function
+    lv_canvas_draw_arc(param_canvas, param_x, param_y, param_r, param_start_angle, param_end_angle, param_style);
+  
+    // Converts return value back to a valid mruby value
+    return mrb_nil_value();
 }
 
 //
@@ -14666,6 +15431,38 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
     mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_img_set_src)
   );
 
+  // ```lv_img_dsc_t * lv_img_buf_alloc(lv_coord_t w, lv_coord_t h, lv_img_cf_t cf);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_img_buf_alloc",
+    mrb_mruby_lvgui_native_lv_img_buf_alloc,
+    MRB_ARGS_REQ(3)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_img_buf_alloc")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_img_buf_alloc)
+  );
+
+  // ```void lv_img_buf_free(lv_img_dsc_t * dsc);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_img_buf_free",
+    mrb_mruby_lvgui_native_lv_img_buf_free,
+    MRB_ARGS_REQ(1)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_img_buf_free")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_img_buf_free)
+  );
+
   // ```lv_obj_t * lv_sw_create(lv_obj_t * unnamed_parameter_0, const lv_obj_t * unnamed_parameter_1);```
   mrb_define_module_function(
     mrb,
@@ -16104,6 +16901,198 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
     mLVGUI__Native__References,
     mrb_symbol_value(mrb_intern_lit(mrb, "lv_color_mix")),
     mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_color_mix)
+  );
+
+  // ```lv_obj_t * lv_canvas_create(lv_obj_t * par, const lv_obj_t * copy);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_create",
+    mrb_mruby_lvgui_native_lv_canvas_create,
+    MRB_ARGS_REQ(2)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_create")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_create)
+  );
+
+  // ```void lv_canvas_set_buffer(lv_obj_t * canvas, lv_img_dsc_t * buf, lv_coord_t w, lv_coord_t h, lv_img_cf_t cf);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_set_buffer",
+    mrb_mruby_lvgui_native_lv_canvas_set_buffer,
+    MRB_ARGS_REQ(5)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_set_buffer")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_set_buffer)
+  );
+
+  // ```lv_img_dsc_t * lv_canvas_get_img(lv_obj_t * canvas);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_get_img",
+    mrb_mruby_lvgui_native_lv_canvas_get_img,
+    MRB_ARGS_REQ(1)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_get_img")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_get_img)
+  );
+
+  // ```void lv_canvas_copy_buf(lv_obj_t * canvas, const void * to_copy, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_copy_buf",
+    mrb_mruby_lvgui_native_lv_canvas_copy_buf,
+    MRB_ARGS_REQ(6)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_copy_buf")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_copy_buf)
+  );
+
+  // ```void lv_canvas_rotate(lv_obj_t * canvas, lv_img_dsc_t * img, int16_t angle, lv_coord_t offset_x, lv_coord_t offset_y, int32_t pivot_x, int32_t pivot_y);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_rotate",
+    mrb_mruby_lvgui_native_lv_canvas_rotate,
+    MRB_ARGS_REQ(7)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_rotate")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_rotate)
+  );
+
+  // ```void lv_canvas_fill_bg(lv_obj_t * canvas, lv_color_t color);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_fill_bg",
+    mrb_mruby_lvgui_native_lv_canvas_fill_bg,
+    MRB_ARGS_REQ(2)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_fill_bg")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_fill_bg)
+  );
+
+  // ```void lv_canvas_draw_rect(lv_obj_t * canvas, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h, const lv_style_t * style);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_draw_rect",
+    mrb_mruby_lvgui_native_lv_canvas_draw_rect,
+    MRB_ARGS_REQ(6)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_draw_rect")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_draw_rect)
+  );
+
+  // ```void lv_canvas_draw_text(lv_obj_t * canvas, lv_coord_t x, lv_coord_t y, lv_coord_t max_w, const lv_style_t * style, const char * txt, lv_label_align_t align);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_draw_text",
+    mrb_mruby_lvgui_native_lv_canvas_draw_text,
+    MRB_ARGS_REQ(7)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_draw_text")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_draw_text)
+  );
+
+  // ```void lv_canvas_draw_img(lv_obj_t * canvas, lv_coord_t x, lv_coord_t y, const char * src, const lv_style_t * style);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_draw_img",
+    mrb_mruby_lvgui_native_lv_canvas_draw_img,
+    MRB_ARGS_REQ(5)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_draw_img")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_draw_img)
+  );
+
+  // ```void lv_canvas_draw_line(lv_obj_t * canvas, const lv_point_t * points, uint32_t point_cnt, const lv_style_t * style);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_draw_line",
+    mrb_mruby_lvgui_native_lv_canvas_draw_line,
+    MRB_ARGS_REQ(4)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_draw_line")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_draw_line)
+  );
+
+  // ```void lv_canvas_draw_polygon(lv_obj_t * canvas, const lv_point_t * points, uint32_t point_cnt, const lv_style_t * style);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_draw_polygon",
+    mrb_mruby_lvgui_native_lv_canvas_draw_polygon,
+    MRB_ARGS_REQ(4)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_draw_polygon")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_draw_polygon)
+  );
+
+  // ```void lv_canvas_draw_arc(lv_obj_t * canvas, lv_coord_t x, lv_coord_t y, lv_coord_t r, int32_t start_angle, int32_t end_angle, const lv_style_t * style);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_canvas_draw_arc",
+    mrb_mruby_lvgui_native_lv_canvas_draw_arc,
+    MRB_ARGS_REQ(7)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_canvas_draw_arc")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_canvas_draw_arc)
   );
 
   // ```void lv_task_handler();```

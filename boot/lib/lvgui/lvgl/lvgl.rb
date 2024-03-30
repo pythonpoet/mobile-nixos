@@ -7,6 +7,7 @@ module LVGL
     :CURSOR,
     :EVENT,
     :FIT,
+    :IMG_CF,
     :KB_MODE,
     :KB_STYLE,
     :LABEL_ALIGN,
@@ -245,6 +246,14 @@ module LVGL
 
   class LVImage < LVObject
     LV_TYPE = :img
+  end
+
+  class LVCanvas < LVObject
+    LV_TYPE = :canvas
+
+    def self.allocate_buffer(width, height, type)
+      LVGL.ffi_call!(LVImage, :buf_alloc, width, height, type)
+    end
   end
 
   class LVPage < LVContainer
