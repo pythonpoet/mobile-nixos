@@ -10848,6 +10848,27 @@ mrb_mruby_lvgui_native_lvgui_focus_ring_disable(mrb_state *mrb, mrb_value self)
 ////////
 
 ////////
+// Bindings for: `hal_panel_orientation_t hal_get_panel_orientation()`
+
+static mrb_value
+mrb_mruby_lvgui_native_hal_get_panel_orientation(mrb_state *mrb, mrb_value self)
+{
+    hal_panel_orientation_t ret;
+  
+  
+  
+  
+    // Calling native function
+    ret = hal_get_panel_orientation();
+  
+    // Converts return value back to a valid mruby value
+    return mrb_fixnum_value((mrb_int)ret);
+}
+
+//
+////////
+
+////////
 // Bindings for: `void lv_group_add_obj(lv_group_t * unnamed_parameter_0, lv_obj_t * unnamed_parameter_1)`
 
 static mrb_value
@@ -16167,6 +16188,22 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
     mLVGUI__Native__References,
     mrb_symbol_value(mrb_intern_lit(mrb, "lvgui_focus_ring_disable")),
     mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lvgui_focus_ring_disable)
+  );
+
+  // ```hal_panel_orientation_t hal_get_panel_orientation();```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "hal_get_panel_orientation",
+    mrb_mruby_lvgui_native_hal_get_panel_orientation,
+    MRB_ARGS_REQ(0)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "hal_get_panel_orientation")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) hal_get_panel_orientation)
   );
 
   // ```void lv_group_add_obj(lv_group_t * unnamed_parameter_0, lv_obj_t * unnamed_parameter_1);```
