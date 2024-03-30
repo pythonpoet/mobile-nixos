@@ -56,6 +56,22 @@ class UI
     add_cover_bgrt
   end
 
+  def add_bgrt(parent)
+    # Work around the extension sniffing from the image decoders...
+    File.symlink(BGRT_PATH, "/bgrt.bmp") unless File.exist?("/bgrt.bmp")
+    file = "/bgrt.bmp"
+
+    bgrt = LVGL::LVImage.new(parent)
+    bgrt.set_src(file)
+
+    # Position the logo
+    x = File.read("/sys/firmware/acpi/bgrt/xoffset").to_i
+    y = File.read("/sys/firmware/acpi/bgrt/yoffset").to_i
+    bgrt.set_pos(x, y)
+    
+    bgrt
+  end
+
   def add_label()
     @label = LVGL::LVLabel.new(@page)
     @label.get_style(LVGL::LABEL_STYLE::MAIN).dup.tap do |style|
@@ -72,9 +88,7 @@ class UI
 
   def add_logo()
     if use_bgrt?()
-      # Work around the extension sniffing from the image decoders...
-      File.symlink(BGRT_PATH, "/bgrt.bmp") unless File.exist?("/bgrt.bmp")
-      file = "/bgrt.bmp"
+      @logo = add_bgrt(@page)
     else
       file = LVGL::Hacks.get_asset_path("logo.svg")
 
@@ -85,17 +99,9 @@ class UI
         # 15% of the height
         file = "#{file}?height=#{(@page.get_height * 0.15).to_i}"
       end
-    end
 
-    @logo = LVGL::LVImage.new(@page)
-    @logo.set_src(file)
-
-    # Position the logo
-    if use_bgrt?
-      x = File.read("/sys/firmware/acpi/bgrt/xoffset").to_i
-      y = File.read("/sys/firmware/acpi/bgrt/yoffset").to_i
-      @logo.set_pos(x, y)
-    else
+      @logo = LVGL::LVImage.new(@page)
+      @logo.set_src(file)
       @logo.set_pos(*center(@logo, 0, -@logo.get_height))
     end
 
@@ -205,17 +211,7 @@ class UI
   # Its presence will be whatever state the cover is in.
   def add_cover_bgrt()
     return unless has_bgrt?()
-    # Work around the extension sniffing from the image decoders...
-    File.symlink(BGRT_PATH, "/bgrt.bmp") unless File.exist?("/bgrt.bmp")
-    file = "/bgrt.bmp"
-
-    @cover_bgrt = LVGL::LVImage.new(@cover)
-    @cover_bgrt.set_src(file)
-
-    # Position the logo
-    x = File.read("/sys/firmware/acpi/bgrt/xoffset").to_i
-    y = File.read("/sys/firmware/acpi/bgrt/yoffset").to_i
-    @cover_bgrt.set_pos(x, y)
+    @cover_bgrt = add_bgrt(@cover)
   end
 
   def add_textarea()
