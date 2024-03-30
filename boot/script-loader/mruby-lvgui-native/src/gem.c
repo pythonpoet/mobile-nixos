@@ -137,6 +137,1583 @@ mrb_mruby_lvgui_native_unwrap_pointer(mrb_state * mrb, const mrb_value opaque_po
 //
 
 ////////
+// Bindings for: `enum LV_ALIGN;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_align(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ALIGN");
+
+  // CENTER = 0;                                                   
+  mrb_define_const(mrb, module, "CENTER", mrb_fixnum_value(0));
+  
+  // IN_TOP_LEFT = 1;                                                   
+  mrb_define_const(mrb, module, "IN_TOP_LEFT", mrb_fixnum_value(1));
+  
+  // IN_TOP_MID = 2;                                                   
+  mrb_define_const(mrb, module, "IN_TOP_MID", mrb_fixnum_value(2));
+  
+  // IN_TOP_RIGHT = 3;                                                   
+  mrb_define_const(mrb, module, "IN_TOP_RIGHT", mrb_fixnum_value(3));
+  
+  // IN_BOTTOM_LEFT = 4;                                                   
+  mrb_define_const(mrb, module, "IN_BOTTOM_LEFT", mrb_fixnum_value(4));
+  
+  // IN_BOTTOM_MID = 5;                                                   
+  mrb_define_const(mrb, module, "IN_BOTTOM_MID", mrb_fixnum_value(5));
+  
+  // IN_BOTTOM_RIGHT = 6;                                                   
+  mrb_define_const(mrb, module, "IN_BOTTOM_RIGHT", mrb_fixnum_value(6));
+  
+  // IN_LEFT_MID = 7;                                                   
+  mrb_define_const(mrb, module, "IN_LEFT_MID", mrb_fixnum_value(7));
+  
+  // IN_RIGHT_MID = 8;                                                   
+  mrb_define_const(mrb, module, "IN_RIGHT_MID", mrb_fixnum_value(8));
+  
+  // OUT_TOP_LEFT = 9;                                                   
+  mrb_define_const(mrb, module, "OUT_TOP_LEFT", mrb_fixnum_value(9));
+  
+  // OUT_TOP_MID = 10;                                                   
+  mrb_define_const(mrb, module, "OUT_TOP_MID", mrb_fixnum_value(10));
+  
+  // OUT_TOP_RIGHT = 11;                                                   
+  mrb_define_const(mrb, module, "OUT_TOP_RIGHT", mrb_fixnum_value(11));
+  
+  // OUT_BOTTOM_LEFT = 12;                                                   
+  mrb_define_const(mrb, module, "OUT_BOTTOM_LEFT", mrb_fixnum_value(12));
+  
+  // OUT_BOTTOM_MID = 13;                                                   
+  mrb_define_const(mrb, module, "OUT_BOTTOM_MID", mrb_fixnum_value(13));
+  
+  // OUT_BOTTOM_RIGHT = 14;                                                   
+  mrb_define_const(mrb, module, "OUT_BOTTOM_RIGHT", mrb_fixnum_value(14));
+  
+  // OUT_LEFT_TOP = 15;                                                   
+  mrb_define_const(mrb, module, "OUT_LEFT_TOP", mrb_fixnum_value(15));
+  
+  // OUT_LEFT_MID = 16;                                                   
+  mrb_define_const(mrb, module, "OUT_LEFT_MID", mrb_fixnum_value(16));
+  
+  // OUT_LEFT_BOTTOM = 17;                                                   
+  mrb_define_const(mrb, module, "OUT_LEFT_BOTTOM", mrb_fixnum_value(17));
+  
+  // OUT_RIGHT_TOP = 18;                                                   
+  mrb_define_const(mrb, module, "OUT_RIGHT_TOP", mrb_fixnum_value(18));
+  
+  // OUT_RIGHT_MID = 19;                                                   
+  mrb_define_const(mrb, module, "OUT_RIGHT_MID", mrb_fixnum_value(19));
+  
+  // OUT_RIGHT_BOTTOM = 20;                                                   
+  mrb_define_const(mrb, module, "OUT_RIGHT_BOTTOM", mrb_fixnum_value(20));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_ANIM;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_anim(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ANIM");
+
+  // OFF = 0;                                                   
+  mrb_define_const(mrb, module, "OFF", mrb_fixnum_value(0));
+  
+  // ON = 1;                                                   
+  mrb_define_const(mrb, module, "ON", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_ARC_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_arc_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ARC_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_BAR_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_bar_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BAR_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // INDIC = 1;                                                   
+  mrb_define_const(mrb, module, "INDIC", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_BORDER;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_border(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BORDER");
+
+  // NONE = 0;                                                   
+  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
+  
+  // BOTTOM = 1;                                                   
+  mrb_define_const(mrb, module, "BOTTOM", mrb_fixnum_value(1));
+  
+  // TOP = 2;                                                   
+  mrb_define_const(mrb, module, "TOP", mrb_fixnum_value(2));
+  
+  // LEFT = 4;                                                   
+  mrb_define_const(mrb, module, "LEFT", mrb_fixnum_value(4));
+  
+  // RIGHT = 8;                                                   
+  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(8));
+  
+  // FULL = 15;                                                   
+  mrb_define_const(mrb, module, "FULL", mrb_fixnum_value(15));
+  
+  // INTERNAL = 16;                                                   
+  mrb_define_const(mrb, module, "INTERNAL", mrb_fixnum_value(16));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_BTNM_CTRL;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_btnm_ctrl(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BTNM_CTRL");
+
+  // HIDDEN = 8;                                                   
+  mrb_define_const(mrb, module, "HIDDEN", mrb_fixnum_value(8));
+  
+  // NO_REPEAT = 16;                                                   
+  mrb_define_const(mrb, module, "NO_REPEAT", mrb_fixnum_value(16));
+  
+  // INACTIVE = 32;                                                   
+  mrb_define_const(mrb, module, "INACTIVE", mrb_fixnum_value(32));
+  
+  // TGL_ENABLE = 64;                                                   
+  mrb_define_const(mrb, module, "TGL_ENABLE", mrb_fixnum_value(64));
+  
+  // TGL_STATE = 128;                                                   
+  mrb_define_const(mrb, module, "TGL_STATE", mrb_fixnum_value(128));
+  
+  // CLICK_TRIG = 256;                                                   
+  mrb_define_const(mrb, module, "CLICK_TRIG", mrb_fixnum_value(256));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_BTNM_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_btnm_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BTNM_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // BTN_REL = 1;                                                   
+  mrb_define_const(mrb, module, "BTN_REL", mrb_fixnum_value(1));
+  
+  // BTN_PR = 2;                                                   
+  mrb_define_const(mrb, module, "BTN_PR", mrb_fixnum_value(2));
+  
+  // BTN_TGL_REL = 3;                                                   
+  mrb_define_const(mrb, module, "BTN_TGL_REL", mrb_fixnum_value(3));
+  
+  // BTN_TGL_PR = 4;                                                   
+  mrb_define_const(mrb, module, "BTN_TGL_PR", mrb_fixnum_value(4));
+  
+  // BTN_INA = 5;                                                   
+  mrb_define_const(mrb, module, "BTN_INA", mrb_fixnum_value(5));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_BTN_STATE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_btn_state(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BTN_STATE");
+
+  // REL = 0;                                                   
+  mrb_define_const(mrb, module, "REL", mrb_fixnum_value(0));
+  
+  // PR = 1;                                                   
+  mrb_define_const(mrb, module, "PR", mrb_fixnum_value(1));
+  
+  // TGL_REL = 2;                                                   
+  mrb_define_const(mrb, module, "TGL_REL", mrb_fixnum_value(2));
+  
+  // TGL_PR = 3;                                                   
+  mrb_define_const(mrb, module, "TGL_PR", mrb_fixnum_value(3));
+  
+  // INA = 4;                                                   
+  mrb_define_const(mrb, module, "INA", mrb_fixnum_value(4));
+  
+  // NUM = 5;                                                   
+  mrb_define_const(mrb, module, "NUM", mrb_fixnum_value(5));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_BTN_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_btn_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BTN_STYLE");
+
+  // REL = 0;                                                   
+  mrb_define_const(mrb, module, "REL", mrb_fixnum_value(0));
+  
+  // PR = 1;                                                   
+  mrb_define_const(mrb, module, "PR", mrb_fixnum_value(1));
+  
+  // TGL_REL = 2;                                                   
+  mrb_define_const(mrb, module, "TGL_REL", mrb_fixnum_value(2));
+  
+  // TGL_PR = 3;                                                   
+  mrb_define_const(mrb, module, "TGL_PR", mrb_fixnum_value(3));
+  
+  // INA = 4;                                                   
+  mrb_define_const(mrb, module, "INA", mrb_fixnum_value(4));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_CALENDAR_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_calendar_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CALENDAR_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // HEADER = 1;                                                   
+  mrb_define_const(mrb, module, "HEADER", mrb_fixnum_value(1));
+  
+  // HEADER_PR = 2;                                                   
+  mrb_define_const(mrb, module, "HEADER_PR", mrb_fixnum_value(2));
+  
+  // DAY_NAMES = 3;                                                   
+  mrb_define_const(mrb, module, "DAY_NAMES", mrb_fixnum_value(3));
+  
+  // HIGHLIGHTED_DAYS = 4;                                                   
+  mrb_define_const(mrb, module, "HIGHLIGHTED_DAYS", mrb_fixnum_value(4));
+  
+  // INACTIVE_DAYS = 5;                                                   
+  mrb_define_const(mrb, module, "INACTIVE_DAYS", mrb_fixnum_value(5));
+  
+  // WEEK_BOX = 6;                                                   
+  mrb_define_const(mrb, module, "WEEK_BOX", mrb_fixnum_value(6));
+  
+  // TODAY_BOX = 7;                                                   
+  mrb_define_const(mrb, module, "TODAY_BOX", mrb_fixnum_value(7));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_CANVAS_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_canvas_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CANVAS_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_CB_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_cb_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CB_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // BOX_REL = 1;                                                   
+  mrb_define_const(mrb, module, "BOX_REL", mrb_fixnum_value(1));
+  
+  // BOX_PR = 2;                                                   
+  mrb_define_const(mrb, module, "BOX_PR", mrb_fixnum_value(2));
+  
+  // BOX_TGL_REL = 3;                                                   
+  mrb_define_const(mrb, module, "BOX_TGL_REL", mrb_fixnum_value(3));
+  
+  // BOX_TGL_PR = 4;                                                   
+  mrb_define_const(mrb, module, "BOX_TGL_PR", mrb_fixnum_value(4));
+  
+  // BOX_INA = 5;                                                   
+  mrb_define_const(mrb, module, "BOX_INA", mrb_fixnum_value(5));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_CONT_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_cont_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CONT_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_CPICKER_COLOR_MODE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_cpicker_color_mode(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CPICKER_COLOR_MODE");
+
+  // HUE = 0;                                                   
+  mrb_define_const(mrb, module, "HUE", mrb_fixnum_value(0));
+  
+  // SATURATION = 1;                                                   
+  mrb_define_const(mrb, module, "SATURATION", mrb_fixnum_value(1));
+  
+  // VALUE = 2;                                                   
+  mrb_define_const(mrb, module, "VALUE", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_CPICKER_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_cpicker_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CPICKER_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+  
+  // INDICATOR = 1;                                                   
+  mrb_define_const(mrb, module, "INDICATOR", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_CPICKER_TYPE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_cpicker_type(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CPICKER_TYPE");
+
+  // RECT = 0;                                                   
+  mrb_define_const(mrb, module, "RECT", mrb_fixnum_value(0));
+  
+  // DISC = 1;                                                   
+  mrb_define_const(mrb, module, "DISC", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_CURSOR;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_cursor(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CURSOR");
+
+  // NONE = 0;                                                   
+  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
+  
+  // LINE = 1;                                                   
+  mrb_define_const(mrb, module, "LINE", mrb_fixnum_value(1));
+  
+  // BLOCK = 2;                                                   
+  mrb_define_const(mrb, module, "BLOCK", mrb_fixnum_value(2));
+  
+  // OUTLINE = 3;                                                   
+  mrb_define_const(mrb, module, "OUTLINE", mrb_fixnum_value(3));
+  
+  // UNDERLINE = 4;                                                   
+  mrb_define_const(mrb, module, "UNDERLINE", mrb_fixnum_value(4));
+  
+  // HIDDEN = 8;                                                   
+  mrb_define_const(mrb, module, "HIDDEN", mrb_fixnum_value(8));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_DDLIST_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_ddlist_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_DDLIST_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // SEL = 1;                                                   
+  mrb_define_const(mrb, module, "SEL", mrb_fixnum_value(1));
+  
+  // SB = 2;                                                   
+  mrb_define_const(mrb, module, "SB", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_DESIGN;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_design(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_DESIGN");
+
+  // DRAW_MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "DRAW_MAIN", mrb_fixnum_value(0));
+  
+  // DRAW_POST = 1;                                                   
+  mrb_define_const(mrb, module, "DRAW_POST", mrb_fixnum_value(1));
+  
+  // COVER_CHK = 2;                                                   
+  mrb_define_const(mrb, module, "COVER_CHK", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_DRAG_DIR;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_drag_dir(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_DRAG_DIR");
+
+  // HOR = 1;                                                   
+  mrb_define_const(mrb, module, "HOR", mrb_fixnum_value(1));
+  
+  // VER = 2;                                                   
+  mrb_define_const(mrb, module, "VER", mrb_fixnum_value(2));
+  
+  // ALL = 3;                                                   
+  mrb_define_const(mrb, module, "ALL", mrb_fixnum_value(3));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_EVENT;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_event(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_EVENT");
+
+  // PRESSED = 0;                                                   
+  mrb_define_const(mrb, module, "PRESSED", mrb_fixnum_value(0));
+  
+  // PRESSING = 1;                                                   
+  mrb_define_const(mrb, module, "PRESSING", mrb_fixnum_value(1));
+  
+  // PRESS_LOST = 2;                                                   
+  mrb_define_const(mrb, module, "PRESS_LOST", mrb_fixnum_value(2));
+  
+  // SHORT_CLICKED = 3;                                                   
+  mrb_define_const(mrb, module, "SHORT_CLICKED", mrb_fixnum_value(3));
+  
+  // LONG_PRESSED = 4;                                                   
+  mrb_define_const(mrb, module, "LONG_PRESSED", mrb_fixnum_value(4));
+  
+  // LONG_PRESSED_REPEAT = 5;                                                   
+  mrb_define_const(mrb, module, "LONG_PRESSED_REPEAT", mrb_fixnum_value(5));
+  
+  // CLICKED = 6;                                                   
+  mrb_define_const(mrb, module, "CLICKED", mrb_fixnum_value(6));
+  
+  // RELEASED = 7;                                                   
+  mrb_define_const(mrb, module, "RELEASED", mrb_fixnum_value(7));
+  
+  // DRAG_BEGIN = 8;                                                   
+  mrb_define_const(mrb, module, "DRAG_BEGIN", mrb_fixnum_value(8));
+  
+  // DRAG_END = 9;                                                   
+  mrb_define_const(mrb, module, "DRAG_END", mrb_fixnum_value(9));
+  
+  // DRAG_THROW_BEGIN = 10;                                                   
+  mrb_define_const(mrb, module, "DRAG_THROW_BEGIN", mrb_fixnum_value(10));
+  
+  // KEY = 11;                                                   
+  mrb_define_const(mrb, module, "KEY", mrb_fixnum_value(11));
+  
+  // FOCUSED = 12;                                                   
+  mrb_define_const(mrb, module, "FOCUSED", mrb_fixnum_value(12));
+  
+  // DEFOCUSED = 13;                                                   
+  mrb_define_const(mrb, module, "DEFOCUSED", mrb_fixnum_value(13));
+  
+  // VALUE_CHANGED = 14;                                                   
+  mrb_define_const(mrb, module, "VALUE_CHANGED", mrb_fixnum_value(14));
+  
+  // INSERT = 15;                                                   
+  mrb_define_const(mrb, module, "INSERT", mrb_fixnum_value(15));
+  
+  // REFRESH = 16;                                                   
+  mrb_define_const(mrb, module, "REFRESH", mrb_fixnum_value(16));
+  
+  // APPLY = 17;                                                   
+  mrb_define_const(mrb, module, "APPLY", mrb_fixnum_value(17));
+  
+  // CANCEL = 18;                                                   
+  mrb_define_const(mrb, module, "CANCEL", mrb_fixnum_value(18));
+  
+  // DELETE = 19;                                                   
+  mrb_define_const(mrb, module, "DELETE", mrb_fixnum_value(19));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_FIT;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_fit(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FIT");
+
+  // NONE = 0;                                                   
+  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
+  
+  // TIGHT = 1;                                                   
+  mrb_define_const(mrb, module, "TIGHT", mrb_fixnum_value(1));
+  
+  // FLOOD = 2;                                                   
+  mrb_define_const(mrb, module, "FLOOD", mrb_fixnum_value(2));
+  
+  // FILL = 3;                                                   
+  mrb_define_const(mrb, module, "FILL", mrb_fixnum_value(3));
+  
+  // NUM = 4;                                                   
+  mrb_define_const(mrb, module, "NUM", mrb_fixnum_value(4));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_FONT_FMT_TXT_CMAP;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_font_fmt_txt_cmap(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FONT_FMT_TXT_CMAP");
+
+  // FORMAT0_TINY = 0;                                                   
+  mrb_define_const(mrb, module, "FORMAT0_TINY", mrb_fixnum_value(0));
+  
+  // FORMAT0_FULL = 1;                                                   
+  mrb_define_const(mrb, module, "FORMAT0_FULL", mrb_fixnum_value(1));
+  
+  // SPARSE_TINY = 2;                                                   
+  mrb_define_const(mrb, module, "SPARSE_TINY", mrb_fixnum_value(2));
+  
+  // SPARSE_FULL = 3;                                                   
+  mrb_define_const(mrb, module, "SPARSE_FULL", mrb_fixnum_value(3));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_FONT_SUBPX;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_font_subpx(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FONT_SUBPX");
+
+  // NONE = 0;                                                   
+  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
+  
+  // HOR = 1;                                                   
+  mrb_define_const(mrb, module, "HOR", mrb_fixnum_value(1));
+  
+  // VER = 2;                                                   
+  mrb_define_const(mrb, module, "VER", mrb_fixnum_value(2));
+  
+  // BOTH = 3;                                                   
+  mrb_define_const(mrb, module, "BOTH", mrb_fixnum_value(3));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_FS_MODE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_fs_mode(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FS_MODE");
+
+  // WR = 1;                                                   
+  mrb_define_const(mrb, module, "WR", mrb_fixnum_value(1));
+  
+  // RD = 2;                                                   
+  mrb_define_const(mrb, module, "RD", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_FS_RES;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_fs_res(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FS_RES");
+
+  // OK = 0;                                                   
+  mrb_define_const(mrb, module, "OK", mrb_fixnum_value(0));
+  
+  // HW_ERR = 1;                                                   
+  mrb_define_const(mrb, module, "HW_ERR", mrb_fixnum_value(1));
+  
+  // FS_ERR = 2;                                                   
+  mrb_define_const(mrb, module, "FS_ERR", mrb_fixnum_value(2));
+  
+  // NOT_EX = 3;                                                   
+  mrb_define_const(mrb, module, "NOT_EX", mrb_fixnum_value(3));
+  
+  // FULL = 4;                                                   
+  mrb_define_const(mrb, module, "FULL", mrb_fixnum_value(4));
+  
+  // LOCKED = 5;                                                   
+  mrb_define_const(mrb, module, "LOCKED", mrb_fixnum_value(5));
+  
+  // DENIED = 6;                                                   
+  mrb_define_const(mrb, module, "DENIED", mrb_fixnum_value(6));
+  
+  // BUSY = 7;                                                   
+  mrb_define_const(mrb, module, "BUSY", mrb_fixnum_value(7));
+  
+  // TOUT = 8;                                                   
+  mrb_define_const(mrb, module, "TOUT", mrb_fixnum_value(8));
+  
+  // NOT_IMP = 9;                                                   
+  mrb_define_const(mrb, module, "NOT_IMP", mrb_fixnum_value(9));
+  
+  // OUT_OF_MEM = 10;                                                   
+  mrb_define_const(mrb, module, "OUT_OF_MEM", mrb_fixnum_value(10));
+  
+  // INV_PARAM = 11;                                                   
+  mrb_define_const(mrb, module, "INV_PARAM", mrb_fixnum_value(11));
+  
+  // UNKNOWN = 12;                                                   
+  mrb_define_const(mrb, module, "UNKNOWN", mrb_fixnum_value(12));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_GAUGE_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_gauge_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_GAUGE_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_GROUP_REFOCUS_POLICY;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_group_refocus_policy(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_GROUP_REFOCUS_POLICY");
+
+  // NEXT = 0;                                                   
+  mrb_define_const(mrb, module, "NEXT", mrb_fixnum_value(0));
+  
+  // PREV = 1;                                                   
+  mrb_define_const(mrb, module, "PREV", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_IMGBTN_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_imgbtn_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_IMGBTN_STYLE");
+
+  // REL = 0;                                                   
+  mrb_define_const(mrb, module, "REL", mrb_fixnum_value(0));
+  
+  // PR = 1;                                                   
+  mrb_define_const(mrb, module, "PR", mrb_fixnum_value(1));
+  
+  // TGL_REL = 2;                                                   
+  mrb_define_const(mrb, module, "TGL_REL", mrb_fixnum_value(2));
+  
+  // TGL_PR = 3;                                                   
+  mrb_define_const(mrb, module, "TGL_PR", mrb_fixnum_value(3));
+  
+  // INA = 4;                                                   
+  mrb_define_const(mrb, module, "INA", mrb_fixnum_value(4));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_IMG_CF;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_img_cf(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_IMG_CF");
+
+  // UNKNOWN = 0;                                                   
+  mrb_define_const(mrb, module, "UNKNOWN", mrb_fixnum_value(0));
+  
+  // RAW = 1;                                                   
+  mrb_define_const(mrb, module, "RAW", mrb_fixnum_value(1));
+  
+  // RAW_ALPHA = 2;                                                   
+  mrb_define_const(mrb, module, "RAW_ALPHA", mrb_fixnum_value(2));
+  
+  // RAW_CHROMA_KEYED = 3;                                                   
+  mrb_define_const(mrb, module, "RAW_CHROMA_KEYED", mrb_fixnum_value(3));
+  
+  // TRUE_COLOR = 4;                                                   
+  mrb_define_const(mrb, module, "TRUE_COLOR", mrb_fixnum_value(4));
+  
+  // TRUE_COLOR_ALPHA = 5;                                                   
+  mrb_define_const(mrb, module, "TRUE_COLOR_ALPHA", mrb_fixnum_value(5));
+  
+  // TRUE_COLOR_CHROMA_KEYED = 6;                                                   
+  mrb_define_const(mrb, module, "TRUE_COLOR_CHROMA_KEYED", mrb_fixnum_value(6));
+  
+  // INDEXED_1BIT = 7;                                                   
+  mrb_define_const(mrb, module, "INDEXED_1BIT", mrb_fixnum_value(7));
+  
+  // INDEXED_2BIT = 8;                                                   
+  mrb_define_const(mrb, module, "INDEXED_2BIT", mrb_fixnum_value(8));
+  
+  // INDEXED_4BIT = 9;                                                   
+  mrb_define_const(mrb, module, "INDEXED_4BIT", mrb_fixnum_value(9));
+  
+  // INDEXED_8BIT = 10;                                                   
+  mrb_define_const(mrb, module, "INDEXED_8BIT", mrb_fixnum_value(10));
+  
+  // ALPHA_1BIT = 11;                                                   
+  mrb_define_const(mrb, module, "ALPHA_1BIT", mrb_fixnum_value(11));
+  
+  // ALPHA_2BIT = 12;                                                   
+  mrb_define_const(mrb, module, "ALPHA_2BIT", mrb_fixnum_value(12));
+  
+  // ALPHA_4BIT = 13;                                                   
+  mrb_define_const(mrb, module, "ALPHA_4BIT", mrb_fixnum_value(13));
+  
+  // ALPHA_8BIT = 14;                                                   
+  mrb_define_const(mrb, module, "ALPHA_8BIT", mrb_fixnum_value(14));
+  
+  // RESERVED_15 = 15;                                                   
+  mrb_define_const(mrb, module, "RESERVED_15", mrb_fixnum_value(15));
+  
+  // RESERVED_16 = 16;                                                   
+  mrb_define_const(mrb, module, "RESERVED_16", mrb_fixnum_value(16));
+  
+  // RESERVED_17 = 17;                                                   
+  mrb_define_const(mrb, module, "RESERVED_17", mrb_fixnum_value(17));
+  
+  // RESERVED_18 = 18;                                                   
+  mrb_define_const(mrb, module, "RESERVED_18", mrb_fixnum_value(18));
+  
+  // RESERVED_19 = 19;                                                   
+  mrb_define_const(mrb, module, "RESERVED_19", mrb_fixnum_value(19));
+  
+  // RESERVED_20 = 20;                                                   
+  mrb_define_const(mrb, module, "RESERVED_20", mrb_fixnum_value(20));
+  
+  // RESERVED_21 = 21;                                                   
+  mrb_define_const(mrb, module, "RESERVED_21", mrb_fixnum_value(21));
+  
+  // RESERVED_22 = 22;                                                   
+  mrb_define_const(mrb, module, "RESERVED_22", mrb_fixnum_value(22));
+  
+  // RESERVED_23 = 23;                                                   
+  mrb_define_const(mrb, module, "RESERVED_23", mrb_fixnum_value(23));
+  
+  // USER_ENCODED_0 = 24;                                                   
+  mrb_define_const(mrb, module, "USER_ENCODED_0", mrb_fixnum_value(24));
+  
+  // USER_ENCODED_1 = 25;                                                   
+  mrb_define_const(mrb, module, "USER_ENCODED_1", mrb_fixnum_value(25));
+  
+  // USER_ENCODED_2 = 26;                                                   
+  mrb_define_const(mrb, module, "USER_ENCODED_2", mrb_fixnum_value(26));
+  
+  // USER_ENCODED_3 = 27;                                                   
+  mrb_define_const(mrb, module, "USER_ENCODED_3", mrb_fixnum_value(27));
+  
+  // USER_ENCODED_4 = 28;                                                   
+  mrb_define_const(mrb, module, "USER_ENCODED_4", mrb_fixnum_value(28));
+  
+  // USER_ENCODED_5 = 29;                                                   
+  mrb_define_const(mrb, module, "USER_ENCODED_5", mrb_fixnum_value(29));
+  
+  // USER_ENCODED_6 = 30;                                                   
+  mrb_define_const(mrb, module, "USER_ENCODED_6", mrb_fixnum_value(30));
+  
+  // USER_ENCODED_7 = 31;                                                   
+  mrb_define_const(mrb, module, "USER_ENCODED_7", mrb_fixnum_value(31));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_IMG_SRC;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_img_src(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_IMG_SRC");
+
+  // VARIABLE = 0;                                                   
+  mrb_define_const(mrb, module, "VARIABLE", mrb_fixnum_value(0));
+  
+  // FILE = 1;                                                   
+  mrb_define_const(mrb, module, "FILE", mrb_fixnum_value(1));
+  
+  // SYMBOL = 2;                                                   
+  mrb_define_const(mrb, module, "SYMBOL", mrb_fixnum_value(2));
+  
+  // UNKNOWN = 3;                                                   
+  mrb_define_const(mrb, module, "UNKNOWN", mrb_fixnum_value(3));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_IMG_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_img_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_IMG_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_INDEV_STATE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_indev_state(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_INDEV_STATE");
+
+  // REL = 0;                                                   
+  mrb_define_const(mrb, module, "REL", mrb_fixnum_value(0));
+  
+  // PR = 1;                                                   
+  mrb_define_const(mrb, module, "PR", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_INDEV_TYPE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_indev_type(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_INDEV_TYPE");
+
+  // NONE = 0;                                                   
+  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
+  
+  // POINTER = 2;                                                   
+  mrb_define_const(mrb, module, "POINTER", mrb_fixnum_value(2));
+  
+  // KEYBOARD = 2;                                                   
+  mrb_define_const(mrb, module, "KEYBOARD", mrb_fixnum_value(2));
+  
+  // BUTTON = 2;                                                   
+  mrb_define_const(mrb, module, "BUTTON", mrb_fixnum_value(2));
+  
+  // ENCODER = 2;                                                   
+  mrb_define_const(mrb, module, "ENCODER", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_KB_MODE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_kb_mode(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_KB_MODE");
+
+  // TEXT = 0;                                                   
+  mrb_define_const(mrb, module, "TEXT", mrb_fixnum_value(0));
+  
+  // NUM = 1;                                                   
+  mrb_define_const(mrb, module, "NUM", mrb_fixnum_value(1));
+  
+  // TEXT_UPPER = 2;                                                   
+  mrb_define_const(mrb, module, "TEXT_UPPER", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_KB_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_kb_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_KB_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // BTN_REL = 1;                                                   
+  mrb_define_const(mrb, module, "BTN_REL", mrb_fixnum_value(1));
+  
+  // BTN_PR = 2;                                                   
+  mrb_define_const(mrb, module, "BTN_PR", mrb_fixnum_value(2));
+  
+  // BTN_TGL_REL = 3;                                                   
+  mrb_define_const(mrb, module, "BTN_TGL_REL", mrb_fixnum_value(3));
+  
+  // BTN_TGL_PR = 4;                                                   
+  mrb_define_const(mrb, module, "BTN_TGL_PR", mrb_fixnum_value(4));
+  
+  // BTN_INA = 5;                                                   
+  mrb_define_const(mrb, module, "BTN_INA", mrb_fixnum_value(5));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_KEY;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_key(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_KEY");
+
+  // UP = 17;                                                   
+  mrb_define_const(mrb, module, "UP", mrb_fixnum_value(17));
+  
+  // DOWN = 18;                                                   
+  mrb_define_const(mrb, module, "DOWN", mrb_fixnum_value(18));
+  
+  // RIGHT = 19;                                                   
+  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(19));
+  
+  // LEFT = 20;                                                   
+  mrb_define_const(mrb, module, "LEFT", mrb_fixnum_value(20));
+  
+  // ESC = 27;                                                   
+  mrb_define_const(mrb, module, "ESC", mrb_fixnum_value(27));
+  
+  // DEL = 127;                                                   
+  mrb_define_const(mrb, module, "DEL", mrb_fixnum_value(127));
+  
+  // BACKSPACE = 8;                                                   
+  mrb_define_const(mrb, module, "BACKSPACE", mrb_fixnum_value(8));
+  
+  // ENTER = 10;                                                   
+  mrb_define_const(mrb, module, "ENTER", mrb_fixnum_value(10));
+  
+  // NEXT = 9;                                                   
+  mrb_define_const(mrb, module, "NEXT", mrb_fixnum_value(9));
+  
+  // PREV = 11;                                                   
+  mrb_define_const(mrb, module, "PREV", mrb_fixnum_value(11));
+  
+  // HOME = 2;                                                   
+  mrb_define_const(mrb, module, "HOME", mrb_fixnum_value(2));
+  
+  // END = 3;                                                   
+  mrb_define_const(mrb, module, "END", mrb_fixnum_value(3));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_LABEL_ALIGN;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_label_align(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LABEL_ALIGN");
+
+  // LEFT = 0;                                                   
+  mrb_define_const(mrb, module, "LEFT", mrb_fixnum_value(0));
+  
+  // CENTER = 1;                                                   
+  mrb_define_const(mrb, module, "CENTER", mrb_fixnum_value(1));
+  
+  // RIGHT = 2;                                                   
+  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(2));
+  
+  // AUTO = 3;                                                   
+  mrb_define_const(mrb, module, "AUTO", mrb_fixnum_value(3));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_LABEL_LONG;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_label_long(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LABEL_LONG");
+
+  // EXPAND = 0;                                                   
+  mrb_define_const(mrb, module, "EXPAND", mrb_fixnum_value(0));
+  
+  // BREAK = 1;                                                   
+  mrb_define_const(mrb, module, "BREAK", mrb_fixnum_value(1));
+  
+  // DOT = 2;                                                   
+  mrb_define_const(mrb, module, "DOT", mrb_fixnum_value(2));
+  
+  // SROLL = 3;                                                   
+  mrb_define_const(mrb, module, "SROLL", mrb_fixnum_value(3));
+  
+  // SROLL_CIRC = 4;                                                   
+  mrb_define_const(mrb, module, "SROLL_CIRC", mrb_fixnum_value(4));
+  
+  // CROP = 5;                                                   
+  mrb_define_const(mrb, module, "CROP", mrb_fixnum_value(5));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_LABEL_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_label_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LABEL_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_LAYOUT;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_layout(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LAYOUT");
+
+  // OFF = 0;                                                   
+  mrb_define_const(mrb, module, "OFF", mrb_fixnum_value(0));
+  
+  // CENTER = 1;                                                   
+  mrb_define_const(mrb, module, "CENTER", mrb_fixnum_value(1));
+  
+  // COL_L = 2;                                                   
+  mrb_define_const(mrb, module, "COL_L", mrb_fixnum_value(2));
+  
+  // COL_M = 3;                                                   
+  mrb_define_const(mrb, module, "COL_M", mrb_fixnum_value(3));
+  
+  // COL_R = 4;                                                   
+  mrb_define_const(mrb, module, "COL_R", mrb_fixnum_value(4));
+  
+  // ROW_T = 5;                                                   
+  mrb_define_const(mrb, module, "ROW_T", mrb_fixnum_value(5));
+  
+  // ROW_M = 6;                                                   
+  mrb_define_const(mrb, module, "ROW_M", mrb_fixnum_value(6));
+  
+  // ROW_B = 7;                                                   
+  mrb_define_const(mrb, module, "ROW_B", mrb_fixnum_value(7));
+  
+  // PRETTY = 8;                                                   
+  mrb_define_const(mrb, module, "PRETTY", mrb_fixnum_value(8));
+  
+  // GRID = 9;                                                   
+  mrb_define_const(mrb, module, "GRID", mrb_fixnum_value(9));
+  
+  // NUM = 10;                                                   
+  mrb_define_const(mrb, module, "NUM", mrb_fixnum_value(10));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_LINE_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_line_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LINE_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_LMETER_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_lmeter_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LMETER_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_OPA;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_opa(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_OPA");
+
+  // TRANSP = 0;                                                   
+  mrb_define_const(mrb, module, "TRANSP", mrb_fixnum_value(0));
+  
+  // 0 = 0;                                                   
+  mrb_define_const(mrb, module, "0", mrb_fixnum_value(0));
+  
+  // 10 = 25;                                                   
+  mrb_define_const(mrb, module, "10", mrb_fixnum_value(25));
+  
+  // 20 = 51;                                                   
+  mrb_define_const(mrb, module, "20", mrb_fixnum_value(51));
+  
+  // 30 = 76;                                                   
+  mrb_define_const(mrb, module, "30", mrb_fixnum_value(76));
+  
+  // 40 = 102;                                                   
+  mrb_define_const(mrb, module, "40", mrb_fixnum_value(102));
+  
+  // 50 = 127;                                                   
+  mrb_define_const(mrb, module, "50", mrb_fixnum_value(127));
+  
+  // 60 = 153;                                                   
+  mrb_define_const(mrb, module, "60", mrb_fixnum_value(153));
+  
+  // 70 = 178;                                                   
+  mrb_define_const(mrb, module, "70", mrb_fixnum_value(178));
+  
+  // 80 = 204;                                                   
+  mrb_define_const(mrb, module, "80", mrb_fixnum_value(204));
+  
+  // 90 = 229;                                                   
+  mrb_define_const(mrb, module, "90", mrb_fixnum_value(229));
+  
+  // 100 = 255;                                                   
+  mrb_define_const(mrb, module, "100", mrb_fixnum_value(255));
+  
+  // COVER = 255;                                                   
+  mrb_define_const(mrb, module, "COVER", mrb_fixnum_value(255));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_PAGE_EDGE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_page_edge(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PAGE_EDGE");
+
+  // LEFT = 1;                                                   
+  mrb_define_const(mrb, module, "LEFT", mrb_fixnum_value(1));
+  
+  // TOP = 2;                                                   
+  mrb_define_const(mrb, module, "TOP", mrb_fixnum_value(2));
+  
+  // RIGHT = 4;                                                   
+  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(4));
+  
+  // BOTTOM = 8;                                                   
+  mrb_define_const(mrb, module, "BOTTOM", mrb_fixnum_value(8));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_PAGE_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_page_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PAGE_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // SCRL = 1;                                                   
+  mrb_define_const(mrb, module, "SCRL", mrb_fixnum_value(1));
+  
+  // SB = 2;                                                   
+  mrb_define_const(mrb, module, "SB", mrb_fixnum_value(2));
+  
+  // EDGE_FLASH = 3;                                                   
+  mrb_define_const(mrb, module, "EDGE_FLASH", mrb_fixnum_value(3));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_PRELOAD_DIR;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_preload_dir(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PRELOAD_DIR");
+
+  // FORWARD = 0;                                                   
+  mrb_define_const(mrb, module, "FORWARD", mrb_fixnum_value(0));
+  
+  // BACKWARD = 1;                                                   
+  mrb_define_const(mrb, module, "BACKWARD", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_PRELOAD_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_preload_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PRELOAD_STYLE");
+
+  // MAIN = 0;                                                   
+  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_PRELOAD_TYPE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_preload_type(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PRELOAD_TYPE");
+
+  // SPINNING_ARC = 0;                                                   
+  mrb_define_const(mrb, module, "SPINNING_ARC", mrb_fixnum_value(0));
+  
+  // FILLSPIN_ARC = 1;                                                   
+  mrb_define_const(mrb, module, "FILLSPIN_ARC", mrb_fixnum_value(1));
+  
+  // CONSTANT_ARC = 2;                                                   
+  mrb_define_const(mrb, module, "CONSTANT_ARC", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_PROTECT;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_protect(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PROTECT");
+
+  // NONE = 0;                                                   
+  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
+  
+  // CHILD_CHG = 1;                                                   
+  mrb_define_const(mrb, module, "CHILD_CHG", mrb_fixnum_value(1));
+  
+  // PARENT = 2;                                                   
+  mrb_define_const(mrb, module, "PARENT", mrb_fixnum_value(2));
+  
+  // POS = 4;                                                   
+  mrb_define_const(mrb, module, "POS", mrb_fixnum_value(4));
+  
+  // FOLLOW = 8;                                                   
+  mrb_define_const(mrb, module, "FOLLOW", mrb_fixnum_value(8));
+  
+  // PRESS_LOST = 16;                                                   
+  mrb_define_const(mrb, module, "PRESS_LOST", mrb_fixnum_value(16));
+  
+  // CLICK_FOCUS = 32;                                                   
+  mrb_define_const(mrb, module, "CLICK_FOCUS", mrb_fixnum_value(32));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_RES;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_res(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_RES");
+
+  // INV = 0;                                                   
+  mrb_define_const(mrb, module, "INV", mrb_fixnum_value(0));
+  
+  // OK = 1;                                                   
+  mrb_define_const(mrb, module, "OK", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_ROLLER_MODE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_roller_mode(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ROLLER_MODE");
+
+  // NORMAL = 0;                                                   
+  mrb_define_const(mrb, module, "NORMAL", mrb_fixnum_value(0));
+  
+  // INIFINITE = 1;                                                   
+  mrb_define_const(mrb, module, "INIFINITE", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_ROLLER_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_roller_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ROLLER_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // SEL = 1;                                                   
+  mrb_define_const(mrb, module, "SEL", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_SB_MODE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_sb_mode(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SB_MODE");
+
+  // OFF = 0;                                                   
+  mrb_define_const(mrb, module, "OFF", mrb_fixnum_value(0));
+  
+  // ON = 1;                                                   
+  mrb_define_const(mrb, module, "ON", mrb_fixnum_value(1));
+  
+  // DRAG = 2;                                                   
+  mrb_define_const(mrb, module, "DRAG", mrb_fixnum_value(2));
+  
+  // AUTO = 3;                                                   
+  mrb_define_const(mrb, module, "AUTO", mrb_fixnum_value(3));
+  
+  // HIDE = 4;                                                   
+  mrb_define_const(mrb, module, "HIDE", mrb_fixnum_value(4));
+  
+  // UNHIDE = 5;                                                   
+  mrb_define_const(mrb, module, "UNHIDE", mrb_fixnum_value(5));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_SHADOW;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_shadow(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SHADOW");
+
+  // BOTTOM = 0;                                                   
+  mrb_define_const(mrb, module, "BOTTOM", mrb_fixnum_value(0));
+  
+  // FULL = 1;                                                   
+  mrb_define_const(mrb, module, "FULL", mrb_fixnum_value(1));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_SIGNAL;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_signal(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SIGNAL");
+
+  // CLEANUP = 0;                                                   
+  mrb_define_const(mrb, module, "CLEANUP", mrb_fixnum_value(0));
+  
+  // CHILD_CHG = 1;                                                   
+  mrb_define_const(mrb, module, "CHILD_CHG", mrb_fixnum_value(1));
+  
+  // CORD_CHG = 2;                                                   
+  mrb_define_const(mrb, module, "CORD_CHG", mrb_fixnum_value(2));
+  
+  // PARENT_SIZE_CHG = 3;                                                   
+  mrb_define_const(mrb, module, "PARENT_SIZE_CHG", mrb_fixnum_value(3));
+  
+  // STYLE_CHG = 4;                                                   
+  mrb_define_const(mrb, module, "STYLE_CHG", mrb_fixnum_value(4));
+  
+  // BASE_DIR_CHG = 5;                                                   
+  mrb_define_const(mrb, module, "BASE_DIR_CHG", mrb_fixnum_value(5));
+  
+  // REFR_EXT_DRAW_PAD = 6;                                                   
+  mrb_define_const(mrb, module, "REFR_EXT_DRAW_PAD", mrb_fixnum_value(6));
+  
+  // GET_TYPE = 7;                                                   
+  mrb_define_const(mrb, module, "GET_TYPE", mrb_fixnum_value(7));
+  
+  // PRESSED = 8;                                                   
+  mrb_define_const(mrb, module, "PRESSED", mrb_fixnum_value(8));
+  
+  // PRESSING = 9;                                                   
+  mrb_define_const(mrb, module, "PRESSING", mrb_fixnum_value(9));
+  
+  // PRESS_LOST = 10;                                                   
+  mrb_define_const(mrb, module, "PRESS_LOST", mrb_fixnum_value(10));
+  
+  // RELEASED = 11;                                                   
+  mrb_define_const(mrb, module, "RELEASED", mrb_fixnum_value(11));
+  
+  // LONG_PRESS = 12;                                                   
+  mrb_define_const(mrb, module, "LONG_PRESS", mrb_fixnum_value(12));
+  
+  // LONG_PRESS_REP = 13;                                                   
+  mrb_define_const(mrb, module, "LONG_PRESS_REP", mrb_fixnum_value(13));
+  
+  // DRAG_BEGIN = 14;                                                   
+  mrb_define_const(mrb, module, "DRAG_BEGIN", mrb_fixnum_value(14));
+  
+  // DRAG_END = 15;                                                   
+  mrb_define_const(mrb, module, "DRAG_END", mrb_fixnum_value(15));
+  
+  // FOCUS = 16;                                                   
+  mrb_define_const(mrb, module, "FOCUS", mrb_fixnum_value(16));
+  
+  // DEFOCUS = 17;                                                   
+  mrb_define_const(mrb, module, "DEFOCUS", mrb_fixnum_value(17));
+  
+  // CONTROL = 18;                                                   
+  mrb_define_const(mrb, module, "CONTROL", mrb_fixnum_value(18));
+  
+  // GET_EDITABLE = 19;                                                   
+  mrb_define_const(mrb, module, "GET_EDITABLE", mrb_fixnum_value(19));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_SLIDER_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_slider_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SLIDER_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // INDIC = 1;                                                   
+  mrb_define_const(mrb, module, "INDIC", mrb_fixnum_value(1));
+  
+  // KNOB = 2;                                                   
+  mrb_define_const(mrb, module, "KNOB", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
+// Bindings for: `enum LV_SPINBOX_STYLE;`
+
+void
+mrb_mruby_lvgui_native_enum_lv_spinbox_style(mrb_state *mrb, struct RClass * parent_module)
+{
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SPINBOX_STYLE");
+
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  
+  // SB = 1;                                                   
+  mrb_define_const(mrb, module, "SB", mrb_fixnum_value(1));
+  
+  // CURSOR = 2;                                                   
+  mrb_define_const(mrb, module, "CURSOR", mrb_fixnum_value(2));
+}
+
+//
+////////
+////////
 // Bindings for: `enum LV_STR_SYMBOL;`
 
 void
@@ -322,157 +1899,50 @@ mrb_mruby_lvgui_native_enum_lv_str_symbol(mrb_state *mrb, struct RClass * parent
 //
 ////////
 ////////
-// Bindings for: `enum LV_FONT_SUBPX;`
+// Bindings for: `enum LV_SW_STYLE;`
 
 void
-mrb_mruby_lvgui_native_enum_lv_font_subpx(mrb_state *mrb, struct RClass * parent_module)
+mrb_mruby_lvgui_native_enum_lv_sw_style(mrb_state *mrb, struct RClass * parent_module)
 {
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FONT_SUBPX");
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SW_STYLE");
 
-  // NONE = 0;                                                   
-  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
   
-  // HOR = 1;                                                   
-  mrb_define_const(mrb, module, "HOR", mrb_fixnum_value(1));
+  // INDIC = 1;                                                   
+  mrb_define_const(mrb, module, "INDIC", mrb_fixnum_value(1));
   
-  // VER = 2;                                                   
-  mrb_define_const(mrb, module, "VER", mrb_fixnum_value(2));
+  // KNOB_OFF = 2;                                                   
+  mrb_define_const(mrb, module, "KNOB_OFF", mrb_fixnum_value(2));
   
-  // BOTH = 3;                                                   
-  mrb_define_const(mrb, module, "BOTH", mrb_fixnum_value(3));
+  // KNOB_ON = 3;                                                   
+  mrb_define_const(mrb, module, "KNOB_ON", mrb_fixnum_value(3));
 }
 
 //
 ////////
 ////////
-// Bindings for: `enum LV_OPA;`
+// Bindings for: `enum LV_TABLE_STYLE;`
 
 void
-mrb_mruby_lvgui_native_enum_lv_opa(mrb_state *mrb, struct RClass * parent_module)
+mrb_mruby_lvgui_native_enum_lv_table_style(mrb_state *mrb, struct RClass * parent_module)
 {
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_OPA");
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_TABLE_STYLE");
 
-  // TRANSP = 0;                                                   
-  mrb_define_const(mrb, module, "TRANSP", mrb_fixnum_value(0));
+  // BG = 0;                                                   
+  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
   
-  // 0 = 0;                                                   
-  mrb_define_const(mrb, module, "0", mrb_fixnum_value(0));
+  // CELL1 = 1;                                                   
+  mrb_define_const(mrb, module, "CELL1", mrb_fixnum_value(1));
   
-  // 10 = 25;                                                   
-  mrb_define_const(mrb, module, "10", mrb_fixnum_value(25));
+  // CELL2 = 2;                                                   
+  mrb_define_const(mrb, module, "CELL2", mrb_fixnum_value(2));
   
-  // 20 = 51;                                                   
-  mrb_define_const(mrb, module, "20", mrb_fixnum_value(51));
+  // CELL3 = 3;                                                   
+  mrb_define_const(mrb, module, "CELL3", mrb_fixnum_value(3));
   
-  // 30 = 76;                                                   
-  mrb_define_const(mrb, module, "30", mrb_fixnum_value(76));
-  
-  // 40 = 102;                                                   
-  mrb_define_const(mrb, module, "40", mrb_fixnum_value(102));
-  
-  // 50 = 127;                                                   
-  mrb_define_const(mrb, module, "50", mrb_fixnum_value(127));
-  
-  // 60 = 153;                                                   
-  mrb_define_const(mrb, module, "60", mrb_fixnum_value(153));
-  
-  // 70 = 178;                                                   
-  mrb_define_const(mrb, module, "70", mrb_fixnum_value(178));
-  
-  // 80 = 204;                                                   
-  mrb_define_const(mrb, module, "80", mrb_fixnum_value(204));
-  
-  // 90 = 229;                                                   
-  mrb_define_const(mrb, module, "90", mrb_fixnum_value(229));
-  
-  // 100 = 255;                                                   
-  mrb_define_const(mrb, module, "100", mrb_fixnum_value(255));
-  
-  // COVER = 255;                                                   
-  mrb_define_const(mrb, module, "COVER", mrb_fixnum_value(255));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_ANIM;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_anim(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ANIM");
-
-  // OFF = 0;                                                   
-  mrb_define_const(mrb, module, "OFF", mrb_fixnum_value(0));
-  
-  // ON = 1;                                                   
-  mrb_define_const(mrb, module, "ON", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_BORDER;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_border(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BORDER");
-
-  // NONE = 0;                                                   
-  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
-  
-  // BOTTOM = 1;                                                   
-  mrb_define_const(mrb, module, "BOTTOM", mrb_fixnum_value(1));
-  
-  // TOP = 2;                                                   
-  mrb_define_const(mrb, module, "TOP", mrb_fixnum_value(2));
-  
-  // LEFT = 4;                                                   
-  mrb_define_const(mrb, module, "LEFT", mrb_fixnum_value(4));
-  
-  // RIGHT = 8;                                                   
-  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(8));
-  
-  // FULL = 15;                                                   
-  mrb_define_const(mrb, module, "FULL", mrb_fixnum_value(15));
-  
-  // INTERNAL = 16;                                                   
-  mrb_define_const(mrb, module, "INTERNAL", mrb_fixnum_value(16));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_SHADOW;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_shadow(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SHADOW");
-
-  // BOTTOM = 0;                                                   
-  mrb_define_const(mrb, module, "BOTTOM", mrb_fixnum_value(0));
-  
-  // FULL = 1;                                                   
-  mrb_define_const(mrb, module, "FULL", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_RES;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_res(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_RES");
-
-  // INV = 0;                                                   
-  mrb_define_const(mrb, module, "INV", mrb_fixnum_value(0));
-  
-  // OK = 1;                                                   
-  mrb_define_const(mrb, module, "OK", mrb_fixnum_value(1));
+  // CELL4 = 4;                                                   
+  mrb_define_const(mrb, module, "CELL4", mrb_fixnum_value(4));
 }
 
 //
@@ -510,898 +1980,6 @@ mrb_mruby_lvgui_native_enum_lv_task_prio(mrb_state *mrb, struct RClass * parent_
 //
 ////////
 ////////
-// Bindings for: `enum LV_INDEV_TYPE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_indev_type(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_INDEV_TYPE");
-
-  // NONE = 0;                                                   
-  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
-  
-  // POINTER = 1;                                                   
-  mrb_define_const(mrb, module, "POINTER", mrb_fixnum_value(1));
-  
-  // KEYBOARD = 2;                                                   
-  mrb_define_const(mrb, module, "KEYBOARD", mrb_fixnum_value(2));
-  
-  // BUTTON = 3;                                                   
-  mrb_define_const(mrb, module, "BUTTON", mrb_fixnum_value(3));
-  
-  // ENCODER = 4;                                                   
-  mrb_define_const(mrb, module, "ENCODER", mrb_fixnum_value(4));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_INDEV_STATE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_indev_state(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_INDEV_STATE");
-
-  // REL = 0;                                                   
-  mrb_define_const(mrb, module, "REL", mrb_fixnum_value(0));
-  
-  // PR = 1;                                                   
-  mrb_define_const(mrb, module, "PR", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_DESIGN;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_design(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_DESIGN");
-
-  // DRAW_MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "DRAW_MAIN", mrb_fixnum_value(0));
-  
-  // DRAW_POST = 1;                                                   
-  mrb_define_const(mrb, module, "DRAW_POST", mrb_fixnum_value(1));
-  
-  // COVER_CHK = 2;                                                   
-  mrb_define_const(mrb, module, "COVER_CHK", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_EVENT;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_event(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_EVENT");
-
-  // PRESSED = 0;                                                   
-  mrb_define_const(mrb, module, "PRESSED", mrb_fixnum_value(0));
-  
-  // PRESSING = 1;                                                   
-  mrb_define_const(mrb, module, "PRESSING", mrb_fixnum_value(1));
-  
-  // PRESS_LOST = 2;                                                   
-  mrb_define_const(mrb, module, "PRESS_LOST", mrb_fixnum_value(2));
-  
-  // SHORT_CLICKED = 3;                                                   
-  mrb_define_const(mrb, module, "SHORT_CLICKED", mrb_fixnum_value(3));
-  
-  // LONG_PRESSED = 4;                                                   
-  mrb_define_const(mrb, module, "LONG_PRESSED", mrb_fixnum_value(4));
-  
-  // LONG_PRESSED_REPEAT = 5;                                                   
-  mrb_define_const(mrb, module, "LONG_PRESSED_REPEAT", mrb_fixnum_value(5));
-  
-  // CLICKED = 6;                                                   
-  mrb_define_const(mrb, module, "CLICKED", mrb_fixnum_value(6));
-  
-  // RELEASED = 7;                                                   
-  mrb_define_const(mrb, module, "RELEASED", mrb_fixnum_value(7));
-  
-  // DRAG_BEGIN = 8;                                                   
-  mrb_define_const(mrb, module, "DRAG_BEGIN", mrb_fixnum_value(8));
-  
-  // DRAG_END = 9;                                                   
-  mrb_define_const(mrb, module, "DRAG_END", mrb_fixnum_value(9));
-  
-  // DRAG_THROW_BEGIN = 10;                                                   
-  mrb_define_const(mrb, module, "DRAG_THROW_BEGIN", mrb_fixnum_value(10));
-  
-  // KEY = 11;                                                   
-  mrb_define_const(mrb, module, "KEY", mrb_fixnum_value(11));
-  
-  // FOCUSED = 12;                                                   
-  mrb_define_const(mrb, module, "FOCUSED", mrb_fixnum_value(12));
-  
-  // DEFOCUSED = 13;                                                   
-  mrb_define_const(mrb, module, "DEFOCUSED", mrb_fixnum_value(13));
-  
-  // VALUE_CHANGED = 14;                                                   
-  mrb_define_const(mrb, module, "VALUE_CHANGED", mrb_fixnum_value(14));
-  
-  // INSERT = 15;                                                   
-  mrb_define_const(mrb, module, "INSERT", mrb_fixnum_value(15));
-  
-  // REFRESH = 16;                                                   
-  mrb_define_const(mrb, module, "REFRESH", mrb_fixnum_value(16));
-  
-  // APPLY = 17;                                                   
-  mrb_define_const(mrb, module, "APPLY", mrb_fixnum_value(17));
-  
-  // CANCEL = 18;                                                   
-  mrb_define_const(mrb, module, "CANCEL", mrb_fixnum_value(18));
-  
-  // DELETE = 19;                                                   
-  mrb_define_const(mrb, module, "DELETE", mrb_fixnum_value(19));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_SIGNAL;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_signal(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SIGNAL");
-
-  // CLEANUP = 0;                                                   
-  mrb_define_const(mrb, module, "CLEANUP", mrb_fixnum_value(0));
-  
-  // CHILD_CHG = 1;                                                   
-  mrb_define_const(mrb, module, "CHILD_CHG", mrb_fixnum_value(1));
-  
-  // CORD_CHG = 2;                                                   
-  mrb_define_const(mrb, module, "CORD_CHG", mrb_fixnum_value(2));
-  
-  // PARENT_SIZE_CHG = 3;                                                   
-  mrb_define_const(mrb, module, "PARENT_SIZE_CHG", mrb_fixnum_value(3));
-  
-  // STYLE_CHG = 4;                                                   
-  mrb_define_const(mrb, module, "STYLE_CHG", mrb_fixnum_value(4));
-  
-  // BASE_DIR_CHG = 5;                                                   
-  mrb_define_const(mrb, module, "BASE_DIR_CHG", mrb_fixnum_value(5));
-  
-  // REFR_EXT_DRAW_PAD = 6;                                                   
-  mrb_define_const(mrb, module, "REFR_EXT_DRAW_PAD", mrb_fixnum_value(6));
-  
-  // GET_TYPE = 7;                                                   
-  mrb_define_const(mrb, module, "GET_TYPE", mrb_fixnum_value(7));
-  
-  // PRESSED = 8;                                                   
-  mrb_define_const(mrb, module, "PRESSED", mrb_fixnum_value(8));
-  
-  // PRESSING = 9;                                                   
-  mrb_define_const(mrb, module, "PRESSING", mrb_fixnum_value(9));
-  
-  // PRESS_LOST = 10;                                                   
-  mrb_define_const(mrb, module, "PRESS_LOST", mrb_fixnum_value(10));
-  
-  // RELEASED = 11;                                                   
-  mrb_define_const(mrb, module, "RELEASED", mrb_fixnum_value(11));
-  
-  // LONG_PRESS = 12;                                                   
-  mrb_define_const(mrb, module, "LONG_PRESS", mrb_fixnum_value(12));
-  
-  // LONG_PRESS_REP = 13;                                                   
-  mrb_define_const(mrb, module, "LONG_PRESS_REP", mrb_fixnum_value(13));
-  
-  // DRAG_BEGIN = 14;                                                   
-  mrb_define_const(mrb, module, "DRAG_BEGIN", mrb_fixnum_value(14));
-  
-  // DRAG_END = 15;                                                   
-  mrb_define_const(mrb, module, "DRAG_END", mrb_fixnum_value(15));
-  
-  // FOCUS = 16;                                                   
-  mrb_define_const(mrb, module, "FOCUS", mrb_fixnum_value(16));
-  
-  // DEFOCUS = 17;                                                   
-  mrb_define_const(mrb, module, "DEFOCUS", mrb_fixnum_value(17));
-  
-  // CONTROL = 18;                                                   
-  mrb_define_const(mrb, module, "CONTROL", mrb_fixnum_value(18));
-  
-  // GET_EDITABLE = 19;                                                   
-  mrb_define_const(mrb, module, "GET_EDITABLE", mrb_fixnum_value(19));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_ALIGN;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_align(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ALIGN");
-
-  // CENTER = 0;                                                   
-  mrb_define_const(mrb, module, "CENTER", mrb_fixnum_value(0));
-  
-  // IN_TOP_LEFT = 1;                                                   
-  mrb_define_const(mrb, module, "IN_TOP_LEFT", mrb_fixnum_value(1));
-  
-  // IN_TOP_MID = 2;                                                   
-  mrb_define_const(mrb, module, "IN_TOP_MID", mrb_fixnum_value(2));
-  
-  // IN_TOP_RIGHT = 3;                                                   
-  mrb_define_const(mrb, module, "IN_TOP_RIGHT", mrb_fixnum_value(3));
-  
-  // IN_BOTTOM_LEFT = 4;                                                   
-  mrb_define_const(mrb, module, "IN_BOTTOM_LEFT", mrb_fixnum_value(4));
-  
-  // IN_BOTTOM_MID = 5;                                                   
-  mrb_define_const(mrb, module, "IN_BOTTOM_MID", mrb_fixnum_value(5));
-  
-  // IN_BOTTOM_RIGHT = 6;                                                   
-  mrb_define_const(mrb, module, "IN_BOTTOM_RIGHT", mrb_fixnum_value(6));
-  
-  // IN_LEFT_MID = 7;                                                   
-  mrb_define_const(mrb, module, "IN_LEFT_MID", mrb_fixnum_value(7));
-  
-  // IN_RIGHT_MID = 8;                                                   
-  mrb_define_const(mrb, module, "IN_RIGHT_MID", mrb_fixnum_value(8));
-  
-  // OUT_TOP_LEFT = 9;                                                   
-  mrb_define_const(mrb, module, "OUT_TOP_LEFT", mrb_fixnum_value(9));
-  
-  // OUT_TOP_MID = 10;                                                   
-  mrb_define_const(mrb, module, "OUT_TOP_MID", mrb_fixnum_value(10));
-  
-  // OUT_TOP_RIGHT = 11;                                                   
-  mrb_define_const(mrb, module, "OUT_TOP_RIGHT", mrb_fixnum_value(11));
-  
-  // OUT_BOTTOM_LEFT = 12;                                                   
-  mrb_define_const(mrb, module, "OUT_BOTTOM_LEFT", mrb_fixnum_value(12));
-  
-  // OUT_BOTTOM_MID = 13;                                                   
-  mrb_define_const(mrb, module, "OUT_BOTTOM_MID", mrb_fixnum_value(13));
-  
-  // OUT_BOTTOM_RIGHT = 14;                                                   
-  mrb_define_const(mrb, module, "OUT_BOTTOM_RIGHT", mrb_fixnum_value(14));
-  
-  // OUT_LEFT_TOP = 15;                                                   
-  mrb_define_const(mrb, module, "OUT_LEFT_TOP", mrb_fixnum_value(15));
-  
-  // OUT_LEFT_MID = 16;                                                   
-  mrb_define_const(mrb, module, "OUT_LEFT_MID", mrb_fixnum_value(16));
-  
-  // OUT_LEFT_BOTTOM = 17;                                                   
-  mrb_define_const(mrb, module, "OUT_LEFT_BOTTOM", mrb_fixnum_value(17));
-  
-  // OUT_RIGHT_TOP = 18;                                                   
-  mrb_define_const(mrb, module, "OUT_RIGHT_TOP", mrb_fixnum_value(18));
-  
-  // OUT_RIGHT_MID = 19;                                                   
-  mrb_define_const(mrb, module, "OUT_RIGHT_MID", mrb_fixnum_value(19));
-  
-  // OUT_RIGHT_BOTTOM = 20;                                                   
-  mrb_define_const(mrb, module, "OUT_RIGHT_BOTTOM", mrb_fixnum_value(20));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_DRAG_DIR;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_drag_dir(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_DRAG_DIR");
-
-  // HOR = 1;                                                   
-  mrb_define_const(mrb, module, "HOR", mrb_fixnum_value(1));
-  
-  // VER = 2;                                                   
-  mrb_define_const(mrb, module, "VER", mrb_fixnum_value(2));
-  
-  // ALL = 3;                                                   
-  mrb_define_const(mrb, module, "ALL", mrb_fixnum_value(3));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_PROTECT;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_protect(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PROTECT");
-
-  // NONE = 0;                                                   
-  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
-  
-  // CHILD_CHG = 1;                                                   
-  mrb_define_const(mrb, module, "CHILD_CHG", mrb_fixnum_value(1));
-  
-  // PARENT = 2;                                                   
-  mrb_define_const(mrb, module, "PARENT", mrb_fixnum_value(2));
-  
-  // POS = 4;                                                   
-  mrb_define_const(mrb, module, "POS", mrb_fixnum_value(4));
-  
-  // FOLLOW = 8;                                                   
-  mrb_define_const(mrb, module, "FOLLOW", mrb_fixnum_value(8));
-  
-  // PRESS_LOST = 16;                                                   
-  mrb_define_const(mrb, module, "PRESS_LOST", mrb_fixnum_value(16));
-  
-  // CLICK_FOCUS = 32;                                                   
-  mrb_define_const(mrb, module, "CLICK_FOCUS", mrb_fixnum_value(32));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_LAYOUT;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_layout(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LAYOUT");
-
-  // OFF = 0;                                                   
-  mrb_define_const(mrb, module, "OFF", mrb_fixnum_value(0));
-  
-  // CENTER = 1;                                                   
-  mrb_define_const(mrb, module, "CENTER", mrb_fixnum_value(1));
-  
-  // COL_L = 2;                                                   
-  mrb_define_const(mrb, module, "COL_L", mrb_fixnum_value(2));
-  
-  // COL_M = 3;                                                   
-  mrb_define_const(mrb, module, "COL_M", mrb_fixnum_value(3));
-  
-  // COL_R = 4;                                                   
-  mrb_define_const(mrb, module, "COL_R", mrb_fixnum_value(4));
-  
-  // ROW_T = 5;                                                   
-  mrb_define_const(mrb, module, "ROW_T", mrb_fixnum_value(5));
-  
-  // ROW_M = 6;                                                   
-  mrb_define_const(mrb, module, "ROW_M", mrb_fixnum_value(6));
-  
-  // ROW_B = 7;                                                   
-  mrb_define_const(mrb, module, "ROW_B", mrb_fixnum_value(7));
-  
-  // PRETTY = 8;                                                   
-  mrb_define_const(mrb, module, "PRETTY", mrb_fixnum_value(8));
-  
-  // GRID = 9;                                                   
-  mrb_define_const(mrb, module, "GRID", mrb_fixnum_value(9));
-  
-  // NUM = 10;                                                   
-  mrb_define_const(mrb, module, "NUM", mrb_fixnum_value(10));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_FIT;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_fit(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FIT");
-
-  // NONE = 0;                                                   
-  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
-  
-  // TIGHT = 1;                                                   
-  mrb_define_const(mrb, module, "TIGHT", mrb_fixnum_value(1));
-  
-  // FLOOD = 2;                                                   
-  mrb_define_const(mrb, module, "FLOOD", mrb_fixnum_value(2));
-  
-  // FILL = 3;                                                   
-  mrb_define_const(mrb, module, "FILL", mrb_fixnum_value(3));
-  
-  // NUM = 4;                                                   
-  mrb_define_const(mrb, module, "NUM", mrb_fixnum_value(4));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_CONT_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_cont_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CONT_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_KEY;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_key(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_KEY");
-
-  // UP = 17;                                                   
-  mrb_define_const(mrb, module, "UP", mrb_fixnum_value(17));
-  
-  // DOWN = 18;                                                   
-  mrb_define_const(mrb, module, "DOWN", mrb_fixnum_value(18));
-  
-  // RIGHT = 19;                                                   
-  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(19));
-  
-  // LEFT = 20;                                                   
-  mrb_define_const(mrb, module, "LEFT", mrb_fixnum_value(20));
-  
-  // ESC = 27;                                                   
-  mrb_define_const(mrb, module, "ESC", mrb_fixnum_value(27));
-  
-  // DEL = 127;                                                   
-  mrb_define_const(mrb, module, "DEL", mrb_fixnum_value(127));
-  
-  // BACKSPACE = 8;                                                   
-  mrb_define_const(mrb, module, "BACKSPACE", mrb_fixnum_value(8));
-  
-  // ENTER = 10;                                                   
-  mrb_define_const(mrb, module, "ENTER", mrb_fixnum_value(10));
-  
-  // NEXT = 9;                                                   
-  mrb_define_const(mrb, module, "NEXT", mrb_fixnum_value(9));
-  
-  // PREV = 11;                                                   
-  mrb_define_const(mrb, module, "PREV", mrb_fixnum_value(11));
-  
-  // HOME = 2;                                                   
-  mrb_define_const(mrb, module, "HOME", mrb_fixnum_value(2));
-  
-  // END = 3;                                                   
-  mrb_define_const(mrb, module, "END", mrb_fixnum_value(3));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_GROUP_REFOCUS_POLICY;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_group_refocus_policy(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_GROUP_REFOCUS_POLICY");
-
-  // NEXT = 0;                                                   
-  mrb_define_const(mrb, module, "NEXT", mrb_fixnum_value(0));
-  
-  // PREV = 1;                                                   
-  mrb_define_const(mrb, module, "PREV", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_SB_MODE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_sb_mode(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SB_MODE");
-
-  // OFF = 0;                                                   
-  mrb_define_const(mrb, module, "OFF", mrb_fixnum_value(0));
-  
-  // ON = 1;                                                   
-  mrb_define_const(mrb, module, "ON", mrb_fixnum_value(1));
-  
-  // DRAG = 2;                                                   
-  mrb_define_const(mrb, module, "DRAG", mrb_fixnum_value(2));
-  
-  // AUTO = 3;                                                   
-  mrb_define_const(mrb, module, "AUTO", mrb_fixnum_value(3));
-  
-  // HIDE = 4;                                                   
-  mrb_define_const(mrb, module, "HIDE", mrb_fixnum_value(4));
-  
-  // UNHIDE = 5;                                                   
-  mrb_define_const(mrb, module, "UNHIDE", mrb_fixnum_value(5));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_PAGE_EDGE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_page_edge(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PAGE_EDGE");
-
-  // LEFT = 1;                                                   
-  mrb_define_const(mrb, module, "LEFT", mrb_fixnum_value(1));
-  
-  // TOP = 2;                                                   
-  mrb_define_const(mrb, module, "TOP", mrb_fixnum_value(2));
-  
-  // RIGHT = 4;                                                   
-  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(4));
-  
-  // BOTTOM = 8;                                                   
-  mrb_define_const(mrb, module, "BOTTOM", mrb_fixnum_value(8));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_PAGE_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_page_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PAGE_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // SCRL = 1;                                                   
-  mrb_define_const(mrb, module, "SCRL", mrb_fixnum_value(1));
-  
-  // SB = 2;                                                   
-  mrb_define_const(mrb, module, "SB", mrb_fixnum_value(2));
-  
-  // EDGE_FLASH = 3;                                                   
-  mrb_define_const(mrb, module, "EDGE_FLASH", mrb_fixnum_value(3));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_TXT_FLAG;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_txt_flag(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_TXT_FLAG");
-
-  // NONE = 0;                                                   
-  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
-  
-  // RECOLOR = 1;                                                   
-  mrb_define_const(mrb, module, "RECOLOR", mrb_fixnum_value(1));
-  
-  // EXPAND = 2;                                                   
-  mrb_define_const(mrb, module, "EXPAND", mrb_fixnum_value(2));
-  
-  // CENTER = 4;                                                   
-  mrb_define_const(mrb, module, "CENTER", mrb_fixnum_value(4));
-  
-  // RIGHT = 8;                                                   
-  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(8));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_TXT_CMD_STATE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_txt_cmd_state(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_TXT_CMD_STATE");
-
-  // WAIT = 0;                                                   
-  mrb_define_const(mrb, module, "WAIT", mrb_fixnum_value(0));
-  
-  // PAR = 1;                                                   
-  mrb_define_const(mrb, module, "PAR", mrb_fixnum_value(1));
-  
-  // IN = 2;                                                   
-  mrb_define_const(mrb, module, "IN", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_FS_RES;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_fs_res(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FS_RES");
-
-  // OK = 0;                                                   
-  mrb_define_const(mrb, module, "OK", mrb_fixnum_value(0));
-  
-  // HW_ERR = 1;                                                   
-  mrb_define_const(mrb, module, "HW_ERR", mrb_fixnum_value(1));
-  
-  // FS_ERR = 2;                                                   
-  mrb_define_const(mrb, module, "FS_ERR", mrb_fixnum_value(2));
-  
-  // NOT_EX = 3;                                                   
-  mrb_define_const(mrb, module, "NOT_EX", mrb_fixnum_value(3));
-  
-  // FULL = 4;                                                   
-  mrb_define_const(mrb, module, "FULL", mrb_fixnum_value(4));
-  
-  // LOCKED = 5;                                                   
-  mrb_define_const(mrb, module, "LOCKED", mrb_fixnum_value(5));
-  
-  // DENIED = 6;                                                   
-  mrb_define_const(mrb, module, "DENIED", mrb_fixnum_value(6));
-  
-  // BUSY = 7;                                                   
-  mrb_define_const(mrb, module, "BUSY", mrb_fixnum_value(7));
-  
-  // TOUT = 8;                                                   
-  mrb_define_const(mrb, module, "TOUT", mrb_fixnum_value(8));
-  
-  // NOT_IMP = 9;                                                   
-  mrb_define_const(mrb, module, "NOT_IMP", mrb_fixnum_value(9));
-  
-  // OUT_OF_MEM = 10;                                                   
-  mrb_define_const(mrb, module, "OUT_OF_MEM", mrb_fixnum_value(10));
-  
-  // INV_PARAM = 11;                                                   
-  mrb_define_const(mrb, module, "INV_PARAM", mrb_fixnum_value(11));
-  
-  // UNKNOWN = 12;                                                   
-  mrb_define_const(mrb, module, "UNKNOWN", mrb_fixnum_value(12));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_FS_MODE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_fs_mode(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FS_MODE");
-
-  // WR = 1;                                                   
-  mrb_define_const(mrb, module, "WR", mrb_fixnum_value(1));
-  
-  // RD = 2;                                                   
-  mrb_define_const(mrb, module, "RD", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_IMG_SRC;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_img_src(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_IMG_SRC");
-
-  // VARIABLE = 0;                                                   
-  mrb_define_const(mrb, module, "VARIABLE", mrb_fixnum_value(0));
-  
-  // FILE = 1;                                                   
-  mrb_define_const(mrb, module, "FILE", mrb_fixnum_value(1));
-  
-  // SYMBOL = 2;                                                   
-  mrb_define_const(mrb, module, "SYMBOL", mrb_fixnum_value(2));
-  
-  // UNKNOWN = 3;                                                   
-  mrb_define_const(mrb, module, "UNKNOWN", mrb_fixnum_value(3));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_IMG_CF;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_img_cf(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_IMG_CF");
-
-  // UNKNOWN = 0;                                                   
-  mrb_define_const(mrb, module, "UNKNOWN", mrb_fixnum_value(0));
-  
-  // RAW = 1;                                                   
-  mrb_define_const(mrb, module, "RAW", mrb_fixnum_value(1));
-  
-  // RAW_ALPHA = 2;                                                   
-  mrb_define_const(mrb, module, "RAW_ALPHA", mrb_fixnum_value(2));
-  
-  // RAW_CHROMA_KEYED = 3;                                                   
-  mrb_define_const(mrb, module, "RAW_CHROMA_KEYED", mrb_fixnum_value(3));
-  
-  // TRUE_COLOR = 4;                                                   
-  mrb_define_const(mrb, module, "TRUE_COLOR", mrb_fixnum_value(4));
-  
-  // TRUE_COLOR_ALPHA = 5;                                                   
-  mrb_define_const(mrb, module, "TRUE_COLOR_ALPHA", mrb_fixnum_value(5));
-  
-  // TRUE_COLOR_CHROMA_KEYED = 6;                                                   
-  mrb_define_const(mrb, module, "TRUE_COLOR_CHROMA_KEYED", mrb_fixnum_value(6));
-  
-  // INDEXED_1BIT = 7;                                                   
-  mrb_define_const(mrb, module, "INDEXED_1BIT", mrb_fixnum_value(7));
-  
-  // INDEXED_2BIT = 8;                                                   
-  mrb_define_const(mrb, module, "INDEXED_2BIT", mrb_fixnum_value(8));
-  
-  // INDEXED_4BIT = 9;                                                   
-  mrb_define_const(mrb, module, "INDEXED_4BIT", mrb_fixnum_value(9));
-  
-  // INDEXED_8BIT = 10;                                                   
-  mrb_define_const(mrb, module, "INDEXED_8BIT", mrb_fixnum_value(10));
-  
-  // ALPHA_1BIT = 11;                                                   
-  mrb_define_const(mrb, module, "ALPHA_1BIT", mrb_fixnum_value(11));
-  
-  // ALPHA_2BIT = 12;                                                   
-  mrb_define_const(mrb, module, "ALPHA_2BIT", mrb_fixnum_value(12));
-  
-  // ALPHA_4BIT = 13;                                                   
-  mrb_define_const(mrb, module, "ALPHA_4BIT", mrb_fixnum_value(13));
-  
-  // ALPHA_8BIT = 14;                                                   
-  mrb_define_const(mrb, module, "ALPHA_8BIT", mrb_fixnum_value(14));
-  
-  // RESERVED_15 = 15;                                                   
-  mrb_define_const(mrb, module, "RESERVED_15", mrb_fixnum_value(15));
-  
-  // RESERVED_16 = 16;                                                   
-  mrb_define_const(mrb, module, "RESERVED_16", mrb_fixnum_value(16));
-  
-  // RESERVED_17 = 17;                                                   
-  mrb_define_const(mrb, module, "RESERVED_17", mrb_fixnum_value(17));
-  
-  // RESERVED_18 = 18;                                                   
-  mrb_define_const(mrb, module, "RESERVED_18", mrb_fixnum_value(18));
-  
-  // RESERVED_19 = 19;                                                   
-  mrb_define_const(mrb, module, "RESERVED_19", mrb_fixnum_value(19));
-  
-  // RESERVED_20 = 20;                                                   
-  mrb_define_const(mrb, module, "RESERVED_20", mrb_fixnum_value(20));
-  
-  // RESERVED_21 = 21;                                                   
-  mrb_define_const(mrb, module, "RESERVED_21", mrb_fixnum_value(21));
-  
-  // RESERVED_22 = 22;                                                   
-  mrb_define_const(mrb, module, "RESERVED_22", mrb_fixnum_value(22));
-  
-  // RESERVED_23 = 23;                                                   
-  mrb_define_const(mrb, module, "RESERVED_23", mrb_fixnum_value(23));
-  
-  // USER_ENCODED_0 = 24;                                                   
-  mrb_define_const(mrb, module, "USER_ENCODED_0", mrb_fixnum_value(24));
-  
-  // USER_ENCODED_1 = 25;                                                   
-  mrb_define_const(mrb, module, "USER_ENCODED_1", mrb_fixnum_value(25));
-  
-  // USER_ENCODED_2 = 26;                                                   
-  mrb_define_const(mrb, module, "USER_ENCODED_2", mrb_fixnum_value(26));
-  
-  // USER_ENCODED_3 = 27;                                                   
-  mrb_define_const(mrb, module, "USER_ENCODED_3", mrb_fixnum_value(27));
-  
-  // USER_ENCODED_4 = 28;                                                   
-  mrb_define_const(mrb, module, "USER_ENCODED_4", mrb_fixnum_value(28));
-  
-  // USER_ENCODED_5 = 29;                                                   
-  mrb_define_const(mrb, module, "USER_ENCODED_5", mrb_fixnum_value(29));
-  
-  // USER_ENCODED_6 = 30;                                                   
-  mrb_define_const(mrb, module, "USER_ENCODED_6", mrb_fixnum_value(30));
-  
-  // USER_ENCODED_7 = 31;                                                   
-  mrb_define_const(mrb, module, "USER_ENCODED_7", mrb_fixnum_value(31));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_LABEL_LONG;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_label_long(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LABEL_LONG");
-
-  // EXPAND = 0;                                                   
-  mrb_define_const(mrb, module, "EXPAND", mrb_fixnum_value(0));
-  
-  // BREAK = 1;                                                   
-  mrb_define_const(mrb, module, "BREAK", mrb_fixnum_value(1));
-  
-  // DOT = 2;                                                   
-  mrb_define_const(mrb, module, "DOT", mrb_fixnum_value(2));
-  
-  // SROLL = 3;                                                   
-  mrb_define_const(mrb, module, "SROLL", mrb_fixnum_value(3));
-  
-  // SROLL_CIRC = 4;                                                   
-  mrb_define_const(mrb, module, "SROLL_CIRC", mrb_fixnum_value(4));
-  
-  // CROP = 5;                                                   
-  mrb_define_const(mrb, module, "CROP", mrb_fixnum_value(5));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_LABEL_ALIGN;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_label_align(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LABEL_ALIGN");
-
-  // LEFT = 0;                                                   
-  mrb_define_const(mrb, module, "LEFT", mrb_fixnum_value(0));
-  
-  // CENTER = 1;                                                   
-  mrb_define_const(mrb, module, "CENTER", mrb_fixnum_value(1));
-  
-  // RIGHT = 2;                                                   
-  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(2));
-  
-  // AUTO = 3;                                                   
-  mrb_define_const(mrb, module, "AUTO", mrb_fixnum_value(3));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_LABEL_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_label_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LABEL_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_CURSOR;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_cursor(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CURSOR");
-
-  // NONE = 0;                                                   
-  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
-  
-  // LINE = 1;                                                   
-  mrb_define_const(mrb, module, "LINE", mrb_fixnum_value(1));
-  
-  // BLOCK = 2;                                                   
-  mrb_define_const(mrb, module, "BLOCK", mrb_fixnum_value(2));
-  
-  // OUTLINE = 3;                                                   
-  mrb_define_const(mrb, module, "OUTLINE", mrb_fixnum_value(3));
-  
-  // UNDERLINE = 4;                                                   
-  mrb_define_const(mrb, module, "UNDERLINE", mrb_fixnum_value(4));
-  
-  // HIDDEN = 8;                                                   
-  mrb_define_const(mrb, module, "HIDDEN", mrb_fixnum_value(8));
-}
-
-//
-////////
-////////
 // Bindings for: `enum LV_TA_STYLE;`
 
 void
@@ -1428,406 +2006,6 @@ mrb_mruby_lvgui_native_enum_lv_ta_style(mrb_state *mrb, struct RClass * parent_m
 //
 ////////
 ////////
-// Bindings for: `enum LV_SPINBOX_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_spinbox_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SPINBOX_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // SB = 1;                                                   
-  mrb_define_const(mrb, module, "SB", mrb_fixnum_value(1));
-  
-  // CURSOR = 2;                                                   
-  mrb_define_const(mrb, module, "CURSOR", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_BTN_STATE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_btn_state(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BTN_STATE");
-
-  // REL = 0;                                                   
-  mrb_define_const(mrb, module, "REL", mrb_fixnum_value(0));
-  
-  // PR = 1;                                                   
-  mrb_define_const(mrb, module, "PR", mrb_fixnum_value(1));
-  
-  // TGL_REL = 2;                                                   
-  mrb_define_const(mrb, module, "TGL_REL", mrb_fixnum_value(2));
-  
-  // TGL_PR = 3;                                                   
-  mrb_define_const(mrb, module, "TGL_PR", mrb_fixnum_value(3));
-  
-  // INA = 4;                                                   
-  mrb_define_const(mrb, module, "INA", mrb_fixnum_value(4));
-  
-  // NUM = 5;                                                   
-  mrb_define_const(mrb, module, "NUM", mrb_fixnum_value(5));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_BTN_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_btn_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BTN_STYLE");
-
-  // REL = 0;                                                   
-  mrb_define_const(mrb, module, "REL", mrb_fixnum_value(0));
-  
-  // PR = 1;                                                   
-  mrb_define_const(mrb, module, "PR", mrb_fixnum_value(1));
-  
-  // TGL_REL = 2;                                                   
-  mrb_define_const(mrb, module, "TGL_REL", mrb_fixnum_value(2));
-  
-  // TGL_PR = 3;                                                   
-  mrb_define_const(mrb, module, "TGL_PR", mrb_fixnum_value(3));
-  
-  // INA = 4;                                                   
-  mrb_define_const(mrb, module, "INA", mrb_fixnum_value(4));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_IMGBTN_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_imgbtn_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_IMGBTN_STYLE");
-
-  // REL = 0;                                                   
-  mrb_define_const(mrb, module, "REL", mrb_fixnum_value(0));
-  
-  // PR = 1;                                                   
-  mrb_define_const(mrb, module, "PR", mrb_fixnum_value(1));
-  
-  // TGL_REL = 2;                                                   
-  mrb_define_const(mrb, module, "TGL_REL", mrb_fixnum_value(2));
-  
-  // TGL_PR = 3;                                                   
-  mrb_define_const(mrb, module, "TGL_PR", mrb_fixnum_value(3));
-  
-  // INA = 4;                                                   
-  mrb_define_const(mrb, module, "INA", mrb_fixnum_value(4));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_BAR_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_bar_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BAR_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // INDIC = 1;                                                   
-  mrb_define_const(mrb, module, "INDIC", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_SLIDER_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_slider_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SLIDER_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // INDIC = 1;                                                   
-  mrb_define_const(mrb, module, "INDIC", mrb_fixnum_value(1));
-  
-  // KNOB = 2;                                                   
-  mrb_define_const(mrb, module, "KNOB", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_SW_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_sw_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_SW_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // INDIC = 1;                                                   
-  mrb_define_const(mrb, module, "INDIC", mrb_fixnum_value(1));
-  
-  // KNOB_OFF = 2;                                                   
-  mrb_define_const(mrb, module, "KNOB_OFF", mrb_fixnum_value(2));
-  
-  // KNOB_ON = 3;                                                   
-  mrb_define_const(mrb, module, "KNOB_ON", mrb_fixnum_value(3));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_CB_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_cb_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CB_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // BOX_REL = 1;                                                   
-  mrb_define_const(mrb, module, "BOX_REL", mrb_fixnum_value(1));
-  
-  // BOX_PR = 2;                                                   
-  mrb_define_const(mrb, module, "BOX_PR", mrb_fixnum_value(2));
-  
-  // BOX_TGL_REL = 3;                                                   
-  mrb_define_const(mrb, module, "BOX_TGL_REL", mrb_fixnum_value(3));
-  
-  // BOX_TGL_PR = 4;                                                   
-  mrb_define_const(mrb, module, "BOX_TGL_PR", mrb_fixnum_value(4));
-  
-  // BOX_INA = 5;                                                   
-  mrb_define_const(mrb, module, "BOX_INA", mrb_fixnum_value(5));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_DDLIST_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_ddlist_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_DDLIST_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // SEL = 1;                                                   
-  mrb_define_const(mrb, module, "SEL", mrb_fixnum_value(1));
-  
-  // SB = 2;                                                   
-  mrb_define_const(mrb, module, "SB", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_ROLLER_MODE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_roller_mode(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ROLLER_MODE");
-
-  // NORMAL = 0;                                                   
-  mrb_define_const(mrb, module, "NORMAL", mrb_fixnum_value(0));
-  
-  // INIFINITE = 1;                                                   
-  mrb_define_const(mrb, module, "INIFINITE", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_ROLLER_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_roller_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ROLLER_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // SEL = 1;                                                   
-  mrb_define_const(mrb, module, "SEL", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_ARC_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_arc_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_ARC_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_PRELOAD_TYPE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_preload_type(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PRELOAD_TYPE");
-
-  // SPINNING_ARC = 0;                                                   
-  mrb_define_const(mrb, module, "SPINNING_ARC", mrb_fixnum_value(0));
-  
-  // FILLSPIN_ARC = 1;                                                   
-  mrb_define_const(mrb, module, "FILLSPIN_ARC", mrb_fixnum_value(1));
-  
-  // CONSTANT_ARC = 2;                                                   
-  mrb_define_const(mrb, module, "CONSTANT_ARC", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_PRELOAD_DIR;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_preload_dir(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PRELOAD_DIR");
-
-  // FORWARD = 0;                                                   
-  mrb_define_const(mrb, module, "FORWARD", mrb_fixnum_value(0));
-  
-  // BACKWARD = 1;                                                   
-  mrb_define_const(mrb, module, "BACKWARD", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_PRELOAD_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_preload_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_PRELOAD_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_CALENDAR_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_calendar_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CALENDAR_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // HEADER = 1;                                                   
-  mrb_define_const(mrb, module, "HEADER", mrb_fixnum_value(1));
-  
-  // HEADER_PR = 2;                                                   
-  mrb_define_const(mrb, module, "HEADER_PR", mrb_fixnum_value(2));
-  
-  // DAY_NAMES = 3;                                                   
-  mrb_define_const(mrb, module, "DAY_NAMES", mrb_fixnum_value(3));
-  
-  // HIGHLIGHTED_DAYS = 4;                                                   
-  mrb_define_const(mrb, module, "HIGHLIGHTED_DAYS", mrb_fixnum_value(4));
-  
-  // INACTIVE_DAYS = 5;                                                   
-  mrb_define_const(mrb, module, "INACTIVE_DAYS", mrb_fixnum_value(5));
-  
-  // WEEK_BOX = 6;                                                   
-  mrb_define_const(mrb, module, "WEEK_BOX", mrb_fixnum_value(6));
-  
-  // TODAY_BOX = 7;                                                   
-  mrb_define_const(mrb, module, "TODAY_BOX", mrb_fixnum_value(7));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_LMETER_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_lmeter_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LMETER_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_LINE_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_line_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_LINE_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_GAUGE_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_gauge_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_GAUGE_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_IMG_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_img_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_IMG_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
 // Bindings for: `enum LV_TILEVIEW_STYLE;`
 
 void
@@ -1842,225 +2020,47 @@ mrb_mruby_lvgui_native_enum_lv_tileview_style(mrb_state *mrb, struct RClass * pa
 //
 ////////
 ////////
-// Bindings for: `enum LV_BTNM_CTRL;`
+// Bindings for: `enum LV_TXT_CMD_STATE;`
 
 void
-mrb_mruby_lvgui_native_enum_lv_btnm_ctrl(mrb_state *mrb, struct RClass * parent_module)
+mrb_mruby_lvgui_native_enum_lv_txt_cmd_state(mrb_state *mrb, struct RClass * parent_module)
 {
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BTNM_CTRL");
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_TXT_CMD_STATE");
 
-  // HIDDEN = 8;                                                   
-  mrb_define_const(mrb, module, "HIDDEN", mrb_fixnum_value(8));
+  // WAIT = 0;                                                   
+  mrb_define_const(mrb, module, "WAIT", mrb_fixnum_value(0));
   
-  // NO_REPEAT = 16;                                                   
-  mrb_define_const(mrb, module, "NO_REPEAT", mrb_fixnum_value(16));
+  // PAR = 1;                                                   
+  mrb_define_const(mrb, module, "PAR", mrb_fixnum_value(1));
   
-  // INACTIVE = 32;                                                   
-  mrb_define_const(mrb, module, "INACTIVE", mrb_fixnum_value(32));
-  
-  // TGL_ENABLE = 64;                                                   
-  mrb_define_const(mrb, module, "TGL_ENABLE", mrb_fixnum_value(64));
-  
-  // TGL_STATE = 128;                                                   
-  mrb_define_const(mrb, module, "TGL_STATE", mrb_fixnum_value(128));
-  
-  // CLICK_TRIG = 256;                                                   
-  mrb_define_const(mrb, module, "CLICK_TRIG", mrb_fixnum_value(256));
+  // IN = 2;                                                   
+  mrb_define_const(mrb, module, "IN", mrb_fixnum_value(2));
 }
 
 //
 ////////
 ////////
-// Bindings for: `enum LV_BTNM_STYLE;`
+// Bindings for: `enum LV_TXT_FLAG;`
 
 void
-mrb_mruby_lvgui_native_enum_lv_btnm_style(mrb_state *mrb, struct RClass * parent_module)
+mrb_mruby_lvgui_native_enum_lv_txt_flag(mrb_state *mrb, struct RClass * parent_module)
 {
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_BTNM_STYLE");
+  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_TXT_FLAG");
 
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
+  // NONE = 0;                                                   
+  mrb_define_const(mrb, module, "NONE", mrb_fixnum_value(0));
   
-  // BTN_REL = 1;                                                   
-  mrb_define_const(mrb, module, "BTN_REL", mrb_fixnum_value(1));
+  // RECOLOR = 1;                                                   
+  mrb_define_const(mrb, module, "RECOLOR", mrb_fixnum_value(1));
   
-  // BTN_PR = 2;                                                   
-  mrb_define_const(mrb, module, "BTN_PR", mrb_fixnum_value(2));
+  // EXPAND = 2;                                                   
+  mrb_define_const(mrb, module, "EXPAND", mrb_fixnum_value(2));
   
-  // BTN_TGL_REL = 3;                                                   
-  mrb_define_const(mrb, module, "BTN_TGL_REL", mrb_fixnum_value(3));
+  // CENTER = 4;                                                   
+  mrb_define_const(mrb, module, "CENTER", mrb_fixnum_value(4));
   
-  // BTN_TGL_PR = 4;                                                   
-  mrb_define_const(mrb, module, "BTN_TGL_PR", mrb_fixnum_value(4));
-  
-  // BTN_INA = 5;                                                   
-  mrb_define_const(mrb, module, "BTN_INA", mrb_fixnum_value(5));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_KB_MODE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_kb_mode(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_KB_MODE");
-
-  // TEXT = 0;                                                   
-  mrb_define_const(mrb, module, "TEXT", mrb_fixnum_value(0));
-  
-  // NUM = 1;                                                   
-  mrb_define_const(mrb, module, "NUM", mrb_fixnum_value(1));
-  
-  // TEXT_UPPER = 2;                                                   
-  mrb_define_const(mrb, module, "TEXT_UPPER", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_KB_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_kb_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_KB_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // BTN_REL = 1;                                                   
-  mrb_define_const(mrb, module, "BTN_REL", mrb_fixnum_value(1));
-  
-  // BTN_PR = 2;                                                   
-  mrb_define_const(mrb, module, "BTN_PR", mrb_fixnum_value(2));
-  
-  // BTN_TGL_REL = 3;                                                   
-  mrb_define_const(mrb, module, "BTN_TGL_REL", mrb_fixnum_value(3));
-  
-  // BTN_TGL_PR = 4;                                                   
-  mrb_define_const(mrb, module, "BTN_TGL_PR", mrb_fixnum_value(4));
-  
-  // BTN_INA = 5;                                                   
-  mrb_define_const(mrb, module, "BTN_INA", mrb_fixnum_value(5));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_CANVAS_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_canvas_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CANVAS_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_CPICKER_TYPE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_cpicker_type(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CPICKER_TYPE");
-
-  // RECT = 0;                                                   
-  mrb_define_const(mrb, module, "RECT", mrb_fixnum_value(0));
-  
-  // DISC = 1;                                                   
-  mrb_define_const(mrb, module, "DISC", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_CPICKER_COLOR_MODE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_cpicker_color_mode(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CPICKER_COLOR_MODE");
-
-  // HUE = 0;                                                   
-  mrb_define_const(mrb, module, "HUE", mrb_fixnum_value(0));
-  
-  // SATURATION = 1;                                                   
-  mrb_define_const(mrb, module, "SATURATION", mrb_fixnum_value(1));
-  
-  // VALUE = 2;                                                   
-  mrb_define_const(mrb, module, "VALUE", mrb_fixnum_value(2));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_CPICKER_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_cpicker_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_CPICKER_STYLE");
-
-  // MAIN = 0;                                                   
-  mrb_define_const(mrb, module, "MAIN", mrb_fixnum_value(0));
-  
-  // INDICATOR = 1;                                                   
-  mrb_define_const(mrb, module, "INDICATOR", mrb_fixnum_value(1));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_TABLE_STYLE;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_table_style(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_TABLE_STYLE");
-
-  // BG = 0;                                                   
-  mrb_define_const(mrb, module, "BG", mrb_fixnum_value(0));
-  
-  // CELL1 = 1;                                                   
-  mrb_define_const(mrb, module, "CELL1", mrb_fixnum_value(1));
-  
-  // CELL2 = 2;                                                   
-  mrb_define_const(mrb, module, "CELL2", mrb_fixnum_value(2));
-  
-  // CELL3 = 3;                                                   
-  mrb_define_const(mrb, module, "CELL3", mrb_fixnum_value(3));
-  
-  // CELL4 = 4;                                                   
-  mrb_define_const(mrb, module, "CELL4", mrb_fixnum_value(4));
-}
-
-//
-////////
-////////
-// Bindings for: `enum LV_FONT_FMT_TXT_CMAP;`
-
-void
-mrb_mruby_lvgui_native_enum_lv_font_fmt_txt_cmap(mrb_state *mrb, struct RClass * parent_module)
-{
-  struct RClass * module = mrb_define_module_under(mrb, parent_module, "LV_FONT_FMT_TXT_CMAP");
-
-  // FORMAT0_TINY = 0;                                                   
-  mrb_define_const(mrb, module, "FORMAT0_TINY", mrb_fixnum_value(0));
-  
-  // FORMAT0_FULL = 1;                                                   
-  mrb_define_const(mrb, module, "FORMAT0_FULL", mrb_fixnum_value(1));
-  
-  // SPARSE_TINY = 2;                                                   
-  mrb_define_const(mrb, module, "SPARSE_TINY", mrb_fixnum_value(2));
-  
-  // SPARSE_FULL = 3;                                                   
-  mrb_define_const(mrb, module, "SPARSE_FULL", mrb_fixnum_value(3));
+  // RIGHT = 8;                                                   
+  mrb_define_const(mrb, module, "RIGHT", mrb_fixnum_value(8));
 }
 
 //
@@ -11435,23 +11435,19 @@ mrb_mruby_lvgui_native_lv_task_create(mrb_state *mrb, mrb_value self)
   lv_task_cb_t param_task_xcb;
   
   // Parameter handling for native parameter `uint32_t period`
-  mrb_int param_period_int;
   uint32_t param_period;
   
   // Parameter handling for native parameter `lv_task_prio_t prio`
-  mrb_int param_prio_int;
   lv_task_prio_t param_prio;
   
   mrb_get_args(
     mrb,
     "oiio",
     &param_task_xcb_instance,
-    &param_period_int,
-    &param_prio_int,
+    &param_period,
+    &param_prio,
     &task_proc
   );
-  param_period = (uint32_t)param_period_int;
-  param_prio = (lv_task_prio_t)param_prio_int;
   
   param_task_xcb = mrb_mruby_lvgui_native_unwrap_pointer(
     mrb,
@@ -12056,173 +12052,20 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
     MRB_ARGS_REQ(0)
   );
 
-  // ```enum LV_STR_SYMBOL;```
-  mrb_mruby_lvgui_native_enum_lv_str_symbol(mrb, mLVGUI__Native);
-
-  // ```enum LV_FONT_SUBPX;```
-  mrb_mruby_lvgui_native_enum_lv_font_subpx(mrb, mLVGUI__Native);
-
-  // ```enum LV_OPA;```
-  mrb_mruby_lvgui_native_enum_lv_opa(mrb, mLVGUI__Native);
+  // ```enum LV_ALIGN;```
+  mrb_mruby_lvgui_native_enum_lv_align(mrb, mLVGUI__Native);
 
   // ```enum LV_ANIM;```
   mrb_mruby_lvgui_native_enum_lv_anim(mrb, mLVGUI__Native);
 
-  // ```enum LV_BORDER;```
-  mrb_mruby_lvgui_native_enum_lv_border(mrb, mLVGUI__Native);
-
-  // ```enum LV_SHADOW;```
-  mrb_mruby_lvgui_native_enum_lv_shadow(mrb, mLVGUI__Native);
-
-  // ```enum LV_RES;```
-  mrb_mruby_lvgui_native_enum_lv_res(mrb, mLVGUI__Native);
-
-  // ```enum LV_TASK_PRIO;```
-  mrb_mruby_lvgui_native_enum_lv_task_prio(mrb, mLVGUI__Native);
-
-  // ```enum LV_INDEV_TYPE;```
-  mrb_mruby_lvgui_native_enum_lv_indev_type(mrb, mLVGUI__Native);
-
-  // ```enum LV_INDEV_STATE;```
-  mrb_mruby_lvgui_native_enum_lv_indev_state(mrb, mLVGUI__Native);
-
-  // ```enum LV_DESIGN;```
-  mrb_mruby_lvgui_native_enum_lv_design(mrb, mLVGUI__Native);
-
-  // ```enum LV_EVENT;```
-  mrb_mruby_lvgui_native_enum_lv_event(mrb, mLVGUI__Native);
-
-  // ```enum LV_SIGNAL;```
-  mrb_mruby_lvgui_native_enum_lv_signal(mrb, mLVGUI__Native);
-
-  // ```enum LV_ALIGN;```
-  mrb_mruby_lvgui_native_enum_lv_align(mrb, mLVGUI__Native);
-
-  // ```enum LV_DRAG_DIR;```
-  mrb_mruby_lvgui_native_enum_lv_drag_dir(mrb, mLVGUI__Native);
-
-  // ```enum LV_PROTECT;```
-  mrb_mruby_lvgui_native_enum_lv_protect(mrb, mLVGUI__Native);
-
-  // ```enum LV_LAYOUT;```
-  mrb_mruby_lvgui_native_enum_lv_layout(mrb, mLVGUI__Native);
-
-  // ```enum LV_FIT;```
-  mrb_mruby_lvgui_native_enum_lv_fit(mrb, mLVGUI__Native);
-
-  // ```enum LV_CONT_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_cont_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_KEY;```
-  mrb_mruby_lvgui_native_enum_lv_key(mrb, mLVGUI__Native);
-
-  // ```enum LV_GROUP_REFOCUS_POLICY;```
-  mrb_mruby_lvgui_native_enum_lv_group_refocus_policy(mrb, mLVGUI__Native);
-
-  // ```enum LV_SB_MODE;```
-  mrb_mruby_lvgui_native_enum_lv_sb_mode(mrb, mLVGUI__Native);
-
-  // ```enum LV_PAGE_EDGE;```
-  mrb_mruby_lvgui_native_enum_lv_page_edge(mrb, mLVGUI__Native);
-
-  // ```enum LV_PAGE_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_page_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_TXT_FLAG;```
-  mrb_mruby_lvgui_native_enum_lv_txt_flag(mrb, mLVGUI__Native);
-
-  // ```enum LV_TXT_CMD_STATE;```
-  mrb_mruby_lvgui_native_enum_lv_txt_cmd_state(mrb, mLVGUI__Native);
-
-  // ```enum LV_FS_RES;```
-  mrb_mruby_lvgui_native_enum_lv_fs_res(mrb, mLVGUI__Native);
-
-  // ```enum LV_FS_MODE;```
-  mrb_mruby_lvgui_native_enum_lv_fs_mode(mrb, mLVGUI__Native);
-
-  // ```enum LV_IMG_SRC;```
-  mrb_mruby_lvgui_native_enum_lv_img_src(mrb, mLVGUI__Native);
-
-  // ```enum LV_IMG_CF;```
-  mrb_mruby_lvgui_native_enum_lv_img_cf(mrb, mLVGUI__Native);
-
-  // ```enum LV_LABEL_LONG;```
-  mrb_mruby_lvgui_native_enum_lv_label_long(mrb, mLVGUI__Native);
-
-  // ```enum LV_LABEL_ALIGN;```
-  mrb_mruby_lvgui_native_enum_lv_label_align(mrb, mLVGUI__Native);
-
-  // ```enum LV_LABEL_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_label_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_CURSOR;```
-  mrb_mruby_lvgui_native_enum_lv_cursor(mrb, mLVGUI__Native);
-
-  // ```enum LV_TA_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_ta_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_SPINBOX_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_spinbox_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_BTN_STATE;```
-  mrb_mruby_lvgui_native_enum_lv_btn_state(mrb, mLVGUI__Native);
-
-  // ```enum LV_BTN_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_btn_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_IMGBTN_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_imgbtn_style(mrb, mLVGUI__Native);
+  // ```enum LV_ARC_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_arc_style(mrb, mLVGUI__Native);
 
   // ```enum LV_BAR_STYLE;```
   mrb_mruby_lvgui_native_enum_lv_bar_style(mrb, mLVGUI__Native);
 
-  // ```enum LV_SLIDER_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_slider_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_SW_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_sw_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_CB_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_cb_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_DDLIST_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_ddlist_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_ROLLER_MODE;```
-  mrb_mruby_lvgui_native_enum_lv_roller_mode(mrb, mLVGUI__Native);
-
-  // ```enum LV_ROLLER_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_roller_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_ARC_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_arc_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_PRELOAD_TYPE;```
-  mrb_mruby_lvgui_native_enum_lv_preload_type(mrb, mLVGUI__Native);
-
-  // ```enum LV_PRELOAD_DIR;```
-  mrb_mruby_lvgui_native_enum_lv_preload_dir(mrb, mLVGUI__Native);
-
-  // ```enum LV_PRELOAD_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_preload_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_CALENDAR_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_calendar_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_LMETER_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_lmeter_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_LINE_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_line_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_GAUGE_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_gauge_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_IMG_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_img_style(mrb, mLVGUI__Native);
-
-  // ```enum LV_TILEVIEW_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_tileview_style(mrb, mLVGUI__Native);
+  // ```enum LV_BORDER;```
+  mrb_mruby_lvgui_native_enum_lv_border(mrb, mLVGUI__Native);
 
   // ```enum LV_BTNM_CTRL;```
   mrb_mruby_lvgui_native_enum_lv_btnm_ctrl(mrb, mLVGUI__Native);
@@ -12230,17 +12073,23 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
   // ```enum LV_BTNM_STYLE;```
   mrb_mruby_lvgui_native_enum_lv_btnm_style(mrb, mLVGUI__Native);
 
-  // ```enum LV_KB_MODE;```
-  mrb_mruby_lvgui_native_enum_lv_kb_mode(mrb, mLVGUI__Native);
+  // ```enum LV_BTN_STATE;```
+  mrb_mruby_lvgui_native_enum_lv_btn_state(mrb, mLVGUI__Native);
 
-  // ```enum LV_KB_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_kb_style(mrb, mLVGUI__Native);
+  // ```enum LV_BTN_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_btn_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_CALENDAR_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_calendar_style(mrb, mLVGUI__Native);
 
   // ```enum LV_CANVAS_STYLE;```
   mrb_mruby_lvgui_native_enum_lv_canvas_style(mrb, mLVGUI__Native);
 
-  // ```enum LV_CPICKER_TYPE;```
-  mrb_mruby_lvgui_native_enum_lv_cpicker_type(mrb, mLVGUI__Native);
+  // ```enum LV_CB_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_cb_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_CONT_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_cont_style(mrb, mLVGUI__Native);
 
   // ```enum LV_CPICKER_COLOR_MODE;```
   mrb_mruby_lvgui_native_enum_lv_cpicker_color_mode(mrb, mLVGUI__Native);
@@ -12248,11 +12097,158 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
   // ```enum LV_CPICKER_STYLE;```
   mrb_mruby_lvgui_native_enum_lv_cpicker_style(mrb, mLVGUI__Native);
 
-  // ```enum LV_TABLE_STYLE;```
-  mrb_mruby_lvgui_native_enum_lv_table_style(mrb, mLVGUI__Native);
+  // ```enum LV_CPICKER_TYPE;```
+  mrb_mruby_lvgui_native_enum_lv_cpicker_type(mrb, mLVGUI__Native);
+
+  // ```enum LV_CURSOR;```
+  mrb_mruby_lvgui_native_enum_lv_cursor(mrb, mLVGUI__Native);
+
+  // ```enum LV_DDLIST_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_ddlist_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_DESIGN;```
+  mrb_mruby_lvgui_native_enum_lv_design(mrb, mLVGUI__Native);
+
+  // ```enum LV_DRAG_DIR;```
+  mrb_mruby_lvgui_native_enum_lv_drag_dir(mrb, mLVGUI__Native);
+
+  // ```enum LV_EVENT;```
+  mrb_mruby_lvgui_native_enum_lv_event(mrb, mLVGUI__Native);
+
+  // ```enum LV_FIT;```
+  mrb_mruby_lvgui_native_enum_lv_fit(mrb, mLVGUI__Native);
 
   // ```enum LV_FONT_FMT_TXT_CMAP;```
   mrb_mruby_lvgui_native_enum_lv_font_fmt_txt_cmap(mrb, mLVGUI__Native);
+
+  // ```enum LV_FONT_SUBPX;```
+  mrb_mruby_lvgui_native_enum_lv_font_subpx(mrb, mLVGUI__Native);
+
+  // ```enum LV_FS_MODE;```
+  mrb_mruby_lvgui_native_enum_lv_fs_mode(mrb, mLVGUI__Native);
+
+  // ```enum LV_FS_RES;```
+  mrb_mruby_lvgui_native_enum_lv_fs_res(mrb, mLVGUI__Native);
+
+  // ```enum LV_GAUGE_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_gauge_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_GROUP_REFOCUS_POLICY;```
+  mrb_mruby_lvgui_native_enum_lv_group_refocus_policy(mrb, mLVGUI__Native);
+
+  // ```enum LV_IMGBTN_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_imgbtn_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_IMG_CF;```
+  mrb_mruby_lvgui_native_enum_lv_img_cf(mrb, mLVGUI__Native);
+
+  // ```enum LV_IMG_SRC;```
+  mrb_mruby_lvgui_native_enum_lv_img_src(mrb, mLVGUI__Native);
+
+  // ```enum LV_IMG_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_img_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_INDEV_STATE;```
+  mrb_mruby_lvgui_native_enum_lv_indev_state(mrb, mLVGUI__Native);
+
+  // ```enum LV_INDEV_TYPE;```
+  mrb_mruby_lvgui_native_enum_lv_indev_type(mrb, mLVGUI__Native);
+
+  // ```enum LV_KB_MODE;```
+  mrb_mruby_lvgui_native_enum_lv_kb_mode(mrb, mLVGUI__Native);
+
+  // ```enum LV_KB_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_kb_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_KEY;```
+  mrb_mruby_lvgui_native_enum_lv_key(mrb, mLVGUI__Native);
+
+  // ```enum LV_LABEL_ALIGN;```
+  mrb_mruby_lvgui_native_enum_lv_label_align(mrb, mLVGUI__Native);
+
+  // ```enum LV_LABEL_LONG;```
+  mrb_mruby_lvgui_native_enum_lv_label_long(mrb, mLVGUI__Native);
+
+  // ```enum LV_LABEL_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_label_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_LAYOUT;```
+  mrb_mruby_lvgui_native_enum_lv_layout(mrb, mLVGUI__Native);
+
+  // ```enum LV_LINE_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_line_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_LMETER_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_lmeter_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_OPA;```
+  mrb_mruby_lvgui_native_enum_lv_opa(mrb, mLVGUI__Native);
+
+  // ```enum LV_PAGE_EDGE;```
+  mrb_mruby_lvgui_native_enum_lv_page_edge(mrb, mLVGUI__Native);
+
+  // ```enum LV_PAGE_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_page_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_PRELOAD_DIR;```
+  mrb_mruby_lvgui_native_enum_lv_preload_dir(mrb, mLVGUI__Native);
+
+  // ```enum LV_PRELOAD_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_preload_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_PRELOAD_TYPE;```
+  mrb_mruby_lvgui_native_enum_lv_preload_type(mrb, mLVGUI__Native);
+
+  // ```enum LV_PROTECT;```
+  mrb_mruby_lvgui_native_enum_lv_protect(mrb, mLVGUI__Native);
+
+  // ```enum LV_RES;```
+  mrb_mruby_lvgui_native_enum_lv_res(mrb, mLVGUI__Native);
+
+  // ```enum LV_ROLLER_MODE;```
+  mrb_mruby_lvgui_native_enum_lv_roller_mode(mrb, mLVGUI__Native);
+
+  // ```enum LV_ROLLER_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_roller_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_SB_MODE;```
+  mrb_mruby_lvgui_native_enum_lv_sb_mode(mrb, mLVGUI__Native);
+
+  // ```enum LV_SHADOW;```
+  mrb_mruby_lvgui_native_enum_lv_shadow(mrb, mLVGUI__Native);
+
+  // ```enum LV_SIGNAL;```
+  mrb_mruby_lvgui_native_enum_lv_signal(mrb, mLVGUI__Native);
+
+  // ```enum LV_SLIDER_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_slider_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_SPINBOX_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_spinbox_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_STR_SYMBOL;```
+  mrb_mruby_lvgui_native_enum_lv_str_symbol(mrb, mLVGUI__Native);
+
+  // ```enum LV_SW_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_sw_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_TABLE_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_table_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_TASK_PRIO;```
+  mrb_mruby_lvgui_native_enum_lv_task_prio(mrb, mLVGUI__Native);
+
+  // ```enum LV_TA_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_ta_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_TILEVIEW_STYLE;```
+  mrb_mruby_lvgui_native_enum_lv_tileview_style(mrb, mLVGUI__Native);
+
+  // ```enum LV_TXT_CMD_STATE;```
+  mrb_mruby_lvgui_native_enum_lv_txt_cmd_state(mrb, mLVGUI__Native);
+
+  // ```enum LV_TXT_FLAG;```
+  mrb_mruby_lvgui_native_enum_lv_txt_flag(mrb, mLVGUI__Native);
 
   // global `int monitor_width`
   mrb_define_module_function(
