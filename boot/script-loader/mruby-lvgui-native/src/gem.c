@@ -4856,7 +4856,7 @@ mrb_mruby_lvgui_native_lvgui_set_lv_style__line_rounded(mrb_state *mrb, mrb_valu
 ////////
 
 ////////
-// Bindings for: `void hal_init(const char* unnamed_parameter_0)`
+// Bindings for: `void hal_init(const char * unnamed_parameter_0)`
 
 static mrb_value
 mrb_mruby_lvgui_native_hal_init(mrb_state *mrb, mrb_value self)
@@ -4867,8 +4867,8 @@ mrb_mruby_lvgui_native_hal_init(mrb_state *mrb, mrb_value self)
     // Parameters handling
     //
     
-    // Parameter handling for native parameter `const char* unnamed_parameter_0`
-    const char* param_unnamed_parameter_0;
+    // Parameter handling for native parameter `const char * unnamed_parameter_0`
+    const char * param_unnamed_parameter_0;
     
     mrb_get_args(
       mrb,
@@ -11252,7 +11252,7 @@ mrb_mruby_lvgui_native_lv_group_get_focused(mrb_state *mrb, mrb_value self)
 ////////
 
 ////////
-// Bindings for: `lv_font_t * lvgui_get_font(char* unnamed_parameter_0, uint16_t unnamed_parameter_1)`
+// Bindings for: `lv_font_t * lvgui_get_font(char * unnamed_parameter_0, uint16_t unnamed_parameter_1)`
 
 static mrb_value
 mrb_mruby_lvgui_native_lvgui_get_font(mrb_state *mrb, mrb_value self)
@@ -11263,8 +11263,8 @@ mrb_mruby_lvgui_native_lvgui_get_font(mrb_state *mrb, mrb_value self)
     // Parameters handling
     //
     
-    // Parameter handling for native parameter `char* unnamed_parameter_0`
-    char* param_unnamed_parameter_0;
+    // Parameter handling for native parameter `char * unnamed_parameter_0`
+    char * param_unnamed_parameter_0;
     // Parameter handling for native parameter `uint16_t unnamed_parameter_1`
     mrb_int param_unnamed_parameter_1_int;
     uint16_t param_unnamed_parameter_1;
@@ -13610,7 +13610,7 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
     mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lvgui_set_lv_style__line_rounded)
   );
 
-  // ```void hal_init(const char* unnamed_parameter_0);```
+  // ```void hal_init(const char * unnamed_parameter_0);```
   mrb_define_module_function(
     mrb,
     mLVGUI__Native,
@@ -14360,22 +14360,6 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
     mLVGUI__Native__References,
     mrb_symbol_value(mrb_intern_lit(mrb, "lv_obj_is_children")),
     mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_obj_is_children)
-  );
-
-  // ```lv_obj_t * lv_obj_get_child_back(const lv_obj_t * unnamed_parameter_0, const lv_obj_t * unnamed_parameter_1);```
-  mrb_define_module_function(
-    mrb,
-    mLVGUI__Native,
-    "lv_obj_get_child_back",
-    mrb_mruby_lvgui_native_lv_obj_get_child_back,
-    MRB_ARGS_REQ(2)
-  );
-  
-  mrb_hash_set(
-    mrb,
-    mLVGUI__Native__References,
-    mrb_symbol_value(mrb_intern_lit(mrb, "lv_obj_get_child_back")),
-    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_obj_get_child_back)
   );
 
   // ```lv_obj_t * lv_btn_create(lv_obj_t * unnamed_parameter_0, const lv_obj_t * unnamed_parameter_1);```
@@ -16362,7 +16346,7 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
     mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_group_get_focused)
   );
 
-  // ```lv_font_t * lvgui_get_font(char* unnamed_parameter_0, uint16_t unnamed_parameter_1);```
+  // ```lv_font_t * lvgui_get_font(char * unnamed_parameter_0, uint16_t unnamed_parameter_1);```
   mrb_define_module_function(
     mrb,
     mLVGUI__Native,
@@ -16376,6 +16360,22 @@ mrb_mruby_lvgui_native_gem_init(mrb_state* mrb)
     mLVGUI__Native__References,
     mrb_symbol_value(mrb_intern_lit(mrb, "lvgui_get_font")),
     mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lvgui_get_font)
+  );
+
+  // ```lv_obj_t * lv_obj_get_child_back(const lv_obj_t * unnamed_parameter_0, const lv_obj_t * unnamed_parameter_1);```
+  mrb_define_module_function(
+    mrb,
+    mLVGUI__Native,
+    "lv_obj_get_child_back",
+    mrb_mruby_lvgui_native_lv_obj_get_child_back,
+    MRB_ARGS_REQ(2)
+  );
+  
+  mrb_hash_set(
+    mrb,
+    mLVGUI__Native__References,
+    mrb_symbol_value(mrb_intern_lit(mrb, "lv_obj_get_child_back")),
+    mrb_mruby_lvgui_native_wrap_pointer(mrb, (void *) lv_obj_get_child_back)
   );
 
   // ```void lv_obj_set_user_data(lv_obj_t * unnamed_parameter_0, lv_obj_user_data_t unnamed_parameter_1);```
