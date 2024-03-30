@@ -83,6 +83,36 @@ class UI
     x = File.read("/sys/firmware/acpi/bgrt/xoffset").to_i
     y = File.read("/sys/firmware/acpi/bgrt/yoffset").to_i
 
+    # Rotate and display according to panel native orientation.
+    case LVGUI.get_panel_orientation()
+    when LVGUI::PanelOrientation::RIGHT_UP
+      # Rotate coords
+      tmp = x
+      x = y
+      y = tmp
+      previous = bgrt
+      bgrt = add_canvas(parent, height, width)
+      bgrt.rotate(previous.get_img(), 270, 0, 0, 0, 0)
+      previous.del()
+    when LVGUI::PanelOrientation::LEFT_UP
+      # Rotate coords
+      tmp = x
+      x = @screen.get_width() - y
+      y = @screen.get_height() - tmp
+      previous = bgrt
+      bgrt = add_canvas(parent, height, width)
+      bgrt.rotate(previous.get_img(), 90, 0, 0, 0, 0)
+      previous.del()
+    when LVGUI::PanelOrientation::BOTTOM_UP
+      # Rotate coords
+      x = @screen.get_width() - x
+      y = @screen.get_height() - y
+      previous = bgrt
+      bgrt = add_canvas(parent, width, height)
+      bgrt.rotate(previous.get_img(), 180, 0, 0, 0, 0)
+      previous.del()
+    end
+
     bgrt.set_pos(x, y)
     
     bgrt
