@@ -56,17 +56,33 @@ class UI
     add_cover_bgrt
   end
 
+  def add_canvas(parent, width, height)
+    canvas = LVGL::LVCanvas.new(parent)
+    buf = LVGL::LVCanvas.allocate_buffer(width, height, LVGL::IMG_CF::TRUE_COLOR)
+    canvas.set_buffer(buf, width, height, LVGL::IMG_CF::TRUE_COLOR)
+    canvas
+  end
+
   def add_bgrt(parent)
     # Work around the extension sniffing from the image decoders...
     File.symlink(BGRT_PATH, "/bgrt.bmp") unless File.exist?("/bgrt.bmp")
     file = "/bgrt.bmp"
 
-    bgrt = LVGL::LVImage.new(parent)
-    bgrt.set_src(file)
+    # Temporarily makes an image to get its width/height...
+    image = LVGL::LVImage.new(parent)
+    image.set_src("/bgrt.bmp")
+    width = image.get_width()
+    height = image.get_height()
+    image.del()
 
-    # Position the logo
+    # Makes the BGRT a canvas...
+    # It will make sense later...
+    bgrt = add_canvas(parent, width, height)
+    bgrt.draw_img(0, 0, "/bgrt.bmp", LVGL::LVStyle::STYLE_PLAIN)
+
     x = File.read("/sys/firmware/acpi/bgrt/xoffset").to_i
     y = File.read("/sys/firmware/acpi/bgrt/yoffset").to_i
+
     bgrt.set_pos(x, y)
     
     bgrt
