@@ -53,6 +53,8 @@ module LVGL
         else
           if arg.respond_to? :lv_obj_pointer
             arg.lv_obj_pointer
+          elsif arg.respond_to? :lv_style_pointer
+            arg.lv_style_pointer
           else
             arg
           end
@@ -143,7 +145,7 @@ module LVGL
     def set_style(style)
       # Prevents the object from being collected
       @style = style
-      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style.lv_style_pointer)
+      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style)
     end
 
     def glue_obj(value)
@@ -251,7 +253,7 @@ module LVGL
     def set_style(type, style)
       # Prevents the object from being collected
       @style = style
-      LVGL.ffi_call!(self.class, :set_style, @self_pointer, type, style.lv_style_pointer)
+      LVGL.ffi_call!(self.class, :set_style, @self_pointer, type, style)
     end
 
     def get_style(style_type)
@@ -282,7 +284,7 @@ module LVGL
       # Prevents the object from being collected
       @_style ||= {}
       @_style[style_type] = style
-      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style_type, style.lv_style_pointer)
+      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style_type, style)
     end
   end
 
@@ -314,7 +316,7 @@ module LVGL
       # Prevents the object from being collected
       @_style ||= {}
       @_style[style_type] = style
-      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style_type, style.lv_style_pointer)
+      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style_type, style)
     end
   end
 
@@ -330,7 +332,7 @@ module LVGL
       # Prevents the object from being collected
       @_style ||= {}
       @_style[style_type] = style
-      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style_type, style.lv_style_pointer)
+      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style_type, style)
     end
   end
 
@@ -346,7 +348,7 @@ module LVGL
       # Prevents the object from being collected
       @_style ||= {}
       @_style[style_type] = style
-      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style_type, style.lv_style_pointer)
+      LVGL.ffi_call!(self.class, :set_style, @self_pointer, style_type, style)
     end
   end
 
