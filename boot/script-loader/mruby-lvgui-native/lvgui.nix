@@ -35,8 +35,8 @@ let
     python3 = null;
   })).overrideAttrs(old: {
     buildInputs = with pkgs; [
-      libevdev     
-      mtdev        
+      libevdev
+      mtdev
     ];
     nativeBuildInputs = old.nativeBuildInputs ++ [
       pkgs.buildPackages.udev
