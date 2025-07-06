@@ -60,8 +60,12 @@ in
   config = {
     assertions = [
       {
-        assertion = pkgs.stdenv.targetPlatform.system == cfg.system;
-        message = "pkgs.stdenv.targetPlatform.system expected to be ${e cfg.system}, is ${e pkgs.stdenv.targetPlatform.system}";
+        assertion = cfg.system == pkgs.stdenv.targetPlatform.system;
+        message = ''
+          pkgs.stdenv.targetPlatform.system expected to be ${e cfg.system}, is ${e pkgs.stdenv.targetPlatform.system}
+              nixpkgs.buildPlatform → ${e config.nixpkgs.buildPlatform.system}
+              nixpkgs.hostPlatform → ${e config.nixpkgs.hostPlatform.system}
+        '';
       }
     ];
 
