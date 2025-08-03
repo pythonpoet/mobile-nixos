@@ -25,8 +25,8 @@ in
     src = fetchFromGitHub {
       repo = "lvgui";
       owner = "mobile-nixos";
-      rev = "3c8db713ab89707dc490929e94f20c143ed5b7fc";
-      hash = "sha256-0j2cRLfcGPUwPmSO2EQQDN4K9TnRypu+SM6Yy02yjdw=";
+      rev = "f8676580127a70dc9e47b28ae31ac3762a3c1189";
+      hash = "sha256-nxNn/WEUXO2BGPoVx8kg4EG2tHZNuhQlO3odGR5ckhw=";
     };
 
     # Document `LVGL_ENV_SIMULATOR` in the built headers.
