@@ -63,6 +63,9 @@ class UI
     add_label()
     add_recovery()
     add_textarea()
+    # Once all those are added, we'll know where the bottom of them all is.
+    # Recompute the layout so it doesn't go off-page.
+    relayout_page()
 
     add_cover()
     add_cover_bgrt()
@@ -340,6 +343,25 @@ class UI
 
     LVGUI.focus_group.add_obj(@ta)
     LVGUI.focus_ring_disable()
+  end
+
+  def relayout_page()
+    page_bottom = @page.get_y() + @page.get_height()
+
+    # We know the widget that's the furthest down is the textarea. Let's use it for the metrics.
+    ta_bottom = @ta.get_y() + @ta.get_height()
+    # Add some space, so it's not tight against the bottom of the page.
+    ta_bottom = ta_bottom + (@spacing / 2)
+
+    # Is this going past the page's boundaries?
+    if ta_bottom > page_bottom
+      offset = page_bottom - ta_bottom
+      @page.get_children().each do |child|
+        unless child == @logo
+          child.set_y(child.get_y() + offset)
+        end
+      end
+    end
   end
 
   def add_keyboard()
