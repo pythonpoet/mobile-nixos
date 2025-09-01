@@ -40,8 +40,8 @@ class UI
   def initialize()
     @vertical_offset = 0
 
-    add_screen
-    add_page
+    # The screen holds "everything".
+    add_screen()
 
     # Define a base unit from the size of the root widget.
     # Biggest of horizontal or vertical; one percent of its size.
@@ -49,16 +49,23 @@ class UI
     # Common spacing between widgets
     @spacing = 5 * @unit
 
-    add_logo
-    add_progress_bar
-    add_label
-    add_recovery
+    # The page holds the UI except for the keyboard.
+    # This can be used to move the display up, when showing the keyboard.
+    add_page()
+    # Then the keyboard.
+    add_keyboard()
 
-    add_textarea
-    add_keyboard
+    # We then build the page.
+    # Add the splash logo first,
+    add_logo()
+    # Then the different UI widgets
+    add_progress_bar()
+    add_label()
+    add_recovery()
+    add_textarea()
 
-    add_cover
-    add_cover_bgrt
+    add_cover()
+    add_cover_bgrt()
   end
 
   def add_canvas(parent, width, height)
