@@ -394,8 +394,18 @@ class UI
     @keyboard.set_ta(@ta)
     @keyboard.show()
 
-    bottom_space = @screen.get_height() - (@ta.get_y() + @ta.get_height())
-    delta = bottom_space - @keyboard.get_height() - 3*@unit
+    bottom_space = [
+      # Starting from the bottom of the screen
+      @screen.get_height(),
+      # Check where the textarea is
+      @ta.get_y() + @ta.get_height(),
+      # With a half-spacing
+      @spacing / 2,
+    ].inject(:-)
+
+    # See if they keyboard would cover it...
+    delta = bottom_space - @keyboard.get_height()
+    # And offset the page so to not cover it.
     offset_page(delta) if delta < 0
 
     @ta.on_submit = ->(value) do
