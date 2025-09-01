@@ -81,7 +81,6 @@ class UI
   def add_bgrt(parent)
     # Work around the extension sniffing from the image decoders...
     File.symlink(BGRT_PATH, "/bgrt.bmp") unless File.exist?("/bgrt.bmp")
-    file = "/bgrt.bmp"
 
     # Temporarily makes an image to get its width/height...
     image = LVGL::LVImage.new(parent)
