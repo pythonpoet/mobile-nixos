@@ -42,8 +42,13 @@ class UI
 
     add_screen
     add_page
-    # Biggest of horizontal or vertical; a percent.
+
+    # Define a base unit from the size of the root widget.
+    # Biggest of horizontal or vertical; one percent of its size.
     @unit = ([@screen.get_width, @screen.get_height].max * 0.01).ceil
+    # Common spacing between widgets
+    @spacing = 5 * @unit
+
     add_logo
     add_progress_bar
     add_label
@@ -170,7 +175,7 @@ class UI
     @label.set_align(LVGL::LABEL_ALIGN::CENTER)
 
     @label.set_width(@page.get_width * 0.9)
-    @label.set_pos(*center(@label, 0, 5*@unit))
+    @label.set_pos(*center(@label, 0, @spacing))
     @label.set_text("")
   end
 
@@ -200,7 +205,7 @@ class UI
     midpoint = @screen.get_height/2
     bottom_third = @screen.get_height() / 3.0 * 2
     logo_bottom = @logo.get_height() + @logo.get_y()
-    @vertical_offset = logo_bottom - midpoint + 5*@unit
+    @vertical_offset = logo_bottom - midpoint + @spacing
     @vertical_offset = 0 if @vertical_offset < 0
 
     # Some vendors ship a full-screen BGRT.
@@ -210,7 +215,7 @@ class UI
     # This assumption should hold since this is the assumptions for Windows.
     if (@vertical_offset + midpoint) > bottom_third
       # Force the UI area to be at the last third at the bottom.
-      @vertical_offset = bottom_third - midpoint + 5*@unit
+      @vertical_offset = bottom_third - midpoint + @spacing
     end
   end
 
