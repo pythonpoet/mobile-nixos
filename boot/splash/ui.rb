@@ -379,7 +379,7 @@ class UI
   def offset_page(delta)
     LVGL::LVAnim.new().tap do |anim|
       anim.set_exec_cb(@page, :lv_obj_set_y)
-      anim.set_time(300, 0)
+      anim.set_time(@keyboard.animation_duration, 0)
       anim.set_values(@page.get_y(), delta)
       anim.set_path_cb(LVGL::LVAnim::Path::EASE_OUT)
 
