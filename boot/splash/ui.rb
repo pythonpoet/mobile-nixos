@@ -306,6 +306,7 @@ class UI
       style.body_grad_color = BG_COLOR
       # Some themes will add a border to LVObject.
       style.body_border_width = 0
+      style.body_radius = 0
     end
   end
 
