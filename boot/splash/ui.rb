@@ -314,6 +314,7 @@ class UI
   def add_cover_bgrt()
     return unless has_bgrt?()
     @cover_bgrt = add_bgrt(@cover)
+    @cover_bgrt.set_click(false)
   end
 
   def add_textarea()
