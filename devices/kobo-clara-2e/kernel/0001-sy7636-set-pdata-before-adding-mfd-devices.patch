@@ -1,0 +1,35 @@
+From 2ff9b687712d2903586b57603384d1fbbabc074d Mon Sep 17 00:00:00 2001
+From: Brian McKenna <brian@brianmckenna.org>
+Date: Thu, 20 Oct 2022 14:46:35 +1100
+Subject: [PATCH] sy7636: set pdata before adding mfd devices
+
+SY7636 MFD driver was not setting the pdata before adding devices,
+it only set pdata afterwards. This meant the kernel would panic due to
+trying to dereference the NULL pdata when starting the SY7636
+regulator driver.
+---
+ drivers/mfd/sy7636-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mfd/sy7636-core.c b/drivers/mfd/sy7636-core.c
+index 19a35d7b927e..0601513d670e 100644
+--- a/drivers/mfd/sy7636-core.c
++++ b/drivers/mfd/sy7636-core.c
+@@ -504,12 +504,12 @@ static int sy7636_probe(struct i2c_client *client,
+ 	if (ret)
+ 		goto err1;
+ 
++	sy7636->pdata = pdata;
++
+ 	mfd_add_devices(sy7636->dev, -1, sy7636_devs,
+ 			ARRAY_SIZE(sy7636_devs),
+ 			NULL, 0, NULL);
+ 
+-	sy7636->pdata = pdata;
+-
+ 	dev_info(&client->dev, "PMIC SY7636 for eInk display\n");
+ 
+ 	printk("sy7636_probe success\n");
+-- 
+2.37.2
+

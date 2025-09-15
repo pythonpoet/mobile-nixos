@@ -1,0 +1,2266 @@
+From 5415d5f045dcc5f9f41abca18359b70d6eff5247 Mon Sep 17 00:00:00 2001
+From: Brian McKenna <brian@brianmckenna.org>
+Date: Mon, 24 Oct 2022 11:22:15 +1100
+Subject: [PATCH 2/2] WIP: Kobo Clara 2e
+
+---
+ arch/arm/boot/dts/Makefile                 |   1 +
+ arch/arm/boot/dts/e60k02.dtsi              |   4 +-
+ arch/arm/boot/dts/imx6sll-kobo-clara2e.dts | 664 ++++++++++++++++
+ drivers/hwmon/sy7636-hwmon.c               | 189 ++---
+ drivers/mfd/sy7636-core.c                  |   7 +
+ drivers/regulator/sy7636-regulator.c       |   8 +-
+ drivers/video/backlight/Kconfig            |   8 +
+ drivers/video/backlight/Makefile           |   1 +
+ drivers/video/backlight/aw99703_bl.c       | 866 +++++++++++++++++++++
+ include/linux/mfd/sy7636.h                 |   5 +-
+ include/linux/platform_data/aw99703_bl.h   | 249 ++++++
+ 11 files changed, 1872 insertions(+), 130 deletions(-)
+ create mode 100644 arch/arm/boot/dts/imx6sll-kobo-clara2e.dts
+ create mode 100644 drivers/video/backlight/aw99703_bl.c
+ create mode 100644 include/linux/platform_data/aw99703_bl.h
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 27eec8e670ec..11b06a4f18a5 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -677,6 +677,7 @@ dtb-$(CONFIG_SOC_IMX6SL) += \
+ 	imx6sl-warp.dtb
+ dtb-$(CONFIG_SOC_IMX6SLL) += \
+ 	imx6sll-evk.dtb \
++	imx6sll-kobo-clara2e.dtb \
+ 	imx6sll-kobo-clarahd.dtb \
+ 	imx6sll-kobo-librah2o.dtb
+ dtb-$(CONFIG_SOC_IMX6SX) += \
+diff --git a/arch/arm/boot/dts/e60k02.dtsi b/arch/arm/boot/dts/e60k02.dtsi
+index f0c7cb2c48c4..d1f43b343c42 100644
+--- a/arch/arm/boot/dts/e60k02.dtsi
++++ b/arch/arm/boot/dts/e60k02.dtsi
+@@ -33,7 +33,7 @@ power {
+ 			wakeup-source;
+ 		};
+ 
+-		cover {
++		cover: cover {
+ 			label = "Cover";
+ 			gpios = <&gpio5 12 GPIO_ACTIVE_LOW>;
+ 			linux,code = <SW_LID>;
+@@ -67,7 +67,7 @@ reg_wifi: regulator-wifi {
+ 	};
+ 
+ 	thermal-zones {
+-		epd-thermal {
++		epd_thermal: epd-thermal {
+ 			polling-delay = <10000>;
+ 			polling-delay-passive = <10000>;
+ 			thermal-sensors = <&tps6518x>;
+diff --git a/arch/arm/boot/dts/imx6sll-kobo-clara2e.dts b/arch/arm/boot/dts/imx6sll-kobo-clara2e.dts
+new file mode 100644
+index 000000000000..c2c604ba1f5b
+--- /dev/null
++++ b/arch/arm/boot/dts/imx6sll-kobo-clara2e.dts
+@@ -0,0 +1,664 @@
++// SPDX-License-Identifier: (GPL-2.0)
++/*
++ * Device tree for the Kobo Clara 2E ebook reader
++ *
++ * Name on mainboard is: 37NB-E60K2M+4A2
++ * Serials start with: E60K2M (a number also seen in
++ * vendor kernel sources)
++ *
++ * This mainboard seems to be equipped with different SoCs.
++ * In the Kobo Clara 2E ebook reader it is an i.MX6SLL
++ *
++ * Copyright 2019 Brian McKenna
++ * based on works
++ * Copyright 2019 Andreas Kemnade
++ * Copyright 2016 Freescale Semiconductor, Inc.
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/gpio/gpio.h>
++#include "imx6sll.dtsi"
++#include "e60k02.dtsi"
++
++/ {
++	model = "Kobo Clara 2E";
++	compatible = "kobo,clara2e", "fsl,imx6sll";
++};
++
++&clks {
++	assigned-clocks = <&clks IMX6SLL_CLK_PLL4_AUDIO_DIV>;
++	assigned-clock-rates = <393216000>;
++};
++
++&cpu0 {
++	arm-supply = <&dcdc3_reg>;
++	soc-supply = <&dcdc1_reg>;
++};
++
++&epdc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_epdc0>;
++
++	DISPLAY-supply = <&DISPLAY_SY7636_reg>;
++	VCOM-supply = <&VCOM_SY7636_reg>;      
++	V3P3-supply = <&V3P3_SY7636_reg>;   
++};
++
++&epd_thermal {
++	thermal-sensors = <&sy7636>;
++};
++
++&gpio_keys {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_gpio_keys>;
++};
++
++&i2c1 {
++	pinctrl-names = "default","sleep";
++	pinctrl-0 = <&pinctrl_i2c1>;
++	pinctrl-1 = <&pinctrl_i2c1_sleep>;
++};
++
++&i2c2 {
++	pinctrl-names = "default","sleep";
++	pinctrl-0 = <&pinctrl_i2c2>;
++	pinctrl-1 = <&pinctrl_i2c2_sleep>;
++
++	sy7636: sy7636@62 {
++		compatible = "silergy,sy7636";
++		reg = <0x62>;
++
++		on_delay1 = <2>;
++		on_delay2 = <2>;
++		on_delay3 = <2>;
++		on_delay4 = <2>;
++
++		VLDO = <3>;
++		VPDD = <2>;
++		vddh_ext = <0>;
++		vpdd_len = <5>;
++		vp_ext = <1>;
++		vee_ext = <1>;
++
++		gpio_pmic_pwrgood = <&gpio2 13 GPIO_ACTIVE_HIGH>;
++		gpio_pmic_vcom_ctrl = <&gpio2 3 GPIO_ACTIVE_HIGH>;
++		gpio_pmic_powerup = <&gpio2 8 GPIO_ACTIVE_HIGH>;
++		gpio_pmic_pwrall = <&gpio2 14 GPIO_ACTIVE_HIGH>;
++
++		#thermal-sensor-cells = <0>;
++
++		regulators {
++			DISPLAY_SY7636_reg: DISPLAY_SY7636 {
++				regulator-name = "DISPLAY_SY7636";
++			};
++
++			VCOM_SY7636_reg: VCOM_SY7636 {
++				regulator-name = "VCOM_SY7636";
++				/* 2's-compliment, -4325000 */
++				// regulator-min-microvolt = <0xffbe0178>;
++				/* 2's-compliment, -500000 */
++				// regulator-max-microvolt = <0xfff85ee0>;
++			};
++
++			V3P3_SY7636_reg: V3P3_SY7636 {
++				regulator-name = "V3P3_SY7636";
++			};
++
++			TMST_SY7636 {
++				regulator-name = "TMST_SY7636";
++			};
++		};
++	};
++
++	aw99703-bl@36 {
++			reg = <0x36>;
++			aw99703,bl-channel = <1>;
++			aw99703,bl-fscal-led = <0>;
++			aw99703,bl-map = <3>;
++			aw99703,hwen-gpio = <&gpio2 10 0>;
++			aw99703,i2c-trans-dim = <7>;
++			aw99703,label = "FL2";
++			aw99703,pwm-mode = <0>;
++			aw99703,pwm-trans-dim = <0>;
++			aw99703,pwron = <&gpio5 13 0>;
++			aw99703,turn-off-ramp = <0>;
++			aw99703,turn-on-ramp = <0>;
++			aw99703,using-lsb;
++			compatible = "awinic,aw99703-bl";
++	};
++};
++
++&i2c3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c3 &pinctrl_bd71828>;
++
++	pmic@4b {
++		compatible = "rohm,bd71828";
++		reg = <0x4b>;
++
++		interrupt-parent = <&gpio1>;
++		interrupts = <29 IRQ_TYPE_LEVEL_LOW>;
++
++		clocks = <&clks 0>;
++		#clock-cells = <0>;
++		clock-output-names = "bd71828-32k-out";
++
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio-reserved-ranges = <0 1>, <2 1>;
++
++		#rohm,dvs-vsel-gpios = <
++			&gpio1 12 0
++			&gpio1 13 0
++		>;
++		rohm,charger-sense-resistor-ohms = <10000000>;
++
++		regulators {
++			LDO1 {
++				name = "LDO1";
++				regulator-name = "ldo1";
++				regulator-always-on;
++				regulator-min-microvolt = <800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-boot-on;
++			};
++
++			LDO2 {
++				name = "LDO2";
++				regulator-name = "ldo2";
++				regulator-boot-off;
++				regulator-always-on;
++				regulator-min-microvolt = <800000>;
++				regulator-max-microvolt = <3300000>;
++			};
++
++			LDO3 {
++				name = "LDO3";
++				regulator-name = "ldo3";
++				regulator-always-on;
++				regulator-min-microvolt = <800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-boot-on;
++			};
++
++			LDO4 {
++				name = "LDO4";
++				regulator-name = "ldo4";
++				regulator-boot-off;
++				regulator-always-on;
++				regulator-min-microvolt = <800000>;
++				regulator-max-microvolt = <3300000>;
++			};
++
++			LDO5 {
++				name = "LDO5";
++				regulator-name = "ldo5";
++				regulator-boot-off;
++				regulator-always-on;
++				regulator-min-microvolt = <800000>;
++				regulator-max-microvolt = <3300000>;
++			};
++
++			LDO6 {
++				name = "LDO6";
++				regulator-name = "ldo6";
++				regulator-boot-off;
++				regulator-always-on;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++			};
++
++			LDO7 {
++				name = "LDO7";
++				regulator-name = "ldo7";
++				regulator-always-on;
++				regulator-min-microvolt = <800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-boot-on;
++			};
++
++			BUCK1 {
++				name = "BUCK1";
++				regulator-name = "buck1";
++				regulator-always-on;
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <1400000>;
++				phandle = <0x03>;
++				regulator-boot-on;
++				linux,phandle = <0x03>;
++			};
++
++			BUCK2 {
++				name = "BUCK2";
++				regulator-name = "buck2";
++				regulator-always-on;
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <2000000>;
++				phandle = <0x04>;
++				regulator-boot-on;
++				linux,phandle = <0x04>;
++			};
++
++			BUCK3 {
++				name = "BUCK3";
++				regulator-name = "buck3";
++				regulator-always-on;
++				regulator-min-microvolt = <1200000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-boot-on;
++			};
++
++			BUCK4 {
++				name = "BUCK4";
++				regulator-name = "buck4";
++				regulator-always-on;
++				regulator-min-microvolt = <0xf4240>;
++				regulator-max-microvolt = <1200000>;
++				regulator-boot-on;
++			};
++
++			BUCK5 {
++				name = "BUCK5";
++				regulator-name = "buck5";
++				regulator-always-on;
++				regulator-min-microvolt = <2500000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-boot-on;
++			};
++
++			BUCK6 {
++				name = "BUCK6";
++				regulator-name = "buck6";
++				regulator-boot-off;
++				regulator-always-on;
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <2000000>;
++			};
++
++			BUCK7 {
++				name = "BUCK7";
++				regulator-name = "buck7";
++				regulator-boot-off;
++				regulator-always-on;
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <2000000>;
++			};
++		};
++
++		leds {
++			compatible = "rohm,bd71828-leds";
++
++			led-1 {
++				rohm,led-compatible = "bd71828-grnled";
++				function = "indicator";
++				color = <2>;
++			};
++
++			led-2 {
++				rohm,led-compatible = "bd71828-ambled";
++				function = "charging";
++				color = <4>;
++			};
++		};
++	};
++};
++
++&iomuxc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_hog>;
++
++	pinctrl_cyttsp5_gpio: cyttsp5-gpiogrp {
++		fsl,pins = <
++			MX6SLL_PAD_SD1_DATA3__GPIO5_IO06                0x17059 /* TP_INT */
++			MX6SLL_PAD_SD1_DATA2__GPIO5_IO13                0x10059 /* TP_RST */
++		>;
++	};
++
++	pinctrl_cyttsp5_gpio_sleep: cyttsp5-gpiogrp-sleep {
++		fsl,pins = <
++			MX6SLL_PAD_SD1_DATA3__GPIO5_IO06                0x10059 /* TP_INT */
++			MX6SLL_PAD_SD1_DATA2__GPIO5_IO13                0x10059 /* TP_RST */
++		>;
++	};
++
++	pinctrl_epdc0: epdcgrp0 {
++		fsl,pins = <
++			MX6SLL_PAD_EPDC_DATA00__EPDC_DATA00     0x100b1
++			MX6SLL_PAD_EPDC_DATA01__EPDC_DATA01     0x100b1
++			MX6SLL_PAD_EPDC_DATA02__EPDC_DATA02     0x100b1
++			MX6SLL_PAD_EPDC_DATA03__EPDC_DATA03     0x100b1
++			MX6SLL_PAD_EPDC_DATA04__EPDC_DATA04     0x100b1
++			MX6SLL_PAD_EPDC_DATA05__EPDC_DATA05     0x100b1
++			MX6SLL_PAD_EPDC_DATA06__EPDC_DATA06     0x100b1
++			MX6SLL_PAD_EPDC_DATA07__EPDC_DATA07     0x100b1
++			MX6SLL_PAD_EPDC_DATA08__EPDC_DATA08     0x100b1
++			MX6SLL_PAD_EPDC_DATA09__EPDC_DATA09     0x100b1
++			MX6SLL_PAD_EPDC_DATA10__EPDC_DATA10     0x100b1
++			MX6SLL_PAD_EPDC_DATA11__EPDC_DATA11     0x100b1
++			MX6SLL_PAD_EPDC_DATA12__EPDC_DATA12     0x100b1
++			MX6SLL_PAD_EPDC_DATA13__EPDC_DATA13     0x100b1
++			MX6SLL_PAD_EPDC_DATA14__EPDC_DATA14     0x100b1
++			MX6SLL_PAD_EPDC_DATA15__EPDC_DATA15     0x100b1
++			MX6SLL_PAD_EPDC_SDCLK__EPDC_SDCLK_P     0x100b1
++			MX6SLL_PAD_EPDC_SDLE__EPDC_SDLE	 0x100b1
++			MX6SLL_PAD_EPDC_SDOE__EPDC_SDOE	 0x100b1
++			MX6SLL_PAD_EPDC_SDSHR__EPDC_SDSHR       0x100b1
++			MX6SLL_PAD_EPDC_SDCE0__EPDC_SDCE0       0x100b1
++			MX6SLL_PAD_EPDC_GDCLK__EPDC_GDCLK       0x100b1
++			MX6SLL_PAD_EPDC_GDOE__EPDC_GDOE	 0x100b1
++			MX6SLL_PAD_EPDC_GDRL__EPDC_GDRL	 0x100b1
++			MX6SLL_PAD_EPDC_GDSP__EPDC_GDSP	 0x100b1
++	       >;
++	};
++
++	pinctrl_gpio_keys: gpio-keysgrp {
++		fsl,pins = <
++			MX6SLL_PAD_GPIO4_IO25__GPIO4_IO25	0x17059	/* PWR_SW */
++			MX6SLL_PAD_GPIO4_IO23__GPIO4_IO23	0x17059	/* HALL_EN */
++		>;
++	};
++
++	pinctrl_hog: hoggrp {
++		fsl,pins = <
++			MX6SLL_PAD_LCD_DATA01__GPIO2_IO21	0x79
++			MX6SLL_PAD_LCD_DATA04__GPIO2_IO24	0x79
++			MX6SLL_PAD_LCD_DATA05__GPIO2_IO25	0x79
++			MX6SLL_PAD_LCD_DATA06__GPIO2_IO26	0x79
++			MX6SLL_PAD_LCD_DATA07__GPIO2_IO27	0x79
++			MX6SLL_PAD_LCD_DATA08__GPIO2_IO28	0x79
++			MX6SLL_PAD_LCD_DATA09__GPIO2_IO29	0x79
++			MX6SLL_PAD_LCD_DATA10__GPIO2_IO30	0x79
++			MX6SLL_PAD_LCD_DATA11__GPIO2_IO31	0x79
++			MX6SLL_PAD_LCD_DATA12__GPIO3_IO00	0x79
++			MX6SLL_PAD_LCD_DATA13__GPIO3_IO01	0x79
++			MX6SLL_PAD_LCD_DATA14__GPIO3_IO02	0x79
++			MX6SLL_PAD_LCD_DATA15__GPIO3_IO03	0x79
++			MX6SLL_PAD_LCD_DATA16__GPIO3_IO04	0x79
++			MX6SLL_PAD_LCD_DATA17__GPIO3_IO05	0x79
++			MX6SLL_PAD_LCD_DATA18__GPIO3_IO06	0x79
++			MX6SLL_PAD_LCD_DATA19__GPIO3_IO07	0x79
++			MX6SLL_PAD_LCD_DATA20__GPIO3_IO08	0x79
++			MX6SLL_PAD_LCD_DATA21__GPIO3_IO09	0x79
++			MX6SLL_PAD_LCD_DATA22__GPIO3_IO10	0x79
++			MX6SLL_PAD_LCD_DATA23__GPIO3_IO11	0x79
++			MX6SLL_PAD_LCD_CLK__GPIO2_IO15		0x79
++			MX6SLL_PAD_GPIO4_IO21__GPIO4_IO21   0x79
++			MX6SLL_PAD_GPIO4_IO26__GPIO4_IO26   0x79
++			MX6SLL_PAD_KEY_COL3__GPIO3_IO30     0x79
++			MX6SLL_PAD_KEY_ROW7__GPIO4_IO07     0x79
++			MX6SLL_PAD_ECSPI2_MOSI__GPIO4_IO13  0x79
++		>;
++	};
++
++	pinctrl_i2c1: i2c1grp {
++		fsl,pins = <
++			MX6SLL_PAD_I2C1_SCL__I2C1_SCL	0x4001f8b1
++			MX6SLL_PAD_I2C1_SDA__I2C1_SDA	0x4001f8b1
++		>;
++	};
++
++	pinctrl_i2c1_sleep: i2c1grp-sleep {
++		fsl,pins = <
++			MX6SLL_PAD_I2C1_SCL__I2C1_SCL	0x400108b1
++			MX6SLL_PAD_I2C1_SDA__I2C1_SDA	0x400108b1
++		>;
++	};
++
++	pinctrl_i2c2: i2c2grp {
++		fsl,pins = <
++			MX6SLL_PAD_I2C2_SCL__I2C2_SCL	0x4001f8b1
++			MX6SLL_PAD_I2C2_SDA__I2C2_SDA	0x4001f8b1
++		>;
++	};
++
++	pinctrl_i2c2_sleep: i2c2grp-sleep {
++		fsl,pins = <
++			MX6SLL_PAD_I2C2_SCL__I2C2_SCL	0x400108b1
++			MX6SLL_PAD_I2C2_SDA__I2C2_SDA	0x400108b1
++		>;
++	};
++
++	pinctrl_i2c3: i2c3grp {
++		fsl,pins = <
++			MX6SLL_PAD_REF_CLK_24M__I2C3_SCL 0x4001f8b1
++			MX6SLL_PAD_REF_CLK_32K__I2C3_SDA 0x4001f8b1
++		>;
++	};
++
++	pinctrl_led: ledgrp {
++		fsl,pins = <
++			MX6SLL_PAD_SD1_DATA6__GPIO5_IO07 0x17059
++		>;
++	};
++
++	pinctrl_lm3630a_bl_gpio: lm3630a-bl-gpiogrp {
++		fsl,pins = <
++			MX6SLL_PAD_EPDC_PWR_CTRL3__GPIO2_IO10	0x10059 /* HWEN */
++		>;
++	};
++
++	pinctrl_uart1: uart1grp {
++		fsl,pins = <
++			MX6SLL_PAD_UART1_TXD__UART1_DCE_TX 0x1b0b1
++			MX6SLL_PAD_UART1_RXD__UART1_DCE_RX 0x1b0b1
++		>;
++	};
++
++	pinctrl_uart4: uart4grp {
++		fsl,pins = <
++			MX6SLL_PAD_KEY_ROW6__UART4_DCE_TX 0x1b0b1
++			MX6SLL_PAD_KEY_COL6__UART4_DCE_RX 0x1b0b1
++		>;
++	};
++
++	pinctrl_usbotg1: usbotg1grp {
++		fsl,pins = <
++			MX6SLL_PAD_EPDC_PWR_COM__USB_OTG1_ID 0x17059
++		>;
++	};
++
++	pinctrl_usdhc2: usdhc2grp {
++		fsl,pins = <
++			MX6SLL_PAD_SD2_CMD__SD2_CMD		0x17059
++			MX6SLL_PAD_SD2_CLK__SD2_CLK		0x13059
++			MX6SLL_PAD_SD2_DATA0__SD2_DATA0		0x17059
++			MX6SLL_PAD_SD2_DATA1__SD2_DATA1		0x17059
++			MX6SLL_PAD_SD2_DATA2__SD2_DATA2		0x17059
++			MX6SLL_PAD_SD2_DATA3__SD2_DATA3		0x17059
++		>;
++	};
++
++	pinctrl_usdhc2_100mhz: usdhc2grp-100mhz {
++		fsl,pins = <
++			MX6SLL_PAD_SD2_CMD__SD2_CMD		0x170b9
++			MX6SLL_PAD_SD2_CLK__SD2_CLK		0x130b9
++			MX6SLL_PAD_SD2_DATA0__SD2_DATA0		0x170b9
++			MX6SLL_PAD_SD2_DATA1__SD2_DATA1		0x170b9
++			MX6SLL_PAD_SD2_DATA2__SD2_DATA2		0x170b9
++			MX6SLL_PAD_SD2_DATA3__SD2_DATA3		0x170b9
++		>;
++	};
++
++	pinctrl_usdhc2_200mhz: usdhc2grp-200mhz {
++		fsl,pins = <
++			MX6SLL_PAD_SD2_CMD__SD2_CMD		0x170f9
++			MX6SLL_PAD_SD2_CLK__SD2_CLK		0x130f9
++			MX6SLL_PAD_SD2_DATA0__SD2_DATA0		0x170f9
++			MX6SLL_PAD_SD2_DATA1__SD2_DATA1		0x170f9
++			MX6SLL_PAD_SD2_DATA2__SD2_DATA2		0x170f9
++			MX6SLL_PAD_SD2_DATA3__SD2_DATA3		0x170f9
++		>;
++	};
++
++	pinctrl_usdhc2_sleep: usdhc2grp-sleep {
++		fsl,pins = <
++			MX6SLL_PAD_SD2_CMD__GPIO5_IO04		0x100f9
++			MX6SLL_PAD_SD2_CLK__GPIO5_IO05		0x100f9
++			MX6SLL_PAD_SD2_DATA0__GPIO5_IO01	0x100f9
++			MX6SLL_PAD_SD2_DATA1__GPIO4_IO30	0x100f9
++			MX6SLL_PAD_SD2_DATA2__GPIO5_IO03	0x100f9
++			MX6SLL_PAD_SD2_DATA3__GPIO4_IO28	0x100f9
++		>;
++	};
++
++	pinctrl_usdhc3: usdhc3grp {
++		fsl,pins = <
++			MX6SLL_PAD_SD3_CMD__SD3_CMD	0x11059
++			MX6SLL_PAD_SD3_CLK__SD3_CLK	0x11059
++			MX6SLL_PAD_SD3_DATA0__SD3_DATA0	0x11059
++			MX6SLL_PAD_SD3_DATA1__SD3_DATA1	0x11059
++			MX6SLL_PAD_SD3_DATA2__SD3_DATA2	0x11059
++			MX6SLL_PAD_SD3_DATA3__SD3_DATA3	0x11059
++		>;
++	};
++
++	pinctrl_usdhc3_100mhz: usdhc3grp-100mhz {
++		fsl,pins = <
++			MX6SLL_PAD_SD3_CMD__SD3_CMD	0x170b9
++			MX6SLL_PAD_SD3_CLK__SD3_CLK	0x170b9
++			MX6SLL_PAD_SD3_DATA0__SD3_DATA0	0x170b9
++			MX6SLL_PAD_SD3_DATA1__SD3_DATA1	0x170b9
++			MX6SLL_PAD_SD3_DATA2__SD3_DATA2	0x170b9
++			MX6SLL_PAD_SD3_DATA3__SD3_DATA3	0x170b9
++		>;
++	};
++
++	pinctrl_usdhc3_200mhz: usdhc3grp-200mhz {
++		fsl,pins = <
++			MX6SLL_PAD_SD3_CMD__SD3_CMD	0x170f9
++			MX6SLL_PAD_SD3_CLK__SD3_CLK	0x170f9
++			MX6SLL_PAD_SD3_DATA0__SD3_DATA0	0x170f9
++			MX6SLL_PAD_SD3_DATA1__SD3_DATA1	0x170f9
++			MX6SLL_PAD_SD3_DATA2__SD3_DATA2	0x170f9
++			MX6SLL_PAD_SD3_DATA3__SD3_DATA3	0x170f9
++		>;
++	};
++
++	pinctrl_usdhc3_sleep: usdhc3grp-sleep {
++		fsl,pins = <
++			MX6SLL_PAD_SD3_CMD__GPIO5_IO21	0x100c1
++			MX6SLL_PAD_SD3_CLK__GPIO5_IO18	0x100c1
++			MX6SLL_PAD_SD3_DATA0__GPIO5_IO19	0x100c1
++			MX6SLL_PAD_SD3_DATA1__GPIO5_IO20	0x100c1
++			MX6SLL_PAD_SD3_DATA2__GPIO5_IO16	0x100c1
++			MX6SLL_PAD_SD3_DATA3__GPIO5_IO17	0x100c1
++		>;
++	};
++
++	pinctrl_wifi_power: wifi-powergrp {
++		fsl,pins = <
++			MX6SLL_PAD_SD2_DATA6__GPIO4_IO29	0x10059		/* WIFI_3V3_ON */
++		>;
++	};
++
++	pinctrl_wifi_reset: wifi-resetgrp {
++		fsl,pins = <
++			MX6SLL_PAD_SD2_DATA7__GPIO5_IO00	0x10059		/* WIFI_RST */
++		>;
++	};
++
++	pinctrl_ecspi1: ecspi1grp {
++		fsl,pins = <
++			MX6SLL_PAD_LCD_DATA00__ECSPI1_MOSI	0x100b1
++			MX6SLL_PAD_LCD_DATA03__ECSPI1_SCLK	0x100b1
++			MX6SLL_PAD_LCD_DATA02__ECSPI1_SS0	0x100b1
++		>;
++	};
++
++	pinctrl_bd71828: bd71828-gpiogrp {
++		fsl,pins = <
++			MX6SLL_PAD_KEY_COL0__GPIO3_IO24		0x1b8b1
++			MX6SLL_PAD_GPIO4_IO19__GPIO4_IO19	0x1b8b1
++		>;
++	};
++};
++
++&leds {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_led>;
++
++	led {
++		gpios = <&gpio4 17 GPIO_ACTIVE_LOW>;
++	};
++};
++
++&lm3630a {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_lm3630a_bl_gpio>;
++	compatible = "awinic,aw99703-bl";
++	aw99703,bl-channel = <1>;
++	aw99703,bl-fscal-led = <0>;
++	aw99703,bl-map = <3>;
++	aw99703,hwen-gpio = <&gpio2 10 0>;
++	aw99703,i2c-trans-dim = <7>;
++	aw99703,label = "FL1";
++	aw99703,pwm-mode = <0>;
++	aw99703,pwm-trans-dim = <0>;
++	aw99703,pwron = <&gpio5 13 0>;
++	aw99703,turn-off-ramp = <0>;
++	aw99703,turn-on-ramp = <0>;
++	aw99703,using-lsb;
++
++	/delete-property/ enable-gpios;
++	/delete-property/ #address-cells;
++	/delete-property/ #size-cells;
++	/delete-node/ led@0;
++	/delete-node/ led@1;
++};
++
++&reg_wifi {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wifi_power>;
++};
++
++&ricoh619 {
++	status = "disabled";
++};
++
++&tps6518x {
++	status = "disabled";
++};
++
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart1>;
++};
++
++&uart4 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart4>;
++};
++
++&usdhc2 {
++	pinctrl-names = "default", "state_100mhz", "state_200mhz","sleep";
++	pinctrl-0 = <&pinctrl_usdhc2>;
++	pinctrl-1 = <&pinctrl_usdhc2_100mhz>;
++	pinctrl-2 = <&pinctrl_usdhc2_200mhz>;
++	pinctrl-3 = <&pinctrl_usdhc2_sleep>;
++};
++
++&usdhc3 {
++	pinctrl-names = "default", "state_100mhz", "state_200mhz","sleep";
++	pinctrl-0 = <&pinctrl_usdhc3>;
++	pinctrl-1 = <&pinctrl_usdhc3_100mhz>;
++	pinctrl-2 = <&pinctrl_usdhc3_200mhz>;
++	pinctrl-3 = <&pinctrl_usdhc3_sleep>;
++};
++
++&wifi_pwrseq {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wifi_reset>;
++};
++
++&ecspi1 {
++	status = "okay";
++	pinctrl-0 = <&pinctrl_ecspi1>;
++};
++
++&cover {
++	gpios = <&gpio4 23 GPIO_ACTIVE_LOW>;
++};
++
++// UART2 is enabled
+diff --git a/drivers/hwmon/sy7636-hwmon.c b/drivers/hwmon/sy7636-hwmon.c
+index 15e4a2d62b91..7c97bfe9df13 100644
+--- a/drivers/hwmon/sy7636-hwmon.c
++++ b/drivers/hwmon/sy7636-hwmon.c
+@@ -38,43 +38,11 @@
+ #include <linux/err.h>
+ #include <linux/sysfs.h>
+ #include <linux/platform_device.h>
++#include <linux/regmap.h>
+ #include <linux/mfd/sy7636.h>
+ 
+ #include <linux/gpio.h>
+ 
+-/*
+- * Conversions
+- */
+-static int temp_from_reg(int val)
+-{
+-	return val;
+-}
+-
+-/*
+- * Functions declaration
+- */
+-static int sy7636_sensor_probe(struct platform_device *pdev);
+-static int sy7636_sensor_remove(struct platform_device *pdev);
+-
+-static const struct platform_device_id sy7636_sns_id[] = {
+-	{ "sy7636-sns", 0},
+-	{ /* sentinel */ },
+-};
+-MODULE_DEVICE_TABLE(platform, sy7636_sns_id);
+-
+-/*
+- * Driver data (common to all clients)
+- */
+-static struct platform_driver sy7636_sensor_driver = {
+-	.probe = sy7636_sensor_probe,
+-	.remove = sy7636_sensor_remove,
+-	.id_table = sy7636_sns_id,
+-	.driver = {
+-		.name = "sy7636_sensor",
+-	},
+-};
+-
+-
+ /*
+  * Client data (each client gets its own)
+  */
+@@ -104,7 +72,7 @@ int sy7636_get_temperature(struct sy7636 *sy7636,int *O_piTemperature)
+ 		printk(KERN_ERR"%s(),SY7636 temperature read error !!\n",__FUNCTION__);
+ 		return -1;
+ 	}
+-	iTemp = temp_from_reg(reg_val);
++	iTemp = reg_val;
+ 
+ 	if(O_piTemperature) {
+ 		printk("%s():temperature = %d,reg=0x%x\n",__FUNCTION__,iTemp,reg_val);
+@@ -115,31 +83,11 @@ int sy7636_get_temperature(struct sy7636 *sy7636,int *O_piTemperature)
+ }
+ EXPORT_SYMBOL(sy7636_get_temperature);
+ 
+-
+-/*
+- * Sysfs stuff
+- */
+-static ssize_t show_temp_input(struct device *dev,
+-	struct device_attribute *attr, char *buf)
+-{
+-	struct sy7636_data *data = dev_get_drvdata(dev);
+-	int iTemp ;
+-
+-	if(0==sy7636_get_temperature(data->sy7636,&iTemp)) {
+-		return snprintf(buf, PAGE_SIZE, "%d\n", iTemp);
+-	}
+-	else {
+-		return snprintf(buf, PAGE_SIZE, "?\n");
+-	}
+-}
+-
+-
+-
+ int sy7636_set_vcom(struct sy7636 *sy7636,int iVCOMmV,int iIsWriteToFlash)
+ {
+ 	//long vcom_reg_val ;
+ 	int iRet = 0;
+-	unsigned int regINT_EN1=0,regVCOM1=0, regVCOM2=0, regINT1=0;
++	unsigned int regVCOM1=0, regVCOM2=0;
+ 	unsigned short wVCOM_val ;
+ 	int iChk;
+ 	//printk("%s(%d);\n",__FUNCTION__,__LINE__);
+@@ -156,7 +104,7 @@ int sy7636_set_vcom(struct sy7636 *sy7636,int iVCOMmV,int iIsWriteToFlash)
+ 
+ 
+ 	wVCOM_val = (unsigned short)((iVCOMmV)/10);
+-	dev_dbg(sy7636->dev, "vcom=>%dmV,wVCOM_val=0x%x\n",
++	dev_info(sy7636->dev, "vcom=>%dmV,wVCOM_val=0x%x\n",
+ 			iVCOMmV,wVCOM_val);
+ 
+ 	/*
+@@ -195,7 +143,7 @@ int sy7636_set_vcom(struct sy7636 *sy7636,int iVCOMmV,int iIsWriteToFlash)
+ 			iRet = -5;
+ 		}
+ 
+-		dev_dbg(sy7636->dev, "write regVCOM1=0x%x,regVCOM2=0x%x\n",regVCOM1,regVCOM2);
++		dev_info(sy7636->dev, "write regVCOM1=0x%x,regVCOM2=0x%x\n",regVCOM1,regVCOM2);
+ 
+ 		if(iRet>=0) {
+ 			sy7636->vcom_uV = iVCOMmV*1000;
+@@ -261,7 +209,7 @@ int sy7636_get_vcom(struct sy7636 *sy7636,int *O_piVCOMmV)
+ 	else {
+ 		wTemp &= ~0x100;
+ 	}
+-	iVCOMmV = (wTemp*10);
++	iVCOMmV = -(wTemp*10);
+ 
+ 	if(O_piVCOMmV) {
+ 		*O_piVCOMmV = iVCOMmV;
+@@ -272,98 +220,95 @@ int sy7636_get_vcom(struct sy7636 *sy7636,int *O_piVCOMmV)
+ }
+ EXPORT_SYMBOL(sy7636_get_vcom);
+ 
+-static ssize_t show_vcom(struct device *dev,
+-	struct device_attribute *attr, char *buf)
++static int sy7636_read(struct device *dev, enum hwmon_sensor_types type,
++                         u32 attr, int channel, long *temp)
+ {
+-	struct sy7636_data *data = dev_get_drvdata(dev);
+-	int iVCOM_mV;
++	struct regmap *regmap = dev_get_drvdata(dev);
++	int ret, reg_val;
++
++	if (attr != hwmon_temp_input)
++		return -EOPNOTSUPP;
+ 
+-	sy7636_get_vcom(data->sy7636,&iVCOM_mV);
+-	return snprintf(buf, PAGE_SIZE, "%dmV\n",iVCOM_mV);
++	ret = regmap_read(regmap, REG_SY7636_THERM, &reg_val);
++
++	if (ret)
++		return ret;
++
++	*temp = reg_val;
++
++	return 0;
+ }
+ 
+-static ssize_t set_vcom(struct device *dev,
+-	struct device_attribute *attr, const char *buf, size_t count)
++static umode_t sy7636_is_visible(const void *data,
++                                   enum hwmon_sensor_types type,
++                                   u32 attr, int channel)
+ {
+-	unsigned int reg_val;
+-	long vcom_reg_val = simple_strtol(buf,NULL,10);
+-	struct sy7636_data *data = dev_get_drvdata(dev);
++	if (type != hwmon_temp)
++		return 0;
+ 
+-	sy7636_set_vcom(data->sy7636,vcom_reg_val,0);
+-	return count;
+-}
++	if (attr != hwmon_temp_input)
++		return 0;
+ 
++	return 0444;
++}
+ 
+-static DEVICE_ATTR(temp_input, S_IRUGO, show_temp_input, NULL);
+-static DEVICE_ATTR(vcom_value, S_IWUSR | S_IRUGO, show_vcom, set_vcom);
++static const struct hwmon_ops sy7636_hwmon_ops = {
++	.is_visible = sy7636_is_visible,
++	.read = sy7636_read,
++};
+ 
+-static struct attribute *sy7636_attributes[] = {
+-	&dev_attr_temp_input.attr,
+-//	&dev_attr_intr_input.attr,
+-	&dev_attr_vcom_value.attr,
++static const struct hwmon_channel_info *sy7636_info[] = {
++	HWMON_CHANNEL_INFO(chip, HWMON_C_REGISTER_TZ),
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
+ 	NULL
+ };
+ 
+-static const struct attribute_group sy7636_group = {
+-	.attrs = sy7636_attributes,
++static const struct hwmon_chip_info sy7636_chip_info = {
++	.ops = &sy7636_hwmon_ops,
++	.info = sy7636_info,
+ };
+ 
+-/*
+- * Real code
+- */
+ static int sy7636_sensor_probe(struct platform_device *pdev)
+ {
+-	struct sy7636_data *data;
++	struct regmap *regmap = dev_get_regmap(pdev->dev.parent, NULL);
++	struct device *hwmon_dev;
+ 	int err;
+ 
+-	printk("sy7636_sensor_probe starting\n");
+-
+-
++	if (!regmap)
++			return -EPROBE_DEFER;
+ 
++	pdev->dev.of_node = pdev->dev.parent->of_node;
++	hwmon_dev = devm_hwmon_device_register_with_info(&pdev->dev,
++														"sy7636_temperature", regmap,
++														&sy7636_chip_info, NULL);
+ 
+-	data = kzalloc(sizeof(struct sy7636_data), GFP_KERNEL);
+-	if (!data) {
+-		err = -ENOMEM;
+-		goto exit;
++	if (IS_ERR(hwmon_dev)) {
++			err = PTR_ERR(hwmon_dev);
++			dev_err(&pdev->dev, "Unable to register hwmon device, returned %d\n", err);
++			return err;
+ 	}
+-	data->sy7636 = dev_get_drvdata(pdev->dev.parent);
+-	/* Register sysfs hooks */
+-	err = sysfs_create_group(&pdev->dev.kobj, &sy7636_group);
+-	if (err)
+-		goto exit_free;
+-
+-	data->hwmon_dev = hwmon_device_register(&pdev->dev);
+-	if (IS_ERR(data->hwmon_dev)) {
+-		err = PTR_ERR(data->hwmon_dev);
+-		goto exit_remove_files;
+-	}
+-
+-	platform_set_drvdata(pdev, data);
+ 
+-	printk("sy7636_sensor_probe success\n");
+ 	return 0;
+-
+-exit_remove_files:
+-	sysfs_remove_group(&pdev->dev.kobj, &sy7636_group);
+-exit_free:
+-	kfree(data);
+-exit:
+-	return err;
+ }
+ 
+-static int sy7636_sensor_remove(struct platform_device *pdev)
+-{
+-	struct sy7636_data *data = platform_get_drvdata(pdev);
+-
+-	hwmon_device_unregister(data->hwmon_dev);
+-	sysfs_remove_group(&pdev->dev.kobj, &sy7636_group);
++static const struct platform_device_id sy7636_sns_id[] = {
++	{ "sy7636-sns", 0},
++	{ /* sentinel */ },
++};
++MODULE_DEVICE_TABLE(platform, sy7636_sns_id);
+ 
+-	kfree(data);
+-	return 0;
+-}
++/*
++ * Driver data (common to all clients)
++ */
++static struct platform_driver sy7636_sensor_driver = {
++	.probe = sy7636_sensor_probe,
++	.id_table = sy7636_sns_id,
++	.driver = {
++		.name = "sy7636_sensor",
++	},
++};
+ 
+ module_platform_driver(sy7636_sensor_driver);
+ 
+ MODULE_DESCRIPTION("SY7636 sensor driver");
+ MODULE_LICENSE("GPL");
+-
+diff --git a/drivers/mfd/sy7636-core.c b/drivers/mfd/sy7636-core.c
+index 0601513d670e..aa42a7578e0e 100644
+--- a/drivers/mfd/sy7636-core.c
++++ b/drivers/mfd/sy7636-core.c
+@@ -41,6 +41,7 @@
+ #include <linux/of_device.h>
+ #include <linux/of_gpio.h>
+ #include <linux/gpio.h>
++#include <linux/regmap.h>
+ 
+ #include <linux/platform_device.h>
+ #include <linux/regulator/machine.h>
+@@ -58,6 +59,11 @@
+ 
+ static int sy7636_detect(struct i2c_client *client, struct i2c_board_info *info);
+ static struct regulator *gpio_regulator;
++static const struct regmap_config sy7636_regmap_config = {
++	.reg_bits	= 8,
++	.val_bits	= 8,
++	.max_register	= SY7636_MAX_REG,
++};
+ 
+ static struct mfd_cell sy7636_devs[] = {
+ 	{ .name = "sy7636-pmic", },
+@@ -474,6 +480,7 @@ static int sy7636_probe(struct i2c_client *client,
+ 	sy7636->dev = &client->dev;
+ 	sy7636->i2c_client = client;
+ 
++	sy7636->regmap = devm_regmap_init_i2c(client, &sy7636_regmap_config);
+ 
+ 	if (sy7636->dev->of_node) {
+ 		pdata = sy7636_i2c_parse_dt_pdata(sy7636->dev);
+diff --git a/drivers/regulator/sy7636-regulator.c b/drivers/regulator/sy7636-regulator.c
+index 159b47476f45..939cf23e3137 100644
+--- a/drivers/regulator/sy7636-regulator.c
++++ b/drivers/regulator/sy7636-regulator.c
+@@ -635,14 +635,14 @@ static struct regulator_ops sy7636_tmst_ops = {
+  */
+ static struct regulator_desc sy7636_reg[] = {
+ {
+-	.name = "DISPLAY",
++	.name = "DISPLAY_SY7636",
+ 	.id = SY7636_DISPLAY,
+ 	.ops = &sy7636_display_ops,
+ 	.type = REGULATOR_VOLTAGE,
+ 	.owner = THIS_MODULE,
+ },
+ {
+-	.name = "VCOM",
++	.name = "VCOM_SY7636",
+ 	.id = SY7636_VCOM,
+ 	.ops = &sy7636_vcom_ops,
+ 	.type = REGULATOR_VOLTAGE,
+@@ -650,7 +650,7 @@ static struct regulator_desc sy7636_reg[] = {
+ },
+ #ifdef SY7636_V3P3_ENABLE//[
+ {
+-	.name = "V3P3",
++	.name = "V3P3_SY7636",
+ 	.id = SY7636_VP3V3,
+ 	.ops = &sy7636_v3p3_ops,
+ 	.type = REGULATOR_VOLTAGE,
+@@ -658,7 +658,7 @@ static struct regulator_desc sy7636_reg[] = {
+ },
+ #endif //]SY7636_V3P3_ENABLE
+ {
+-	.name = "TMST",
++	.name = "TMST_SY7636",
+ 	.id = SY7636_TMST,
+ 	.ops = &sy7636_tmst_ops,
+ 	.type = REGULATOR_VOLTAGE,
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index a003e02e13ce..97e82bf8e921 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -464,6 +464,14 @@ config BACKLIGHT_LED
+ 	  If you have a LCD backlight adjustable by LED class driver, say Y
+ 	  to enable this driver.
+ 
++config BACKLIGHT_AW99703
++	tristate "Backlight driver for AW99703"
++	depends on I2C
++	help
++	  Say Y to enable the backlight driver for AW99703.
++	  Up to 3 backlight strings and 11 bit dimming is supported.
++	  PWM brightness control is also supported.
++
+ endif # BACKLIGHT_CLASS_DEVICE
+ 
+ endmenu
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index cae2c83422ae..57263783ef8c 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -25,6 +25,7 @@ obj-$(CONFIG_BACKLIGHT_ADP8860)		+= adp8860_bl.o
+ obj-$(CONFIG_BACKLIGHT_ADP8870)		+= adp8870_bl.o
+ obj-$(CONFIG_BACKLIGHT_APPLE)		+= apple_bl.o
+ obj-$(CONFIG_BACKLIGHT_AS3711)		+= as3711_bl.o
++obj-$(CONFIG_BACKLIGHT_AW99703)		+= aw99703_bl.o
+ obj-$(CONFIG_BACKLIGHT_BD6107)		+= bd6107.o
+ obj-$(CONFIG_BACKLIGHT_CARILLO_RANCH)	+= cr_bllcd.o
+ obj-$(CONFIG_BACKLIGHT_CLASS_DEVICE)	+= backlight.o
+diff --git a/drivers/video/backlight/aw99703_bl.c b/drivers/video/backlight/aw99703_bl.c
+new file mode 100644
+index 000000000000..a0f200ba3242
+--- /dev/null
++++ b/drivers/video/backlight/aw99703_bl.c
+@@ -0,0 +1,866 @@
++/*
++* aw99703.c   aw99703 backlight module
++*
++* Version: v1.0.4
++*
++* Copyright (c) 2019 AWINIC Technology CO., LTD
++*
++*  Author: Joseph <zhangzetao@awinic.com.cn>
++*
++* This program is free software; you can redistribute  it and/or modify it
++* under  the terms of  the GNU General  Public License as published by the
++* Free Software Foundation;  either version 2 of the  License, or (at your
++* option) any later version.
++*/
++
++#include <linux/i2c.h>
++#include <linux/slab.h>
++#include <linux/input.h>
++#include <linux/types.h>
++#include <linux/regulator/consumer.h>
++#include <linux/module.h>
++#include <linux/version.h>
++#include <linux/of_gpio.h>
++#include <linux/delay.h>
++#include <linux/backlight.h>
++#include <linux/platform_data/aw99703_bl.h>
++
++#define AW99703_NAME "aw99703-bl"
++
++#define AW99703_VERSION "v1.0.6"
++
++struct aw99703_data *g_aw99703_data;
++
++static int platform_read_i2c_block(struct i2c_client *client, char *writebuf,
++			   int writelen, char *readbuf, int readlen)
++{
++	int ret;
++
++	if (writelen > 0) {
++		struct i2c_msg msgs[] = {
++			{
++				 .addr = client->addr,
++				 .flags = 0,
++				 .len = writelen,
++				 .buf = writebuf,
++			 },
++			{
++				 .addr = client->addr,
++				 .flags = I2C_M_RD,
++				 .len = readlen,
++				 .buf = readbuf,
++			 },
++		};
++		ret = i2c_transfer(client->adapter, msgs, 2);
++		if (ret < 0)
++			dev_err(&client->dev, "%s: i2c read error.\n",
++				__func__);
++	} else {
++		struct i2c_msg msgs[] = {
++			{
++				 .addr = client->addr,
++				 .flags = I2C_M_RD,
++				 .len = readlen,
++				 .buf = readbuf,
++			 },
++		};
++		ret = i2c_transfer(client->adapter, msgs, 1);
++		if (ret < 0)
++			dev_err(&client->dev, "%s:i2c read error.\n", __func__);
++	}
++	return ret;
++}
++
++static int aw99703_i2c_read(struct i2c_client *client, u8 addr, u8 *val)
++{
++	return platform_read_i2c_block(client, &addr, 1, val, 1);
++}
++
++static int platform_write_i2c_block(struct i2c_client *client,
++		char *writebuf, int writelen)
++{
++	int ret;
++
++	struct i2c_msg msgs[] = {
++		{
++			 .addr = client->addr,
++			 .flags = 0,
++			 .len = writelen,
++			 .buf = writebuf,
++		 },
++	};
++	ret = i2c_transfer(client->adapter, msgs, 1);
++	if (ret < 0)
++		dev_err(&client->dev, "%s: i2c write error.\n", __func__);
++
++	return ret;
++}
++
++static int aw99703_i2c_write(struct i2c_client *client, u8 addr, const u8 val)
++{
++	u8 buf[2] = {0};
++
++	buf[0] = addr;
++	buf[1] = val;
++
++	return platform_write_i2c_block(client, buf, sizeof(buf));
++}
++
++static int aw99703_gpio_init(struct aw99703_data *drvdata)
++{
++
++	int ret;
++
++	if (gpio_is_valid(drvdata->hwen_gpio)) {
++		ret = gpio_request(drvdata->hwen_gpio, "hwen_gpio");
++		if (ret < 0) {
++			pr_err("failed to request gpio\n");
++			return -1;
++		}
++		ret = gpio_direction_output(drvdata->hwen_gpio, 1);
++		pr_info(" request gpio init\n");
++		if (ret < 0) {
++			pr_err("failed to set output");
++			gpio_free(drvdata->hwen_gpio);
++			return ret;
++		}
++		pr_info("gpio is valid!\n");
++	}
++
++	return 0;
++}
++
++static int aw99703_i2c_write_bit(struct i2c_client *client,
++	unsigned int reg_addr, unsigned int  mask, unsigned char reg_data)
++{
++	unsigned char reg_val = 0;
++
++	aw99703_i2c_read(client, reg_addr, &reg_val);
++	reg_val &= mask;
++	reg_val |= reg_data;
++	aw99703_i2c_write(client, reg_addr, reg_val);
++
++	return 0;
++}
++
++static int aw99703_brightness_map(unsigned int level)
++{
++	/*MAX_LEVEL_256*/
++	if (g_aw99703_data->bl_map == 1) {
++		if (level == 255)
++			return 2047;
++		return level * 8;
++	}
++
++	/*MAX_LEVEL_1024*/
++	if (g_aw99703_data->bl_map == 2)
++		return level * 2;
++	/*MAX_LEVEL_2048*/
++	if (g_aw99703_data->bl_map == 3)
++		return level;
++
++	return  level;
++}
++
++static int aw99703_bl_enable_channel(struct aw99703_data *drvdata)
++{
++	int ret = 0;
++
++	if (drvdata->channel == 3) {
++		pr_info("%s turn all channel on!\n", __func__);
++		ret = aw99703_i2c_write_bit(drvdata->client,
++						AW99703_REG_LEDCUR,
++						AW99703_LEDCUR_CHANNEL_MASK,
++						AW99703_LEDCUR_CH3_ENABLE |
++						AW99703_LEDCUR_CH2_ENABLE |
++						AW99703_LEDCUR_CH1_ENABLE);
++	} else if (drvdata->channel == 2) {
++		pr_info("%s turn two channel on!\n", __func__);
++		ret = aw99703_i2c_write_bit(drvdata->client,
++						AW99703_REG_LEDCUR,
++						AW99703_LEDCUR_CHANNEL_MASK,
++						AW99703_LEDCUR_CH2_ENABLE |
++						AW99703_LEDCUR_CH1_ENABLE);
++	} else if (drvdata->channel == 1) {
++		pr_info("%s turn one channel on!\n", __func__);
++		ret = aw99703_i2c_write_bit(drvdata->client,
++						AW99703_REG_LEDCUR,
++						AW99703_LEDCUR_CHANNEL_MASK,
++						AW99703_LEDCUR_CH1_ENABLE);
++	} else {
++		pr_info("%s all channels are going to be disabled\n", __func__);
++		ret = aw99703_i2c_write_bit(drvdata->client,
++						AW99703_REG_LEDCUR,
++						AW99703_LEDCUR_CHANNEL_MASK,
++						0x98);
++	}
++
++	return ret;
++}
++
++static void aw99703_pwm_mode_enable(struct aw99703_data *drvdata)
++{
++	if (drvdata->pwm_mode) {
++		aw99703_i2c_write_bit(drvdata->client,
++					AW99703_REG_MODE,
++					AW99703_MODE_PDIS_MASK,
++					AW99703_MODE_PDIS_ENABLE);
++		pr_info("%s pwm_mode is enable\n", __func__);
++	} else {
++		aw99703_i2c_write_bit(drvdata->client,
++					AW99703_REG_MODE,
++					AW99703_MODE_PDIS_MASK,
++					AW99703_MODE_PDIS_DISABLE);
++		pr_info("%s pwm_mode is disable\n", __func__);
++	}
++}
++
++
++static void aw99703_pwm_maptype_set(struct aw99703_data *drvdata)
++{
++	pr_info("%s enter\n", __func__);
++	/*mode:map type*/
++	if(drvdata->maptype == 1)
++		aw99703_i2c_write_bit(drvdata->client,
++				      AW99703_REG_MODE,
++				      AW99703_MODE_MAP_MASK,
++				      AW99703_MODE_MAP_LINEAR);
++	else
++		aw99703_i2c_write_bit(drvdata->client,
++				      AW99703_REG_MODE,
++				      AW99703_MODE_MAP_MASK,
++				      AW99703_MODE_MAP_EXPONENTIAL);
++
++}
++
++static void aw99703_ramp_setting(struct aw99703_data *drvdata)
++{
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_TURNCFG,
++				AW99703_TURNCFG_ON_TIM_MASK,
++				drvdata->ramp_on_time << 4);
++	pr_info("%s drvdata->ramp_on_time is 0x%x\n",
++		__func__, drvdata->ramp_on_time);
++
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_TURNCFG,
++				AW99703_TURNCFG_OFF_TIM_MASK,
++				drvdata->ramp_off_time);
++	pr_info("%s drvdata->ramp_off_time is 0x%x\n",
++		__func__, drvdata->ramp_off_time);
++
++}
++
++static void aw99703_flash_setting(struct aw99703_data *drvdata)
++{
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_FLASH,
++				AW99703_FLASH_FLTO_TIM_MASK,
++				drvdata->flto_tim << 4);
++	pr_info("%s drvdata->flto_tim is 0x%x\n",
++		__func__, drvdata->flto_tim);
++
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_FLASH,
++				AW99703_FLASH_FL_S_TIM_MASK,
++				drvdata->fl_s);
++	pr_info("%s drvdata->fl_s is 0x%x\n",
++		__func__, drvdata->fl_s);
++
++}
++
++static void aw99703_transition_ramp(struct aw99703_data *drvdata)
++{
++	pr_info("%s enter\n", __func__);
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_TRANCFG,
++				AW99703_TRANCFG_PWM_TIM_MASK,
++				drvdata->pwm_trans_dim << 4);
++	pr_info("%s drvdata->pwm_trans_dim is 0x%x\n", __func__,
++		drvdata->pwm_trans_dim);
++
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_TRANCFG,
++				AW99703_TRANCFG_I2C_TIM_MASK,
++				drvdata->i2c_trans_dim);
++	pr_info("%s drvdata->i2c_trans_dim is 0x%x\n",
++		__func__, drvdata->i2c_trans_dim);
++}
++
++static void aw99703_bstctrl1_set(struct aw99703_data *drvdata)
++{
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_BSTCTR1,
++				AW99703_BSTCTR1_SF_SFT_MASK,
++				drvdata->sf_sft << 6);
++
++	/*switch frequency*/
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_BSTCTR1,
++				AW99703_BSTCTR1_SF_MASK,
++				drvdata->sf << 5);
++
++	/*default OVPSEL*/
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_BSTCTR1,
++				AW99703_BSTCTR1_OVPSEL_MASK,
++				drvdata->ovp_sel << 2);
++
++	/*OCP SELECT*/
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_BSTCTR1,
++				AW99703_BSTCTR1_OCPSEL_MASK,
++				drvdata->ocp_sel << 0);
++}
++
++
++static void aw99703_pwm_config_set(struct aw99703_data *drvdata)
++{
++	/*Pwm sampler frequency*/
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_PWM,
++				AW99703_PWM_P_SF_MASK,
++				drvdata->p_sf << 6);
++
++	/*Pwm hysteresis*/
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_PWM,
++				AW99703_PWM_P_HYS_MASK,
++				drvdata->p_hys << 2);
++
++	/*Pwm filter*/
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_PWM,
++				AW99703_PWM_P_FLT_MASK,
++				drvdata->p_flt << 0);
++}
++
++static int aw99703_backlight_init(struct aw99703_data *drvdata)
++{
++	pr_info("%s enter.\n", __func__);
++
++	aw99703_pwm_mode_enable(drvdata);
++
++	aw99703_pwm_maptype_set(drvdata);
++
++	aw99703_bstctrl1_set(drvdata);
++
++	/*BSTCRT2 IDCTSEL*/
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_BSTCTR2,
++				AW99703_BSTCTR2_IDCTSEL_MASK,
++				drvdata->idctsel << 6);
++
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_BSTCTR2,
++				AW99703_BSTCTR2_EMISEL_MASK,
++				drvdata->emisel << 3);
++
++	aw99703_pwm_config_set(drvdata);
++
++	/*Backlight current full scale*/
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_LEDCUR,
++				AW99703_LEDCUR_BLFS_MASK,
++				drvdata->full_scale_led << 3);
++
++	aw99703_bl_enable_channel(drvdata);
++
++	aw99703_ramp_setting(drvdata);
++	aw99703_transition_ramp(drvdata);
++	aw99703_flash_setting(drvdata);
++
++	aw99703_i2c_write(drvdata->client, AW99703_REG_WPRT1, (char)drvdata->wprt1);
++	aw99703_i2c_write(drvdata->client, AW99703_REG_BSTCTR3, (char)drvdata->bstcrt3);
++	aw99703_i2c_write(drvdata->client, AW99703_REG_BSTCTR4, (char)drvdata->bstcrt4);
++	aw99703_i2c_write(drvdata->client, AW99703_REG_BSTCTR5, (char)drvdata->bstcrt5);
++
++	return 0;
++}
++
++static int aw99703_backlight_enable(struct aw99703_data *drvdata)
++{
++	pr_info("%s enter.\n", __func__);
++
++	aw99703_i2c_write_bit(drvdata->client,
++				AW99703_REG_MODE,
++				AW99703_MODE_WORKMODE_MASK,
++				AW99703_MODE_WORKMODE_BACKLIGHT);
++
++	drvdata->enable = true;
++
++	return 0;
++}
++
++int  aw99703_set_brightness(struct aw99703_data *drvdata, int brt_val)
++{
++	pr_info("%s brt_val is %d\n", __func__, brt_val);
++
++	if ((drvdata->enable == false) && (brt_val != 0)) {
++		aw99703_backlight_init(drvdata);
++		aw99703_backlight_enable(drvdata);
++	}
++
++	brt_val = aw99703_brightness_map(brt_val);
++
++	if (brt_val > 0) {
++		/*enalbe bl mode*/
++		/* set backlight brt_val */
++		aw99703_i2c_write(drvdata->client,
++				AW99703_REG_LEDLSB,
++				brt_val&0x0007);
++		aw99703_i2c_write(drvdata->client,
++				AW99703_REG_LEDMSB,
++				(brt_val >> 3)&0xff);
++
++		/* backlight enable */
++		aw99703_i2c_write_bit(drvdata->client,
++					AW99703_REG_MODE,
++					AW99703_MODE_WORKMODE_MASK,
++					AW99703_MODE_WORKMODE_BACKLIGHT);
++	} else {
++		/* standby mode*/
++		aw99703_i2c_write_bit(drvdata->client,
++					AW99703_REG_MODE,
++					AW99703_MODE_WORKMODE_MASK,
++					AW99703_MODE_WORKMODE_STANDBY);
++	}
++
++	drvdata->brightness = brt_val;
++
++	if (drvdata->brightness == 0)
++		drvdata->enable = false;
++	return 0;
++}
++
++static int aw99703_bl_get_brightness(struct backlight_device *bl_dev)
++{
++		return bl_dev->props.brightness;
++}
++
++static int aw99703_bl_update_status(struct backlight_device *bl_dev)
++{
++		struct aw99703_data *drvdata = bl_get_data(bl_dev);
++		int brt;
++
++		if (bl_dev->props.state & BL_CORE_SUSPENDED)
++				bl_dev->props.brightness = 0;
++
++		brt = bl_dev->props.brightness;
++		/*
++		 * Brightness register should always be written
++		 * not only register based mode but also in PWM mode.
++		 */
++		return aw99703_set_brightness(drvdata, brt);
++}
++
++static const struct backlight_ops aw99703_bl_ops = {
++		.update_status = aw99703_bl_update_status,
++		.get_brightness = aw99703_bl_get_brightness,
++};
++
++static int aw99703_read_chipid(struct aw99703_data *drvdata)
++{
++	int ret = -1;
++	u8 value = 0;
++	unsigned char cnt = 0;
++
++	while (cnt < AW_READ_CHIPID_RETRIES) {
++		ret = aw99703_i2c_read(drvdata->client, 0x00, &value);
++		if (ret < 0) {
++			pr_err("%s: failed to read reg AW99703_REG_ID: %d\n",
++				__func__, ret);
++		}
++		switch (value) {
++		case 0x03:
++			pr_info("%s aw99703 detected\n", __func__);
++			return 0;
++		default:
++			pr_info("%s unsupported device revision (0x%x)\n",
++				__func__, value);
++			break;
++		}
++		cnt++;
++
++		msleep(AW_READ_CHIPID_RETRY_DELAY);
++	}
++
++	return -EINVAL;
++}
++
++static void
++aw99703_get_dt_data(struct device *dev, struct aw99703_data *drvdata)
++{
++	int rc;
++	struct device_node *np = dev->of_node;
++	u32 bl_channel, temp;
++
++	drvdata->hwen_gpio = of_get_named_gpio(np, "aw99703,hwen-gpio", 0);
++	pr_info("%s drvdata->hwen_gpio --<%d>\n", __func__, drvdata->hwen_gpio);
++
++	rc = of_property_read_u32(np, "aw99703,pwm-mode", &drvdata->pwm_mode);
++	if (rc) {
++		drvdata->pwm_mode = 0;
++		pr_err("%s pwm-mode not found\n", __func__);
++	} else {
++		pr_info("%s pwm_mode=%d\n", __func__, drvdata->pwm_mode);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,pwm-maptype", &drvdata->maptype);
++	if (rc) {
++		drvdata->maptype = 0;
++		pr_err("%s pwm-maptype not found\n", __func__);
++	} else {
++		pr_info("%s pwm-maptype=%d\n", __func__, drvdata->maptype);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,bl-fscal-led", &temp);
++	if (rc) {
++		drvdata->full_scale_led = 0x13;
++		pr_err("Invalid backlight full-scale led current!\n");
++	} else {
++		drvdata->full_scale_led = temp;
++		pr_info("%s full-scale led current --<0x%x>\n",
++			__func__, drvdata->full_scale_led);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,bl-channel", &bl_channel);
++	if (rc) {
++		drvdata->channel = 3;
++		pr_err("Invalid channel setup\n");
++	} else {
++		drvdata->channel = bl_channel;
++		pr_info("%s bl-channel --<%x>\n", __func__, drvdata->channel);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,sf-sft", &drvdata->sf_sft);
++	if (rc) {
++		drvdata->sf_sft = 0;
++		pr_err("%s sf-sft not found\n", __func__);
++	} else {
++		pr_info("%s sf-sft=%d\n", __func__, drvdata->sf_sft);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,switching-frequency", &drvdata->sf);
++	if (rc) {
++		drvdata->sf = 1;
++		pr_err("%s switching-frequency not found\n", __func__);
++	} else {
++		pr_info("%s switching-frequency=%d\n", __func__, drvdata->sf);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,ovp-sel", &drvdata->ovp_sel);
++	if (rc) {
++		drvdata->ovp_sel = 3;
++		pr_err("%s ovp-sel not found\n", __func__);
++	} else {
++		pr_info("%s ovp-sel = 0x%x\n", __func__, drvdata->ovp_sel);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,ocp-sel", &drvdata->ocp_sel);
++	if (rc) {
++		drvdata->ocp_sel = 2;
++		pr_err("%s ocp-sel not found\n", __func__);
++	} else {
++		pr_info("%s ocp-sel = 0x%x\n", __func__, drvdata->ocp_sel);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,idctsel", &drvdata->idctsel);
++	if (rc) {
++		drvdata->idctsel = 0;
++		pr_err("%s idctsel not found\n", __func__);
++	} else {
++		pr_info("%s idctsel = %d\n", __func__, drvdata->idctsel);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,emisel", &drvdata->emisel);
++	if (rc) {
++		drvdata->emisel = 0;
++		pr_err("%s emisel not found\n", __func__);
++	} else {
++		pr_info("%s emisel = %d\n", __func__, drvdata->emisel);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,pwm-frequency", &drvdata->p_sf);
++	if (rc) {
++		drvdata->p_sf = 2;
++		pr_err("%s pwm-frequency not found\n", __func__);
++	} else {
++		pr_info("%s pwm-frequency = %d\n", __func__, drvdata->p_sf);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,pwm-hysteresis", &drvdata->p_hys);
++	if (rc) {
++		drvdata->p_hys = 4;
++		pr_err("%s pwm-hysteresis not found\n", __func__);
++	} else {
++		pr_info("%s pwm-hysteresis = %d\n", __func__, drvdata->p_hys);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,pwm-filter", &drvdata->p_flt);
++	if (rc) {
++		drvdata->p_flt = 3;
++		pr_err("%s pwm-filter not found\n", __func__);
++	} else {
++		pr_info("%s pwm-filter = %d\n", __func__, drvdata->p_flt);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,turn-on-ramp", &temp);
++	if (rc) {
++		drvdata->ramp_on_time = 4;
++		pr_err("Invalid ramp timing ,turnon!\n");
++	} else {
++		drvdata->ramp_on_time = temp;
++		pr_info("%s ramp on time --<0x%x>\n",
++			__func__, drvdata->ramp_on_time);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,turn-off-ramp", &temp);
++	if (rc) {
++		drvdata->ramp_off_time = 4;
++		pr_err("Invalid ramp timing ,,turnoff!\n");
++	} else {
++		drvdata->ramp_off_time = temp;
++		pr_info("%s ramp off time --<0x%x>\n",
++			__func__, drvdata->ramp_off_time);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,pwm-trans-dim", &temp);
++	if (rc) {
++		drvdata->pwm_trans_dim = 0;
++		pr_err("Invalid pwm-tarns-dim value!\n");
++	} else {
++		drvdata->pwm_trans_dim = temp;
++		pr_info("%s pwm trnasition dimming--<%d>\n",
++			__func__, drvdata->pwm_trans_dim);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,i2c-trans-dim", &temp);
++	if (rc) {
++		drvdata->i2c_trans_dim = 0;
++		pr_err("Invalid i2c-trans-dim value !\n");
++	} else {
++		drvdata->i2c_trans_dim = temp;
++		pr_info("%s i2c transition dimming --<%d>\n",
++			__func__, drvdata->i2c_trans_dim);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,flash-flto-dim", &drvdata->flto_tim);
++	if (rc) {
++		drvdata->flto_tim = 5;
++		pr_err("%s flash-flto-dim not found\n", __func__);
++	} else {
++		pr_info("%s flash-flto-dim = %d\n", __func__, drvdata->flto_tim);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,flash-fl-s", &drvdata->fl_s);
++	if (rc) {
++		drvdata->fl_s = 8;
++		pr_err("%s flash-fl-s not found\n", __func__);
++	} else {
++		pr_info("%s flash-fl-s = %d\n", __func__, drvdata->fl_s);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,bl-map", &drvdata->bl_map);
++	if (rc) {
++		drvdata->bl_map = 1;
++		pr_err("%s bl_map not found\n", __func__);
++	} else {
++		pr_info("%s bl_map=%d\n", __func__, drvdata->bl_map);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,wprt1", &drvdata->wprt1);
++	if (rc) {
++		drvdata->wprt1 = 0 ;
++		pr_err("%s wprt1 not found\n", __func__);
++	} else {
++		pr_info("%s wprt1=0x%x\n", __func__, drvdata->wprt1);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,bstcrt3", &drvdata->bstcrt3);
++	if (rc) {
++		drvdata->bstcrt3 = 0x81;
++		pr_err("%s bstcrt3 not found\n", __func__);
++	} else {
++		pr_info("%s bstcrt3=0x%x\n", __func__, drvdata->bstcrt3);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,bstcrt4", &drvdata->bstcrt4);
++	if (rc) {
++		drvdata->bstcrt4 = 0x48;
++		pr_err("%s bstcrt4 not found\n", __func__);
++	} else {
++		pr_info("%s bstcrt4=0x%x\n", __func__, drvdata->bstcrt4);
++	}
++
++	rc = of_property_read_u32(np, "aw99703,bstcrt5", &drvdata->bstcrt5);
++	if (rc) {
++		drvdata->bstcrt5 = 0x69;
++		pr_err("%s bstcrt5 not found\n", __func__);
++	} else {
++		pr_info("%s bstcrt5=0x%x\n", __func__, drvdata->bstcrt5);
++	}
++}
++
++/******************************************************
++ *
++ * sys group attribute: reg
++ *
++ ******************************************************/
++static ssize_t aw99703_i2c_reg_store(struct device *dev,
++		struct device_attribute *attr, const char *buf, size_t count)
++{
++	struct aw99703_data *aw99703 = dev_get_drvdata(dev);
++
++	unsigned int databuf[2] = {0, 0};
++
++	if (sscanf(buf, "%x %x", &databuf[0], &databuf[1]) == 2) {
++		aw99703_i2c_write(aw99703->client,
++				(unsigned char)databuf[0],
++				(unsigned char)databuf[1]);
++	}
++
++	return count;
++}
++
++static ssize_t aw99703_i2c_reg_show(struct device *dev,
++			struct device_attribute *attr, char *buf)
++{
++	struct aw99703_data *aw99703 = dev_get_drvdata(dev);
++	ssize_t len = 0;
++	unsigned char i = 0;
++	unsigned char reg_val = 0;
++
++	for (i = 0; i < AW99703_REG_MAX; i++) {
++		if (!(aw99703_reg_access[i]&REG_RD_ACCESS))
++			continue;
++		aw99703_i2c_read(aw99703->client, i, &reg_val);
++		len += snprintf(buf+len, PAGE_SIZE-len, "reg:0x%02x=0x%02x\n",
++				i, reg_val);
++	}
++
++	return len;
++}
++
++static DEVICE_ATTR(reg, 0664, aw99703_i2c_reg_show, aw99703_i2c_reg_store);
++static struct attribute *aw99703_attributes[] = {
++	&dev_attr_reg.attr,
++	NULL
++};
++
++static struct attribute_group aw99703_attribute_group = {
++	.attrs = aw99703_attributes
++};
++
++static int aw99703_probe(struct i2c_client *client,
++			const struct i2c_device_id *id)
++{
++	struct aw99703_data *drvdata;
++	struct backlight_device *bl_dev;
++	struct backlight_properties props;
++	int err = 0;
++
++	pr_info("%s enter! driver version %s\n", __func__, AW99703_VERSION);
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
++		pr_err("%s : I2C_FUNC_I2C not supported\n", __func__);
++		err = -EIO;
++		goto err_out;
++	}
++
++	if (!client->dev.of_node) {
++		pr_err("%s : no device node\n", __func__);
++		err = -ENOMEM;
++		goto err_out;
++	}
++
++	drvdata = kzalloc(sizeof(struct aw99703_data), GFP_KERNEL);
++	if (drvdata == NULL) {
++		pr_err("%s : kzalloc failed\n", __func__);
++		err = -ENOMEM;
++		goto err_out;
++	}
++
++	drvdata->client = client;
++	drvdata->adapter = client->adapter;
++	drvdata->addr = client->addr;
++	drvdata->brightness = MAX_BRIGHTNESS;
++	drvdata->enable = true;
++
++	aw99703_get_dt_data(&client->dev, drvdata);
++	i2c_set_clientdata(client, drvdata);
++	aw99703_gpio_init(drvdata);
++
++	err = aw99703_read_chipid(drvdata);
++	if (err < 0) {
++		pr_err("%s : ID idenfy failed\n", __func__);
++		goto err_init;
++	}
++
++	memset(&props, 0, sizeof(struct backlight_properties));
++	props.type = BACKLIGHT_RAW;
++	props.brightness = MAX_BRIGHTNESS;
++	props.max_brightness = MAX_BRIGHTNESS;
++	bl_dev = backlight_device_register(AW99703_NAME, &client->dev,
++					drvdata, &aw99703_bl_ops, &props);
++	if (err) {
++		pr_err("%s : register backlight device failed\n", __func__);
++		goto err_dev;
++	}
++
++	g_aw99703_data = drvdata;
++	aw99703_backlight_init(drvdata);
++	aw99703_backlight_enable(drvdata);
++
++	err = sysfs_create_group(&client->dev.kobj, &aw99703_attribute_group);
++	if (err < 0) {
++		dev_info(&client->dev, "%s error creating sysfs attr files\n",
++			__func__);
++		goto err_sysfs;
++	}
++	pr_info("%s exit\n", __func__);
++	return 0;
++
++err_sysfs:
++err_dev:
++	backlight_device_unregister(bl_dev);
++err_init:
++	kfree(drvdata);
++err_out:
++	return err;
++}
++
++static int aw99703_remove(struct i2c_client *client)
++{
++	struct aw99703_data *drvdata = i2c_get_clientdata(client);
++
++	backlight_device_unregister(drvdata->bl_dev);
++
++	kfree(drvdata);
++	return 0;
++}
++
++static const struct i2c_device_id aw99703_id[] = {
++	{AW99703_NAME, 0},
++	{}
++};
++static struct of_device_id match_table[] = {
++		{.compatible = "awinic,aw99703-bl",}
++};
++
++MODULE_DEVICE_TABLE(i2c, aw99703_id);
++
++static struct i2c_driver aw99703_i2c_driver = {
++	.probe = aw99703_probe,
++	.remove = aw99703_remove,
++	.id_table = aw99703_id,
++	.driver = {
++		.name = AW99703_NAME,
++		.owner = THIS_MODULE,
++		.of_match_table = match_table,
++	},
++};
++
++module_i2c_driver(aw99703_i2c_driver);
++MODULE_DESCRIPTION("Back Light driver for aw99703");
++MODULE_LICENSE("GPL v2");
+diff --git a/include/linux/mfd/sy7636.h b/include/linux/mfd/sy7636.h
+index e2986e32f4dc..b55818676231 100644
+--- a/include/linux/mfd/sy7636.h
++++ b/include/linux/mfd/sy7636.h
+@@ -44,7 +44,7 @@ enum {
+     SY7636_REG_NUM,
+ };
+ 
+-#define SY7636_MAX_REGISTER   0xFF
++#define SY7636_MAX_REG   0xFF
+ 
+ /*
+  * Bitfield macros that use rely on bitfield width/shift information.
+@@ -151,6 +151,7 @@ struct sy7636 {
+ 	/* chip revision */
+ 	struct device *dev;
+ 	struct sy7636_platform_data *pdata;
++	struct regmap *regmap;
+ 
+ 	/* Platform connection */
+ 	struct i2c_client *i2c_client;
+@@ -218,7 +219,7 @@ enum {
+     SY7636_DISPLAY, /* virtual master enable */
+     SY7636_VCOM,
+     SY7636_TMST,
+-		SY7636_VP3V3,
++	SY7636_VP3V3,
+     SY7636_NUM_REGULATORS,
+ };
+ 
+diff --git a/include/linux/platform_data/aw99703_bl.h b/include/linux/platform_data/aw99703_bl.h
+new file mode 100644
+index 000000000000..8e202cf84fae
+--- /dev/null
++++ b/include/linux/platform_data/aw99703_bl.h
+@@ -0,0 +1,249 @@
++#ifndef _AW99703_REG_H_
++#define _AW99703_REG_H_
++
++
++/********************************************
++ * Register List
++ *******************************************/
++#define AW99703_REG_MAX  0x70
++#define AW99703_REG_ID				0x00
++#define AW99703_REG_SFTRST			0x01
++#define AW99703_REG_MODE			0x02
++#define AW99703_REG_LEDCUR			0x03
++#define AW99703_REG_BSTCTR1			0x04
++#define AW99703_REG_BSTCTR2			0x05
++#define AW99703_REG_LEDLSB			0x06
++#define AW99703_REG_LEDMSB			0x07
++#define AW99703_REG_PWM				0x08
++#define AW99703_REG_TURNCFG			0x09
++#define AW99703_REG_TRANCFG			0x0a
++#define AW99703_REG_FLASH			0x0b
++#define AW99703_REG_AFHIGH			0x0c
++#define AW99703_REG_AFLOW			0x0d
++#define AW99703_REG_FLAGS1			0x0e
++#define AW99703_REG_FLAGS2			0x0f
++#define AW99703_REG_FLAGS3			0x11
++#define AW99703_REG_AUTOZERO			0x21
++#define AW99703_REG_EMI				0x22
++#define AW99703_REG_BSTCTR3			0x23
++#define AW99703_REG_BSTCTR4			0x24
++#define AW99703_REG_BSTCTR5			0x25
++#define AW99703_REG_LEDCFG			0x26
++#define AW99703_REG_DITHER			0x27
++#define AW99703_REG_PWMMSB			0x28
++#define AW99703_REG_PWMLSB			0x29
++#define AW99703_REG_TEST			0x31
++#define AW99703_REG_FLTDIS			0x33
++#define AW99703_REG_EFUSE1			0x40
++#define AW99703_REG_EFUSE2			0x41
++#define AW99703_REG_EFUSE3			0x42
++#define AW99703_REG_EFUSE4			0x43
++#define AW99703_REG_EFUSE5			0x44
++#define AW99703_REG_EFUSE6			0x45
++#define AW99703_REG_EFUSE7			0x46
++#define AW99703_REG_EFUSE8			0x47
++#define AW99703_REG_EFRUN			0x48
++#define AW99703_REG_EFMODE			0x49
++#define AW99703_REG_WPRT1			0x67
++#define AW99703_REG_WPRT2			0x68
++#define AW99703_REG_SCANEN			0x69
++
++
++/********************************************
++ * Register Access
++ *******************************************/
++#define REG_NONE_ACCESS		0
++#define REG_RD_ACCESS		(1 << 0)
++#define REG_WR_ACCESS		(1 << 1)
++
++const unsigned char aw99703_reg_access[AW99703_REG_MAX] = {
++	[AW99703_REG_ID] = REG_RD_ACCESS,
++	[AW99703_REG_SFTRST] = REG_WR_ACCESS,
++	[AW99703_REG_MODE] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_LEDCUR] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_BSTCTR1] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_BSTCTR2] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_LEDLSB] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_LEDMSB] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_PWM] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_TURNCFG] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_TRANCFG] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_FLASH] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_AFHIGH] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_AFLOW] = REG_RD_ACCESS|REG_WR_ACCESS,
++	[AW99703_REG_FLAGS1] = REG_RD_ACCESS,
++	[AW99703_REG_FLAGS2] = REG_RD_ACCESS,
++	[AW99703_REG_FLAGS3] = REG_RD_ACCESS,
++	[AW99703_REG_AUTOZERO] = REG_RD_ACCESS,
++	[AW99703_REG_EMI] = REG_RD_ACCESS,
++	[AW99703_REG_BSTCTR3] = REG_RD_ACCESS,
++	[AW99703_REG_BSTCTR4] = REG_RD_ACCESS,
++	[AW99703_REG_BSTCTR5] = REG_RD_ACCESS,
++	[AW99703_REG_LEDCFG] = REG_RD_ACCESS,
++	[AW99703_REG_DITHER] = REG_RD_ACCESS,
++	[AW99703_REG_PWMMSB] = REG_RD_ACCESS,
++	[AW99703_REG_PWMLSB] = REG_RD_ACCESS,
++	[AW99703_REG_TEST] = REG_RD_ACCESS,
++	[AW99703_REG_FLTDIS] = REG_RD_ACCESS,
++	[AW99703_REG_EFUSE1] = REG_RD_ACCESS,
++	[AW99703_REG_EFUSE2] = REG_RD_ACCESS,
++	[AW99703_REG_EFUSE3] = REG_RD_ACCESS,
++	[AW99703_REG_EFUSE4] = REG_RD_ACCESS,
++	[AW99703_REG_EFUSE5] = REG_RD_ACCESS,
++	[AW99703_REG_EFUSE6] = REG_RD_ACCESS,
++	[AW99703_REG_EFUSE7] = REG_RD_ACCESS,
++	[AW99703_REG_EFUSE8] = REG_RD_ACCESS,
++	[AW99703_REG_EFRUN] = REG_RD_ACCESS,
++	[AW99703_REG_EFMODE] = REG_RD_ACCESS,
++	[AW99703_REG_WPRT1] = REG_RD_ACCESS,
++	[AW99703_REG_WPRT2] = REG_RD_ACCESS,
++	[AW99703_REG_SCANEN] = REG_RD_ACCESS,
++};
++
++#define MAX_BRIGHTNESS			(2047)
++/******************************************************
++* Register Detail
++*****************************************************/
++/*SFTRST:0x01*/
++#define AW99703_SFTRST_MASK			(~(1<<0))
++#define AW99703_SFTRST_NOT_RST			(0<<0)
++#define AW99703_SFTRST_RST			(1<<0)
++
++/*MODE:0x02*/
++#define AW99703_MODE_PDIS_MASK			(~(1<<4))
++#define AW99703_MODE_PDIS_ENABLE		(0<<4)
++#define AW99703_MODE_PDIS_DISABLE		(1<<4)
++#define AW99703_MODE_MAP_MASK			(~(1<<2))
++#define AW99703_MODE_MAP_EXPONENTIAL		(0<<2)
++#define AW99703_MODE_MAP_LINEAR			(1<<2)
++#define AW99703_MODE_WORKMODE_MASK		(~(3<<0))
++#define AW99703_MODE_WORKMODE_STANDBY		(0<<0)
++#define AW99703_MODE_WORKMODE_BACKLIGHT		(1<<0)
++#define AW99703_MODE_WORKMODE_FLASH		(2<<0)
++
++/*MODE:0x03*/
++#define AW99703_LEDCUR_BLFS_MASK		(~(31<<3))
++#define AW99703_LEDCUR_CHANNEL_MASK		(~(7<<0))
++#define AW99703_LEDCUR_CH3_ENABLE		(1<<2)
++#define AW99703_LEDCUR_CH3_DISABLE		(0<<2)
++#define AW99703_LEDCUR_CH2_ENABLE		(1<<1)
++#define AW99703_LEDCUR_CH2_DISABLE		(0<<1)
++#define AW99703_LEDCUR_CH1_ENABLE		(1<<0)
++#define AW99703_LEDCUR_CH1_DISABLE		(0<<0)
++
++/*BSTCTR1:0x04*/
++#define AW99703_BSTCTR1_SF_SFT_MASK		(~(3<<6))
++#define AW99703_BSTCTR1_SF_SFT_UP20		(1<<6)
++#define AW99703_BSTCTR1_SF_SFT_DOWN12		(2<<6)
++#define AW99703_BSTCTR1_SF_SFT_DOWN24		(3<<6)
++#define AW99703_BSTCTR1_SF_MASK			(~(1<<5))
++#define AW99703_BSTCTR1_SF_500KHZ		(0<<5)
++#define AW99703_BSTCTR1_SF_1000KHZ		(1<<5)
++#define AW99703_BSTCTR1_OVPSEL_MASK		(~(7<<2))
++#define AW99703_BSTCTR1_OVPSEL_17V		(0<<2)
++#define AW99703_BSTCTR1_OVPSEL_24V		(1<<2)
++#define AW99703_BSTCTR1_OVPSEL_31V		(2<<2)
++#define AW99703_BSTCTR1_OVPSEL_38V		(3<<2)
++#define AW99703_BSTCTR1_OVPSEL_41P5V		(4<<2)
++#define AW99703_BSTCTR1_OCPSEL_MASK		(~(3<<0))
++#define AW99703_BSTCTR1_OCPSEL_0P7A		(0<<0)
++#define AW99703_BSTCTR1_OCPSEL_1P6A		(1<<0)
++#define AW99703_BSTCTR1_OCPSEL_2P46A		(2<<0)
++#define AW99703_BSTCTR1_OCPSEL_3P3A		(3<<0)
++
++/*BSTCTR2:0x05*/
++#define AW99703_BSTCTR2_AFEN_MASK		(~(1<<7))
++#define AW99703_BSTCTR2_AFEN_ENABLE		(1<<7)
++#define AW99703_BSTCTR2_AFEN_DISABLE		(0<<7)
++#define AW99703_BSTCTR2_IDCTSEL_MASK		(~(1<<6))
++#define AW99703_BSTCTR2_IDCTSEL_4P7UH		(0<<6)
++#define AW99703_BSTCTR2_IDCTSEL_10UH		(1<<6)
++#define AW99703_BSTCTR2_EMISEL_MASK		(~(7<<3))
++#define AW99703_BSTCTR2_EMISEL_TYPICAL		(0<<3)
++#define AW99703_BSTCTR2_EMISEL_SLOW1		(1<<3)
++#define AW99703_BSTCTR2_EMISEL_SLOW2		(2<<3)
++#define AW99703_BSTCTR2_EMISEL_SLOW3		(3<<3)
++#define AW99703_BSTCTR2_EMISEL_FAST1		(4<<3)
++#define AW99703_BSTCTR2_EMISEL_FAST2		(5<<3)
++#define AW99703_BSTCTR2_EMISEL_FAST3		(6<<3)
++#define AW99703_BSTCTR2_EMISEL_FAST4		(7<<3)
++#define AW99703_BSTCTR2_ADEN_MASK		(~(1<<2))
++#define AW99703_BSTCTR2_ADEN_ENABLE		(1<<2)
++#define AW99703_BSTCTR2_ADEN_DISABLE		(0<<2)
++
++/*PWM:0x08*/
++#define AW99703_PWM_P_SF_MASK			(~(3<<6))
++#define AW99703_PWM_P_SF_800KHZ			(0<<6)
++#define AW99703_PWM_P_SF_4MKHZ			(1<<6)
++#define AW99703_PWM_P_SF_24MKHZ			(2<<6)
++#define AW99703_PWM_P_ACT_MASK			(~(1<<5))
++#define AW99703_PWM_P_ACT_HIGH			(0<<5)
++#define AW99703_PWM_P_ACT_LOW			(1<<5)
++#define AW99703_PWM_P_HYS_MASK			(~(7<<2))
++#define AW99703_PWM_P_HYS_NONE			(0<<2)
++#define AW99703_PWM_P_HYS_1LSB			(1<<2)
++#define AW99703_PWM_P_HYS_2LSB			(2<<2)
++#define AW99703_PWM_P_HYS_3LSB			(3<<2)
++#define AW99703_PWM_P_HYS_4LSB			(4<<2)
++#define AW99703_PWM_P_HYS_5LSB			(5<<2)
++#define AW99703_PWM_P_HYS_6LSB			(6<<2)
++#define AW99703_PWM_P_HYS_7LSB			(7<<2)
++#define AW99703_PWM_P_FLT_MASK			(~(3<<0))
++#define AW99703_PWM_P_FLT_NONE			(0<<0)
++#define AW99703_PWM_P_FLT_100MS			(1<<0)
++#define AW99703_PWM_P_FLT_150MS			(2<<0)
++#define AW99703_PWM_P_FLT_200MS			(3<<0)
++
++/*TURNCFG:0x09*/
++#define AW99703_TURNCFG_ON_TIM_MASK		(~(15<<4))
++#define AW99703_TURNCFG_OFF_TIM_MASK		(~(15<<0))
++
++/*TRANCFG:0x0A*/
++#define AW99703_TRANCFG_PWM_TIM_MASK		(~(7<<4))
++#define AW99703_TRANCFG_I2C_TIM_MASK		(~(15<<0))
++
++/*TRANCFG:0x0B*/
++#define AW99703_FLASH_FLTO_TIM_MASK		(~(15<<4))
++#define AW99703_FLASH_FL_S_TIM_MASK		(~(15<<0))
++
++#define MAX_BRIGHTNESS		(2047)
++#define AW_READ_CHIPID_RETRIES 5
++#define AW_READ_CHIPID_RETRY_DELAY 2
++
++struct aw99703_data {
++	struct i2c_client *client;
++	struct device dev;
++	struct i2c_adapter *adapter;
++	unsigned short addr;
++    int brightness;
++	bool enable;
++	int hwen_gpio;
++	unsigned int pwm_mode;
++	unsigned int maptype;
++	unsigned int full_scale_led;
++	unsigned int channel;
++	unsigned int sf_sft;
++	unsigned int sf;
++	unsigned int ovp_sel;
++	unsigned int ocp_sel;
++	unsigned int idctsel;
++	unsigned int emisel;
++	unsigned int p_sf;
++	unsigned int p_hys;
++	unsigned int p_flt;
++	unsigned int ramp_on_time;
++	unsigned int ramp_off_time;
++	unsigned int pwm_trans_dim;
++	unsigned int i2c_trans_dim;
++	unsigned int flto_tim;
++	unsigned int fl_s;
++	unsigned int wprt1;
++	unsigned int bstcrt3;
++	unsigned int bstcrt4;
++	unsigned int bstcrt5;
++	unsigned int max_brightness;
++	unsigned int bl_map;
++	struct backlight_device *bl_dev;
++};
++
++#endif
+-- 
+2.37.2
+
