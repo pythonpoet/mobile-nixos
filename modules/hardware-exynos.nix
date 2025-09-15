@@ -14,13 +14,17 @@ in
       default = false;
       description = "enable when SOC is Exynos 7880";
     };
+    hardware.socs.freescale-imx6sll.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "enable when SOC is Freescale i.MX 6SLL";
+    };
   };
 
   config = mkMerge [
     {
-      mobile = mkIf cfg.exynos-7880.enable {
-        system.system = "aarch64-linux";
-        quirks.fb-refresher.enable = true;
+      mobile = mkIf cfg.freescale-imx6sll.enable {
+        system.system = "armv7l-linux";
       };
     }
     (mkIf anyExynos {
